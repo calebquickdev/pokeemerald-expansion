@@ -120,7 +120,7 @@ SINGLE_BATTLE_TEST("Upper Hand is boosted by Sheer Force")
 AI_SINGLE_BATTLE_TEST("AI won't use Upper Hand unless it has seen a priority move")
 {
     u16 move;
-    PARAMETRIZE { move = MOVE_TACKLE; }
+    PARAMETRIZE { move = MOVE_SCRATCH; }
     PARAMETRIZE { move = MOVE_QUICK_ATTACK; }
     GIVEN {
         AI_FLAGS(AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT);
@@ -130,5 +130,27 @@ AI_SINGLE_BATTLE_TEST("AI won't use Upper Hand unless it has seen a priority mov
     } WHEN {
         TURN { MOVE(player, move); EXPECT_MOVE(opponent, MOVE_KARATE_CHOP); }
         TURN { MOVE(player, move); EXPECT_MOVE(opponent, move == MOVE_QUICK_ATTACK ? MOVE_UPPER_HAND : MOVE_KARATE_CHOP); }
+    }
+}
+
+DOUBLE_BATTLE_TEST("Upper Hand fails if the target has attempted to act even if previously successful")
+{
+    GIVEN {
+        ASSUME(GetMoveCategory(MOVE_EXTREME_SPEED) == DAMAGE_CATEGORY_PHYSICAL);
+        ASSUME(GetMovePriority(MOVE_EXTREME_SPEED) == 2);
+        ASSUME(GetMoveEffect(MOVE_INSTRUCT) == EFFECT_INSTRUCT);
+        PLAYER(SPECIES_MIENSHAO);
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(opponentLeft, MOVE_EXTREME_SPEED, target: playerLeft); MOVE(playerLeft, MOVE_UPPER_HAND, target: opponentLeft); MOVE(playerRight, MOVE_INSTRUCT, target: playerLeft); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_UPPER_HAND, playerLeft);
+        HP_BAR(opponentLeft);
+        MESSAGE("The opposing Wobbuffet flinched and couldn't move!");
+        NOT ANIMATION(ANIM_TYPE_MOVE, MOVE_EXTREME_SPEED, opponentLeft);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_INSTRUCT, playerRight);
+        NOT ANIMATION(ANIM_TYPE_MOVE, MOVE_UPPER_HAND, playerLeft);
     }
 }
