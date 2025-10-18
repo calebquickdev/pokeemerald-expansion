@@ -482,7 +482,7 @@ void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm = TRUE;
 
-    species = ProceduralRandomWildPokemon(species);
+    //species = ProceduralRandomWildPokemon(species);
 
     ZeroEnemyPartyMons();
 
