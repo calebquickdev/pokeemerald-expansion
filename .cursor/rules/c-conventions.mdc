@@ -1,0 +1,38 @@
+﻿---
+description: C coding conventions for GBA ROM hack source code
+globs: src/**/*.c,include/**/*.h
+alwaysApply: false
+---
+
+# C Conventions for GBA
+
+## Naming
+- Functions and structs: `UpperCamelCase` (e.g. `BattleScriptCmd_AttackAnimation`)
+- Constants and macros: `SCREAMING_SNAKE_CASE` (e.g. `MOVE_TACKLE`, `SPECIES_PIKACHU`)
+- Local variables and struct fields: `lowerCamelCase`
+- Never hardcode numeric IDs — always use the named constants from `include/constants/`
+
+## Memory Sections
+```c
+// Fast internal RAM (32KB) — use sparingly for hot code paths
+IWRAM_CODE void MyFastFunction(void);
+
+// External work RAM (256KB) — default for most data
+// No annotation needed; this is the default
+```
+
+## Types
+- Use `u8`, `u16`, `u32`, `s8`, `s16`, `s32`, `bool32` from `gba/types.h`
+- Avoid `int`/`long` without explicit width when the size matters for ROM data layout
+
+## Patterns to Follow
+- Task system: long-running processes use `CreateTask` / `DestroyTask` with a callback
+- Callback system: menu and overworld states use `SetMainCallback2` / `gMain.callback2`
+- String formatting: use `ConvertIntToDecimalStringN`, never `sprintf`
+- Assertions/tests: add test cases in `test/` rather than debug prints; see `docs/tutorials/how_to_testing_system.md`
+
+## Things to Avoid
+- No `malloc` / `free` — no heap allocator exists
+- No `printf`, `puts`, or any stdio — no OS
+- No recursion in battle or overworld code — fixed call stack size
+- Do not add `static` to functions that are referenced from data tables or other translation units

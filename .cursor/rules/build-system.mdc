@@ -1,0 +1,40 @@
+﻿---
+description: Build system commands and toolchain details
+globs: Makefile
+alwaysApply: false
+---
+
+# Build System
+
+## Prerequisites (Windows)
+This project must be built inside WSL (Ubuntu). The VS Code tasks are already configured to use WSL automatically. If running commands manually, open a WSL terminal first.
+
+## Common Make Targets
+| Command | Description |
+|---------|-------------|
+| `make` | Build the ROM (`pokeemerald.gba`) |
+| `make check` | Build and run the test suite via mGBA |
+| `make debug` | Build with `-Og -g` for debugger use |
+| `make compare` | Build and compare against original ROM checksum |
+| `make clean` | Remove all build artifacts |
+
+## Build Flags (override on command line)
+| Flag | Default | Effect |
+|------|---------|--------|
+| `TEST=1` | 0 | Enables test runner build |
+| `DEBUG=1` | 0 | Enables debug symbols and `-Og` |
+| `ANALYZE=1` | 0 | Enables `-fanalyzer` for deep UB analysis |
+
+Example: `make DEBUG=1`
+
+## Toolchain
+- Compiler: `arm-none-eabi-gcc` (DevkitARM or system install inside WSL)
+- Assembler: `arm-none-eabi-as`
+- Flags: `-mthumb -mthumb-interwork -std=gnu17 -O2 -march=armv4t -mtune=arm7tdmi`
+
+## Build Output
+- ROM: `pokeemerald.gba`
+- Objects: `build/modern/` (normal), `build/modern-test/` (tests), `build/modern-debug/` (debug)
+
+## Rebuilding Tools
+If custom tools in `tools/` need recompiling (e.g. after a pull): `bash build_tools.sh`

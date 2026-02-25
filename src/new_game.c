@@ -211,6 +211,9 @@ void NewGameInitData(void)
     SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
     ResetItemFlags();
     ResetDexNav();
+#if RANDOMIZER_ENABLED == TRUE
+    gSaveBlock2Ptr->randomizerSeed = Random32();
+#endif
 }
 
 static void ResetMiniGamesRecords(void)

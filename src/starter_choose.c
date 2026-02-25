@@ -23,6 +23,7 @@
 #include "window.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
+#include "randomizer.h"
 
 #define STARTER_MON_COUNT   3
 
@@ -352,7 +353,11 @@ u16 GetStarterPokemon(u16 chosenStarterId)
 {
     if (chosenStarterId > STARTER_MON_COUNT)
         chosenStarterId = 0;
+#if RANDOMIZER_ENABLED == TRUE
+    return GetRandomizerStarterSpecies(chosenStarterId);
+#else
     return sStarterMon[chosenStarterId];
+#endif
 }
 
 static void VblankCB_StarterChoose(void)

@@ -23,6 +23,7 @@
 #include "constants/items.h"
 #include "constants/layouts.h"
 #include "constants/weather.h"
+#include "randomizer.h"
 
 extern const u8 EventScript_SprayWoreOff[];
 
@@ -509,7 +510,16 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, u8 ar
     if (gMapHeader.mapLayoutId != LAYOUT_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_WILD_MONS && flags & WILD_CHECK_KEEN_EYE && !IsAbilityAllowingEncounter(level))
         return FALSE;
 
-    CreateWildMon(wildMonInfo->wildPokemon[wildMonIndex].species, level);
+    {
+        u16 species = wildMonInfo->wildPokemon[wildMonIndex].species;
+#if RANDOMIZER_ENABLED == TRUE
+        species = GetRandomizerSpecies(
+            gSaveBlock1Ptr->location.mapGroup,
+            gSaveBlock1Ptr->location.mapNum,
+            area, wildMonIndex);
+#endif
+        CreateWildMon(species, level);
+    }
     return TRUE;
 }
 
@@ -519,6 +529,12 @@ static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 
     u16 wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
     u8 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
 
+#if RANDOMIZER_ENABLED == TRUE
+    wildMonSpecies = GetRandomizerSpecies(
+        gSaveBlock1Ptr->location.mapGroup,
+        gSaveBlock1Ptr->location.mapNum,
+        WILD_AREA_FISHING, wildMonIndex);
+#endif
     UpdateChainFishingStreak();
     CreateWildMon(wildMonSpecies, level);
     return wildMonSpecies;

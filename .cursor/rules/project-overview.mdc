@@ -1,0 +1,33 @@
+﻿---
+description: Project overview and key constraints for pokeemerald-expansion
+alwaysApply: true
+---
+
+# pokeemerald-expansion
+
+This is a GBA ROM hack base built on pret's pokeemerald decompilation. It adds features from Generations 4–9, an expanded battle engine, and extensive configurability.
+
+## Hardware & Toolchain
+- Target: Game Boy Advance (ARM7TDMI CPU, ARMv4T)
+- Compiler: `arm-none-eabi-gcc`, standard `gnu17`, Thumb mode (`-mthumb -mthumb-interwork`)
+- Build system: GNU Make (`Makefile` at repo root)
+- ROM output: `pokeemerald.gba` (32MB max)
+
+## Primary Customization Surface
+All feature toggles live in `include/config/`:
+- `battle.h` — battle mechanics, damage formula, critical hits, etc.
+- `pokemon.h` — species limits, egg groups, level caps
+- `ai.h` — AI difficulty and behavior flags
+- `overworld.h` — overworld engine settings
+- `item.h`, `save.h`, `general.h`, `debug.h`, `caps.h`
+
+Prefer editing these config headers over modifying engine source when possible.
+
+## Key Constraints
+- No heap allocation (`malloc`) in performance-critical or battle code — use static/stack allocation
+- No standard I/O (`printf`, `scanf`) — GBA has no OS
+- No threads — single-threaded with a task/callback system
+- IWRAM (32KB fast RAM) is precious; annotate time-critical functions with `IWRAM_CODE`
+
+## Documentation
+All how-to guides are in `docs/tutorials/`. Read the relevant tutorial before adding new Pokémon, moves, trainers, or battle script commands.

@@ -1,0 +1,43 @@
+﻿---
+description: Directory structure and where to find/place things
+alwaysApply: true
+---
+
+# File Structure
+
+## Source Code
+- `src/` — C source files for all game systems (battle, overworld, menus, UI, etc.)
+- `src/data/` — C data tables (trainer parties, species data, item data, graphics refs)
+- `include/` — Header files mirroring `src/` structure
+- `include/constants/` — Enums and `#define` constants (items, species, moves, maps, flags, vars)
+- `include/config/` — Feature toggle headers; primary place to configure engine behavior
+- `include/gba/` — Low-level GBA hardware register definitions
+
+## Assembly & Scripts
+- `asm/` — Hand-written ARM/Thumb assembly
+- `asm/macros/` — Scripting macros: `battle_script_commands.inc`, `event.inc`, `field_effect_script.inc`
+- `data/scripts/` — Map event scripts (`.inc` files, one per map)
+- `data/maps/` — Map layouts and metadata in JSON format
+
+## Assets
+- `graphics/` — Source PNGs and converted binary assets (`.4bpp`, `.gbapal`, etc.)
+- `sound/` — Music (`.s` assembly) and sound effects
+
+## Tests
+- `test/` — Test suite organized by feature; each file is a battle/script scenario
+- Run with `make check` — results appear in the mGBA test runner
+
+## Tools & Docs
+- `tools/` — Custom build tools (`gbagfx`, `scaninc`, `preproc`, `trainerproc`, etc.)
+- `docs/tutorials/` — Step-by-step guides: adding Pokémon, moves, trainers, battle commands
+- `migration_scripts/` — Python scripts for migrating between expansion versions
+
+## Where to Add Things
+| Task | Location |
+|------|----------|
+| New Pokémon species | `src/data/pokemon/`, `include/constants/species.h` |
+| New move | `src/data/moves.h`, `include/constants/moves.h`, `src/battle_script_commands.c` |
+| New trainer | `src/data/trainers.h`, `include/constants/trainers.h` |
+| New map script | `data/scripts/<MapName>.inc` |
+| New item | `src/data/items.h`, `include/constants/items.h` |
+| New battle AI flag | `include/constants/battle_ai.h`, `src/battle_ai_main.c` |

@@ -1,0 +1,23 @@
+﻿# Compiled build output
+build/
+*.gba
+*.elf
+*.map
+*.sym
+*.o
+
+# Binary graphics assets (not human-readable source)
+graphics/**/*.4bpp
+graphics/**/*.1bpp
+graphics/**/*.8bpp
+graphics/**/*.gbapal
+graphics/**/*.pal
+graphics/**/*.lz
+graphics/**/*.bin
+
+# Binary sound assets
+sound/**/*.bin
+
+# External tool sources (large dependencies, not project code)
+tools/mgba/
+tools/patchelf/
