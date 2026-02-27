@@ -566,3 +566,4 @@ gSpecials::
 	def_special SetupDynamaxDenObjects
 	def_special ActivateDynamaxDen
 	def_special OpenDenLobbyScreen
+	def_special DoRaidBattle

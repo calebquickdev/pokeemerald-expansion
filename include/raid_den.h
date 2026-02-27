@@ -14,7 +14,7 @@ struct DynamaxDen
 {
     u16 species;
     u8 isGmax;
-    u8 _pad;
+    u8 starRating;
 };
 
 void UpdateDynamaxDens(u16 daysSince);
@@ -22,5 +22,6 @@ u16 RollDynamaxDenPokemon(u8 denId);
 void SetupDynamaxDenObjects(void);
 void ActivateDynamaxDen(void);
 void OpenDenLobbyScreen(void);
+void DoRaidBattle(void);
 
 #endif // GUARD_RAID_DEN_H

@@ -1242,6 +1242,8 @@ static inline u32 GetOppositeBattler(u32 battler)
 
 static inline u32 GetBattlerSide(u32 battler)
 {
+    if ((gBattleTypeFlags & BATTLE_TYPE_RAID) && battler == 3)
+        return B_SIDE_PLAYER;
     return GetBattlerPosition(battler) & BIT_SIDE;
 }
 

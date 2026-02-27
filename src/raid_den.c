@@ -1,8 +1,17 @@
 #include "global.h"
+#include "main.h"
 #include "raid_den.h"
 #include "event_data.h"
 #include "event_object_movement.h"
+#include "battle.h"
+#include "battle_setup.h"
+#include "battle_transition.h"
+#include "overworld.h"
+#include "script.h"
+#include "constants/battle.h"
 #include "constants/event_objects.h"
+
+static void SetupRaidBossParty(u8 denId);
 
 static const struct {
     u8 mapGroup;
@@ -62,8 +71,26 @@ void ActivateDynamaxDen(void)
     FlagClear(FLAG_DAILY_DEN_RAIDED(denId));
     gSaveBlock2Ptr->dynamaxDens[denId].species = RollDynamaxDenPokemon(denId);
     gSaveBlock2Ptr->dynamaxDens[denId].isGmax = 0;
+    gSaveBlock2Ptr->dynamaxDens[denId].starRating = 1;
+}
+
+static void SetupRaidBossParty(u8 denId)
+{
+    (void)denId;
+}
+
+void DoRaidBattle(void)
+{
+    u8 denId = (u8)gSpecialVar_0x8000;
+    SetupRaidBossParty(denId);
+    LockPlayerFieldControls();
+    gMain.savedCallback = CB2_ReturnToFieldContinueScriptPlayMapMusic;
+    gBattleTypeFlags = BATTLE_TYPE_DOUBLE | BATTLE_TYPE_RAID;
+    CreateBattleStartTask(B_TRANSITION_BLUR, 0);
+    ScriptContext_Stop();
 }
 
 void OpenDenLobbyScreen(void)
 {
+    DoRaidBattle();
 }

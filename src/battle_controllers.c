@@ -121,7 +121,33 @@ static void InitSinglePlayerBtlControllers(void)
 {
     s32 i;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+    if (gBattleTypeFlags & BATTLE_TYPE_RAID)
+    {
+        gBattlersCount = MAX_BATTLERS_COUNT;
+
+        gBattlerPositions[0] = B_POSITION_PLAYER_LEFT;
+        gBattlerPositions[1] = B_POSITION_OPPONENT_LEFT;
+        gBattlerPositions[2] = B_POSITION_PLAYER_RIGHT;   // CPU ally 1
+        gBattlerPositions[3] = B_POSITION_OPPONENT_RIGHT; // CPU ally 2
+
+        gBattlerPartyIndexes[0] = 0;
+        gBattlerPartyIndexes[1] = 0;
+        gBattlerPartyIndexes[2] = 3;
+        gBattlerPartyIndexes[3] = 4;
+
+        SetControllerToPlayer(0);
+        SetControllerToOpponent(1);
+        SetControllerToRaidAlly(2);
+        SetControllerToRaidAlly(3);
+
+        BufferBattlePartyCurrentOrderBySide(0, 0);
+        BufferBattlePartyCurrentOrderBySide(1, 0);
+        BufferBattlePartyCurrentOrderBySide(2, 1);
+        BufferBattlePartyCurrentOrderBySide(3, 1);
+
+        gBattleMainFunc = BeginBattleIntro;
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
     {
         gBattleMainFunc = BeginBattleIntro;
 
