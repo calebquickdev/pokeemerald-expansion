@@ -150,6 +150,12 @@ static void InitSinglePlayerBtlControllers(void)
         SetGimmickAsActivated(1, GIMMICK_DYNAMAX);
         gBattleStruct->dynamax.dynamaxTurns[1] = 0xFF;
 
+        gBattleStruct->raid.dynamaxEnergy = 0;
+        gBattleStruct->raid.allyIconSpriteId[0] = MAX_SPRITES;
+        gBattleStruct->raid.allyIconSpriteId[1] = MAX_SPRITES;
+        gBattleStruct->raid.shieldHp = 0;
+        memset(gBattleStruct->raid.respawnTimer, 0, sizeof(gBattleStruct->raid.respawnTimer));
+
         gBattleMainFunc = BeginBattleIntro;
     }
     else if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
