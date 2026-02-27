@@ -96,13 +96,17 @@ bool32 CanDynamax(u32 battler)
         || GET_BASE_SPECIES_ID(species) == SPECIES_ETERNATUS)
         return FALSE;
 
-    // Check if Trainer has already Dynamaxed.
-    if (HasTrainerUsedGimmick(battler, GIMMICK_DYNAMAX))
-        return FALSE;
-
-    // Check if AI battler is intended to Dynamaxed.
-    if (!ShouldTrainerBattlerUseGimmick(battler, GIMMICK_DYNAMAX))
-        return FALSE;
+    // In RAID, rotation is the sole eligibility gate — skip the "already used" and trainer-intent checks.
+    // Skipping HasTrainerUsedGimmick is critical: SetGimmickAsActivated(battler) also marks
+    // BATTLE_PARTNER(battler) as activated (IsPartnerMonFromSameTrainer returns TRUE in RAID),
+    // which would permanently block battler 3 after battler 2 Dynamaxes.
+    if (!(gBattleTypeFlags & BATTLE_TYPE_RAID && GetBattlerSide(battler) == B_SIDE_PLAYER))
+    {
+        if (HasTrainerUsedGimmick(battler, GIMMICK_DYNAMAX))
+            return FALSE;
+        if (!ShouldTrainerBattlerUseGimmick(battler, GIMMICK_DYNAMAX))
+            return FALSE;
+    }
 
     // Check if battler has another gimmick active.
     if (GetActiveGimmick(battler) != GIMMICK_NONE)
@@ -112,9 +116,11 @@ bool32 CanDynamax(u32 battler)
     if (!TESTING && (holdEffect == HOLD_EFFECT_Z_CRYSTAL || holdEffect == HOLD_EFFECT_MEGA_STONE))  // tests make this check already
         return FALSE;
 
-    // TODO: Cannot Dynamax in a Max Raid if you don't have Dynamax Energy.
-    // if (gBattleTypeFlags & BATTLE_TYPE_RAID && gBattleStruct->raid.dynamaxEnergy != battler)
-    //    return FALSE;
+    // Rotation gate: only the eligible battler may Dynamax each turn.
+    if (gBattleTypeFlags & BATTLE_TYPE_RAID && !IsBattlerAlive(battler))
+        return FALSE;
+    if (gBattleTypeFlags & BATTLE_TYPE_RAID && gBattleStruct->raid.dynamaxEnergy != battler)
+        return FALSE;
 
     // No checks failed, all set!
     return TRUE;
