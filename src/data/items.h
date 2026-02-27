@@ -3571,7 +3571,7 @@ const struct Item gItemsInfo[] =
             "{PKMN} Den to attract\n"
             "Dynamax Pokémon."),
         .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
+        .type = ITEM_USE_FIELD,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse, // Todo
         .flingPower = 50,
         .iconPic = gItemIcon_WishingPiece,
