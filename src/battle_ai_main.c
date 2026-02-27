@@ -58,6 +58,7 @@ static s32 AI_DoubleBattle(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 static s32 AI_PowerfulStatus(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 static s32 AI_DynamicFunc(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 static s32 AI_PredictSwitch(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
+static s32 AI_DoublesAllyTriggerSetup(u32 battlerAtk, u32 battlerDef, u32 move, s32 score);
 
 static s32 (*const sBattleAiFuncTable[])(u32, u32, u32, s32) =
 {
@@ -86,7 +87,7 @@ static s32 (*const sBattleAiFuncTable[])(u32, u32, u32, s32) =
     [22] = NULL,                     // Unused
     [23] = AI_PredictSwitch,         // AI_FLAG_PREDICT_SWITCH
     [24] = NULL,                     // Unused
-    [25] = NULL,                     // Unused
+    [25] = AI_DoublesAllyTriggerSetup, // AI_FLAG_DOUBLES_TRIGGER_SETUP
     [26] = NULL,                     // Unused
     [27] = NULL,                     // Unused
     [28] = AI_DynamicFunc,          // AI_FLAG_DYNAMIC_FUNC
@@ -4994,6 +4995,132 @@ static s32 AI_ForceSetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 
     default:
         break;
     }
+
+    return score;
+}
+
+// On turn 1 in doubles, heavily boosts moves that intentionally trigger an ally's passive item or ability.
+// Handles Weakness Policy (needs a super-effective hit) and Anger Point (needs an always-crit hit).
+// This overrides the normal partner-protection logic for the setup turn only.
+static bool32 IsSetupMove(u32 move)
+{
+    switch (move)
+    {
+    case MOVE_BELLY_DRUM:
+    case MOVE_DRAGON_DANCE:
+    case MOVE_SHELL_SMASH:
+    case MOVE_SWORDS_DANCE:
+    case MOVE_CURSE:
+    case MOVE_NO_RETREAT:
+    case MOVE_COSMIC_POWER:
+    case MOVE_NASTY_PLOT:
+    case MOVE_TAIL_GLOW:
+    case MOVE_CALM_MIND:
+    case MOVE_QUIVER_DANCE:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
+static bool32 BattlerHasSetupMove(u32 battler)
+{
+    return HasMove(battler, MOVE_BELLY_DRUM)
+        || HasMove(battler, MOVE_DRAGON_DANCE)
+        || HasMove(battler, MOVE_SHELL_SMASH)
+        || HasMove(battler, MOVE_SWORDS_DANCE)
+        || HasMove(battler, MOVE_CURSE)
+        || HasMove(battler, MOVE_NO_RETREAT)
+        || HasMove(battler, MOVE_COSMIC_POWER)
+        || HasMove(battler, MOVE_NASTY_PLOT)
+        || HasMove(battler, MOVE_TAIL_GLOW)
+        || HasMove(battler, MOVE_CALM_MIND)
+        || HasMove(battler, MOVE_QUIVER_DANCE);
+}
+
+static s32 AI_DoublesAllyTriggerSetup(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
+{
+    u32 battlerAtkPartner;
+    struct AiLogicData *aiData;
+    uq4_12_t effectiveness;
+    u32 partnerAbility;
+    u32 partnerHoldEffect;
+
+    if (gBattleResults.battleTurnCounter != 0)
+        return score;
+    if (!IS_TARGETING_PARTNER(battlerAtk, battlerDef))
+        return score;
+    if (!IsBattlerAlive(battlerDef))
+        return score;
+    if (CanIndexMoveFaintTarget(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex, 1))
+        return score;
+
+    battlerAtkPartner = BATTLE_PARTNER(battlerAtk);
+    aiData = AI_DATA;
+    partnerAbility = aiData->abilities[battlerAtkPartner];
+    partnerHoldEffect = aiData->holdEffects[battlerAtkPartner];
+
+    // Weakness Policy: boost score strongly if the move is super-effective against the ally holding WP.
+    if (partnerHoldEffect == HOLD_EFFECT_WEAKNESS_POLICY)
+    {
+        effectiveness = AI_GetMoveEffectiveness(move, battlerAtk, battlerAtkPartner);
+        if (effectiveness >= UQ_4_12(2.0))
+            ADJUST_SCORE(15);
+    }
+
+    // Anger Point: add a large extra boost on top of AI_DoubleBattle's existing bonus so ally-targeting
+    // reliably wins the target comparison against normal opponent moves.
+    if (partnerAbility == ABILITY_ANGER_POINT
+        && MoveAlwaysCrits(move)
+        && BattlerStatCanRise(battlerAtkPartner, partnerAbility, STAT_ATK))
+    {
+        ADJUST_SCORE(12);
+    }
+
+    // Beat Up triggers Justified once per hit, granting +1 Atk each time.
+    if (move == MOVE_BEAT_UP && partnerAbility == ABILITY_JUSTIFIED)
+        ADJUST_SCORE(12);
+
+    // Will-O-Wisp activates Guts, giving the ally a 1.5× Atk multiplier.
+    if (GetMoveEffect(move) == EFFECT_WILL_O_WISP && partnerAbility == ABILITY_GUTS)
+        ADJUST_SCORE(10);
+
+    // Toxic turns into a benefit: Poison Heal heals each turn, Toxic Boost grants 1.5× Atk.
+    if (GetMoveEffect(move) == EFFECT_TOXIC
+        && (partnerAbility == ABILITY_POISON_HEAL || partnerAbility == ABILITY_TOXIC_BOOST))
+    {
+        ADJUST_SCORE(10);
+    }
+
+    // Surf is absorbed by Storm Drain, granting the ally +1 Sp. Atk.
+    if (move == MOVE_SURF && partnerAbility == ABILITY_STORM_DRAIN)
+        ADJUST_SCORE(10);
+
+    // Surf is absorbed by Water Absorb, healing a damaged ally.
+    if (move == MOVE_SURF
+        && partnerAbility == ABILITY_WATER_ABSORB
+        && aiData->hpPercents[battlerAtkPartner] < 100)
+    {
+        ADJUST_SCORE(8);
+    }
+
+    // Swagger's confusion is negated by Own Tempo, Misty Terrain, or Lum Berry,
+    // leaving only the free +2 Atk boost.
+    if (GetMoveEffect(move) == EFFECT_SWAGGER
+        && (partnerAbility == ABILITY_OWN_TEMPO
+            || (gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
+            || partnerHoldEffect == HOLD_EFFECT_CURE_STATUS))
+    {
+        ADJUST_SCORE(10);
+    }
+
+    // Instruct orders an ally that has a setup move to use it again this turn.
+    if (GetMoveEffect(move) == EFFECT_INSTRUCT && BattlerHasSetupMove(battlerAtkPartner))
+        ADJUST_SCORE(12);
+
+    // Using a setup move when the ally has Instruct lets them immediately repeat it.
+    if (IsSetupMove(move) && HasMove(battlerAtkPartner, MOVE_INSTRUCT))
+        ADJUST_SCORE(8);
 
     return score;
 }
