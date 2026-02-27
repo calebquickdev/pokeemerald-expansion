@@ -111,22 +111,54 @@
 
 ## Traceability
 
-*(Populated during roadmap creation)*
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DEN-01–05 | TBD | Pending |
-| OBJ-01–05 | TBD | Pending |
-| ITEM-01–02 | TBD | Pending |
-| LOBBY-01–09 | TBD | Pending |
-| BATTLE-01–14 | TBD | Pending |
-| UI-01–03 | TBD | Pending |
-| CATCH-01–03 | TBD | Pending |
+| DEN-01 | Phase 1 — Den Foundation | Pending |
+| DEN-02 | Phase 1 — Den Foundation | Pending |
+| DEN-03 | Phase 1 — Den Foundation | Pending |
+| DEN-04 | Phase 6 — Den Lobby Screen | Pending |
+| DEN-05 | Phase 6 — Den Lobby Screen | Pending |
+| OBJ-01 | Phase 2 — Overworld Den Object | Pending |
+| OBJ-02 | Phase 2 — Overworld Den Object | Pending |
+| OBJ-03 | Phase 2 — Overworld Den Object | Pending |
+| OBJ-04 | Phase 2 — Overworld Den Object | Pending |
+| OBJ-05 | Phase 2 — Overworld Den Object | Pending |
+| ITEM-01 | Phase 2 — Overworld Den Object | Pending |
+| ITEM-02 | Phase 2 — Overworld Den Object | Pending |
+| LOBBY-01 | Phase 6 — Den Lobby Screen | Pending |
+| LOBBY-02 | Phase 6 — Den Lobby Screen | Pending |
+| LOBBY-03 | Phase 6 — Den Lobby Screen | Pending |
+| LOBBY-04 | Phase 6 — Den Lobby Screen | Pending |
+| LOBBY-05 | Phase 6 — Den Lobby Screen | Pending |
+| LOBBY-06 | Phase 6 — Den Lobby Screen | Pending |
+| LOBBY-07 | Phase 6 — Den Lobby Screen | Pending |
+| LOBBY-08 | Phase 6 — Den Lobby Screen | Pending |
+| LOBBY-09 | Phase 6 — Den Lobby Screen | Pending |
+| BATTLE-01 | Phase 3 — Battle Core | Pending |
+| BATTLE-02 | Phase 3 — Battle Core | Pending |
+| BATTLE-03 | Phase 3 — Battle Core | Pending |
+| BATTLE-04 | Phase 3 — Battle Core | Pending |
+| BATTLE-05 | Phase 3 — Battle Core | Pending |
+| BATTLE-06 | Phase 5 — Raid Mechanics | Pending |
+| BATTLE-07 | Phase 5 — Raid Mechanics | Pending |
+| BATTLE-08 | Phase 4 — Dynamax Integration | Pending |
+| BATTLE-09 | Phase 4 — Dynamax Integration | Pending |
+| BATTLE-10 | Phase 4 — Dynamax Integration | Pending |
+| BATTLE-11 | Phase 5 — Raid Mechanics | Pending |
+| BATTLE-12 | Phase 5 — Raid Mechanics | Pending |
+| BATTLE-13 | Phase 5 — Raid Mechanics | Pending |
+| BATTLE-14 | Phase 5 — Raid Mechanics | Pending |
+| UI-01 | Phase 7 — Battle UI & Post-Battle Catch | Pending |
+| UI-02 | Phase 7 — Battle UI & Post-Battle Catch | Pending |
+| UI-03 | Phase 7 — Battle UI & Post-Battle Catch | Pending |
+| CATCH-01 | Phase 7 — Battle UI & Post-Battle Catch | Pending |
+| CATCH-02 | Phase 7 — Battle UI & Post-Battle Catch | Pending |
+| CATCH-03 | Phase 7 — Battle UI & Post-Battle Catch | Pending |
 
 **Coverage:**
-- v1 requirements: 37 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 37 ⚠️
+- v1 requirements: 41 total (DEN×5, OBJ×5, ITEM×2, LOBBY×9, BATTLE×14, UI×3, CATCH×3)
+- Mapped to phases: 41 ✓
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-02-27*
