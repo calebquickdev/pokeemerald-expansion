@@ -58,6 +58,7 @@
 #include "tv.h"
 #include "util.h"
 #include "wild_encounter.h"
+#include "raid_den.h"
 #include "window.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
@@ -3998,6 +3999,8 @@ void BattleTurnPassed(void)
     }
 
     BattlePutTextOnWindow(gText_EmptyString3, B_WIN_MSG);
+    if (gBattleTypeFlags & BATTLE_TYPE_RAID)
+        TryAdvanceRaidRotation();
     AssignUsableGimmicks();
     SetShellSideArmCategory();
     SetAiLogicDataForTurn(AI_DATA); // get assumed abilities, hold effects, etc of all battlers

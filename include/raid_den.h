@@ -23,5 +23,6 @@ void SetupDynamaxDenObjects(void);
 void ActivateDynamaxDen(void);
 void OpenDenLobbyScreen(void);
 void DoRaidBattle(void);
+void TryAdvanceRaidRotation(void);
 
 #endif // GUARD_RAID_DEN_H

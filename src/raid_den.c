@@ -4,6 +4,7 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "battle.h"
+#include "battle_gimmick.h"
 #include "battle_setup.h"
 #include "battle_transition.h"
 #include "overworld.h"
@@ -102,6 +103,26 @@ static void SetupRaidBossParty(u8 denId)
 
     CreateMon(&gPlayerParty[3], SPECIES_SCEPTILE, level, 31, FALSE, 0, OT_ID_PLAYER_ID, 0);
     CreateMon(&gPlayerParty[4], SPECIES_BLAZIKEN, level, 31, FALSE, 0, OT_ID_PLAYER_ID, 0);
+}
+
+void TryAdvanceRaidRotation(void)
+{
+    static const u8 sRaidRotation[] = {0, 2, 3};
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sRaidRotation); i++)
+    {
+        if (GetActiveGimmick(sRaidRotation[i]) == GIMMICK_DYNAMAX)
+            return;
+    }
+
+    switch (gBattleStruct->raid.dynamaxEnergy)
+    {
+        case 0:  gBattleStruct->raid.dynamaxEnergy = 2; break;
+        case 2:  gBattleStruct->raid.dynamaxEnergy = 3; break;
+        default:
+        case 3:  gBattleStruct->raid.dynamaxEnergy = 0; break;
+    }
 }
 
 void DoRaidBattle(void)
