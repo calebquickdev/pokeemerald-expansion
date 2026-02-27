@@ -48,10 +48,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01: Add Wishing Piece to item data (`src/data/items.h`); define `ITEM_WISHING_PIECE` constant
-- [ ] 02-02: Create Active and Inactive den sprites; register `OBJ_EVENT_GFX_RAID_DEN_ACTIVE/INACTIVE`, `ObjectEventGraphicsInfo`, and pointer table entries
-- [ ] 02-03: Implement `SetupDynamaxDenObjects` special: called from `MAP_SCRIPT_ON_LOAD`, checks `!FlagGet(FLAG_DAILY_DEN_RAIDED(denId))` and calls `ObjectEventSetGraphicsIdByLocalIdAndMap`
-- [ ] 02-04: Write den interaction script: inactive message path, Wishing Piece prompt with `checkitem`/`removeitem`, active path calls `Special_OpenDenLobbyScreen` stub
+- [ ] 02-01-PLAN.md — Update Wishing Piece `.type` to `ITEM_USE_FIELD` in `src/data/items.h`
+- [ ] 02-02-PLAN.md — Create placeholder den sprites; register GFX constants, `ObjectEventGraphicsInfo` structs, pointer table entries, and palette lookup
+- [ ] 02-03-PLAN.md — Declare `ObjectEventSetGraphicsIdByLocalIdAndMap`; add script flag aliases; implement `SetupDynamaxDenObjects`, `ActivateDynamaxDen`, `OpenDenLobbyScreen` stub; register specials
+- [ ] 02-04-PLAN.md — Add den object event to LittlerootTown map; `MAP_SCRIPT_ON_LOAD` hook; full den interaction script with Wishing Piece flow
 
 ---
 
