@@ -85,9 +85,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 04-01: Add `struct RaidData { u8 dynamaxEnergy; u8 shieldHp; u8 respawnTimer[3]; }` to `BattleStruct`; initialize at battle start
-- [ ] 04-02: Implement Dynamax rotation counter in `RaidData`; gate `CanDynamax` to the eligible battler each turn; advance counter each turn
-- [ ] 04-03: Implement ally Dynamax sprite swap: on Dynamax trigger load full front sprite; on `UndoDynamax` restore icon sprite
+- [ ] 04-01-PLAN.md — Add `struct RaidData` to `BattleStruct`; initialize all raid fields in RAID battle start path
+- [ ] 04-02-PLAN.md — `TryAdvanceRaidRotation()` + hook in `BattleTurnPassed()`; patch `CanDynamax()` for RAID rotation gating
+- [ ] 04-03-PLAN.md — Ally sprite swap: `RaidAllyHandleLoadMonSprite` two-sprite setup; `ActivateDynamax`/`UndoDynamax` icon↔front swap hooks
 
 ---
 
