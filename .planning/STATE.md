@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 
 ## Current Position
 
-Phase: 3 of 7 (Battle Core)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-02-27 — Completed 03-03-PLAN.md
+Phase: 4 of 7 (Dynamax Integration)
+Plan: 1 of ? in current phase
+Status: In progress
+Last activity: 2026-02-27 — Completed 04-01-PLAN.md
 
-Progress: [███████░░░] ~43% (10/~23 plans estimated)
+Progress: [███████░░░] ~48% (11/~23 plans estimated)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: ~9 minutes
-- Total execution time: ~90 minutes
+- Total plans completed: 11
+- Average duration: ~8 minutes
+- Total execution time: ~96 minutes
 
 **By Phase:**
 
@@ -30,6 +30,7 @@ Progress: [███████░░░] ~43% (10/~23 plans estimated)
 | 01 Den Foundation | 3 | ~27 min | ~9 min |
 | 02 Overworld Den Object | 4 | ~36 min | ~9 min |
 | 03 Battle Core | 3 | ~27 min | ~9 min |
+| 04 Dynamax Integration | 1 (ongoing) | ~6 min | ~6 min |
 
 *Updated after each plan completion*
 
@@ -51,6 +52,7 @@ Recent decisions affecting current work:
 - [Phase 3]: CreateBattleStartTask was de-static'd in battle_setup.c and declared in battle_setup.h for external use
 - [Phase 3]: Battler 3 uses B_POSITION_OPPONENT_RIGHT; GetBattlerSide guard in battle.h returns B_SIDE_PLAYER for battler 3 during RAID
 - [Phase 3]: Allies placed in gPlayerParty[3] (Sceptile) and gPlayerParty[4] (Blaziken) — test save must use ≤2 party slots
+- [Phase 4]: allyIconSpriteId sentinel is MAX_SPRITES (64), not SPRITE_NONE (0xFF) — use MAX_SPRITES for "unset" checks in Plans 04-02/03
 
 ### Pending Todos
 
@@ -61,10 +63,11 @@ None.
 - [Phase 1 - RESOLVED]: Save block extension added `dynamaxDens[]` at end of SaveBlock2 — sizeof now 0xF7C (3964), 4 bytes below sector limit
 - [Phase 2 - NOTE]: Pre-existing build error in `src/data/trainers.h` (MOVE_HIDDEN_POWER_ICE, AI_FLAG_DOUBLE undefined) unrelated to raid den work
 - [Phase 3 - NOTE]: gPlayerParty slots 3 and 4 overwritten by SetupRaidBossParty — test saves must have ≤2 party mons (Phase 6 fix)
-- [Phase 4]: Dynamax rotation requires RaidData struct in BattleStruct; ally sprite swap needed
+- [Phase 4 - RESOLVED]: struct RaidData now defined and embedded in BattleStruct; raid fields zeroed at RAID battle start
+- [Phase 4]: Dynamax rotation (04-02) needs dynamaxEnergy rotation logic; ally sprite swap (04-03) needs allyIconSpriteId management
 
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 03-03-PLAN.md — Boss party setup, HP×3, permanent Dynamax
+Stopped at: Completed 04-01-PLAN.md — struct RaidData defined, BattleStruct embedded, RAID branch initialized
 Resume file: None
