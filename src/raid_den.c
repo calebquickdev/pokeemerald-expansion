@@ -7,11 +7,11 @@
 #include "battle_setup.h"
 #include "battle_transition.h"
 #include "overworld.h"
+#include "pokemon.h"
+#include "random.h"
 #include "script.h"
 #include "constants/battle.h"
 #include "constants/event_objects.h"
-
-static void SetupRaidBossParty(u8 denId);
 
 static const struct {
     u8 mapGroup;
@@ -74,9 +74,34 @@ void ActivateDynamaxDen(void)
     gSaveBlock2Ptr->dynamaxDens[denId].starRating = 1;
 }
 
+static const u8 sStarLevelMin[6] = {0, 15, 25, 35, 45, 55};
+static const u8 sStarLevelMax[6] = {0, 20, 30, 40, 50, 60};
+
 static void SetupRaidBossParty(u8 denId)
 {
-    (void)denId;
+    u16 species = gSaveBlock2Ptr->dynamaxDens[denId].species;
+    u8 stars    = gSaveBlock2Ptr->dynamaxDens[denId].starRating;
+    u8 minLv, maxLv, level;
+    u32 maxHp;
+
+    if (stars == 0 || stars > 5)
+        stars = 1;
+    if (species == 0)
+        species = SPECIES_ZIGZAGOON;
+
+    minLv = sStarLevelMin[stars];
+    maxLv = sStarLevelMax[stars];
+    level = (u8)(minLv + (Random() % (maxLv - minLv + 1)));
+
+    ZeroEnemyPartyMons();
+    CreateMon(&gEnemyParty[0], species, level, 31, FALSE, 0, OT_ID_RANDOM_NO_SHINY, 0);
+
+    maxHp = GetMonData(&gEnemyParty[0], MON_DATA_MAX_HP, NULL) * 3;
+    SetMonData(&gEnemyParty[0], MON_DATA_MAX_HP, &maxHp);
+    SetMonData(&gEnemyParty[0], MON_DATA_HP, &maxHp);
+
+    CreateMon(&gPlayerParty[3], SPECIES_SCEPTILE, level, 31, FALSE, 0, OT_ID_PLAYER_ID, 0);
+    CreateMon(&gPlayerParty[4], SPECIES_BLAZIKEN, level, 31, FALSE, 0, OT_ID_PLAYER_ID, 0);
 }
 
 void DoRaidBattle(void)

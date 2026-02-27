@@ -197,6 +197,9 @@ void ActivateDynamax(u32 battler)
 // Unsets the flags used for Dynamaxing and reverts max HP if needed.
 void UndoDynamax(u32 battler)
 {
+    if ((gBattleTypeFlags & BATTLE_TYPE_RAID) && GetBattlerSide(battler) == B_SIDE_OPPONENT)
+        return;
+
     // Revert HP if battler is still Dynamaxed.
     if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX)
     {

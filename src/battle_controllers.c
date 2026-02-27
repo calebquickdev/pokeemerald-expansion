@@ -8,6 +8,7 @@
 #include "battle_gfx_sfx_util.h"
 #include "battle_interface.h"
 #include "battle_message.h"
+#include "battle_gimmick.h"
 #include "battle_setup.h"
 #include "battle_tv.h"
 #include "cable_club.h"
@@ -144,6 +145,10 @@ static void InitSinglePlayerBtlControllers(void)
         BufferBattlePartyCurrentOrderBySide(1, 0);
         BufferBattlePartyCurrentOrderBySide(2, 1);
         BufferBattlePartyCurrentOrderBySide(3, 1);
+
+        SetActiveGimmick(1, GIMMICK_DYNAMAX);
+        SetGimmickAsActivated(1, GIMMICK_DYNAMAX);
+        gBattleStruct->dynamax.dynamaxTurns[1] = 0xFF;
 
         gBattleMainFunc = BeginBattleIntro;
     }
