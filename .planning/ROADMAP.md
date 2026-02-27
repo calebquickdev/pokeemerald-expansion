@@ -8,7 +8,7 @@ Adds a complete Dynamax Raid Den system to pokeemerald-expansion: interactable o
 
 - [x] **Phase 1: Den Foundation** — Save structure, flags, and daily RTC reset
 - [x] **Phase 2: Overworld Den Object** — Map objects, interaction scripts, Wishing Piece item
-- [ ] **Phase 3: Battle Core** — BATTLE_TYPE_RAID, 3v1 layout, boss stats, RaidAlly controller
+- [x] **Phase 3: Battle Core** — BATTLE_TYPE_RAID, 3v1 layout, boss stats, RaidAlly controller
 - [ ] **Phase 4: Dynamax Integration** — RaidData struct, permanent boss Dynamax, ally rotation, sprite swap
 - [ ] **Phase 5: Raid Mechanics** — Shield, turn limit, storm messages, ally respawn
 - [ ] **Phase 6: Den Lobby Screen** — Species pool, BST→star formula, full CB2 lobby UI
@@ -68,9 +68,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — DoRaidBattle() entry point, starRating rename, BATTLE_TYPE_RAID branch in InitSinglePlayerBtlControllers
-- [ ] 03-02-PLAN.md — SetControllerToRaidAlly controller cloned from PlayerPartner; header declaration
-- [ ] 03-03-PLAN.md — SetupRaidBossParty() with level/HP×3; UndoDynamax guard; permanent dynamaxTurns[1]=0xFF
+- [x] 03-01-PLAN.md — DoRaidBattle() entry point, starRating rename, BATTLE_TYPE_RAID branch in InitSinglePlayerBtlControllers
+- [x] 03-02-PLAN.md — SetControllerToRaidAlly controller cloned from PlayerPartner; header declaration
+- [x] 03-03-PLAN.md — SetupRaidBossParty() with level/HP×3; UndoDynamax guard; permanent dynamaxTurns[1]=0xFF
 
 ---
 
@@ -157,7 +157,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Den Foundation | 3/3 | Complete | 2026-02-27 |
 | 2. Overworld Den Object | 4/4 | Complete | 2026-02-27 |
-| 3. Battle Core | 0/3 | Not started | - |
+| 3. Battle Core | 3/3 | Complete | 2026-02-27 |
 | 4. Dynamax Integration | 0/3 | Not started | - |
 | 5. Raid Mechanics | 0/4 | Not started | - |
 | 6. Den Lobby Screen | 0/5 | Not started | - |

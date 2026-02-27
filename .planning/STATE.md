@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-27)
 
 **Core value:** Player can find an active raid den, enter it, and complete a 3v1 Dynamax battle to catch a powerful (potentially Gigantamax) Pokémon.
-**Current focus:** Phase 3 — Battle Core
+**Current focus:** Phase 4 — Dynamax Integration
 
 ## Current Position
 
 Phase: 3 of 7 (Battle Core)
-Plan: 3 of ? in current phase
-Status: In progress
+Plan: 3 of 3 in current phase
+Status: Phase complete
 Last activity: 2026-02-27 — Completed 03-03-PLAN.md
 
-Progress: [██████████░░] ~45% (10/~20 plans estimated)
+Progress: [███████░░░] ~43% (10/~23 plans estimated)
 
 ## Performance Metrics
 
@@ -48,10 +48,9 @@ Recent decisions affecting current work:
 - [Phase 2]: Wishing Piece uses ITEM_USE_FIELD with CannotUse fieldUseFunc; activation is script-driven (not bag-use)
 - [Phase 2]: Den object is always present in map; graphics switch via SetupDynamaxDenObjects on MAP_SCRIPT_ON_LOAD
 - [Phase 2]: Test den placed in LittlerootTown at (7,3), local ID 9, den ID 0
-- [Phase 3, 03-01]: CreateBattleStartTask exported (was static) via battle_setup.h — needed by raid_den.c
-- [Phase 3, 03-01]: Battler 3 holds B_POSITION_OPPONENT_RIGHT but GetBattlerSide returns B_SIDE_PLAYER for it during RAID battles
-- [Phase 3, 03-03]: Boss HP overwritten post-CreateMon via SetMonData (only way to exceed stat-calculated ceiling)
-- [Phase 3, 03-03]: dynamaxTurns[1]=0xFF is the "never expires" sentinel for permanent boss Dynamax
+- [Phase 3]: CreateBattleStartTask was de-static'd in battle_setup.c and declared in battle_setup.h for external use
+- [Phase 3]: Battler 3 uses B_POSITION_OPPONENT_RIGHT; GetBattlerSide guard in battle.h returns B_SIDE_PLAYER for battler 3 during RAID
+- [Phase 3]: Allies placed in gPlayerParty[3] (Sceptile) and gPlayerParty[4] (Blaziken) — test save must use ≤2 party slots
 
 ### Pending Todos
 
@@ -61,8 +60,8 @@ None.
 
 - [Phase 1 - RESOLVED]: Save block extension added `dynamaxDens[]` at end of SaveBlock2 — sizeof now 0xF7C (3964), 4 bytes below sector limit
 - [Phase 2 - NOTE]: Pre-existing build error in `src/data/trainers.h` (MOVE_HIDDEN_POWER_ICE, AI_FLAG_DOUBLE undefined) unrelated to raid den work
-- [Phase 3+]: OAM sprite budget: destroy lobby sprites before battle starts to stay under 64 sprites per screen
-- [Phase 4]: Boss permanent Dynamax requires guarding `UndoDynamax` and Dynamax timer — RESOLVED in 03-03
+- [Phase 3 - NOTE]: gPlayerParty slots 3 and 4 overwritten by SetupRaidBossParty — test saves must have ≤2 party mons (Phase 6 fix)
+- [Phase 4]: Dynamax rotation requires RaidData struct in BattleStruct; ally sprite swap needed
 
 ## Session Continuity
 
