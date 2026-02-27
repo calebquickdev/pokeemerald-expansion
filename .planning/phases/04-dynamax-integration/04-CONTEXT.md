@@ -14,27 +14,26 @@ Implements the Dynamax rotation system (who can Dynamax each turn) and the ally 
 ## Implementation Decisions
 
 ### Dynamax Rotation
-- Rotation order: player → CPU ally 1 → CPU ally 2 → back to player
-- The rotation only advances when the current Dynamax expires; while any battler is Dynamaxed, no other battler may Dynamax
-- Out-of-rotation battlers cannot Dynamax; the option is not shown in the attack selection menu
-- `dynamaxEnergy` in `RaidData` tracks the rotation index (0 = player, 1 = ally 1, 2 = ally 2); advances when the active Dynamax ends
-
-### Dynamax Duration
-- 3 turns total including the activation turn (turns 1, 2, 3 — ends at close of turn 3)
-- Standard `dynamaxTurns[]` counter handles this; boss `0xFF` sentinel from Phase 3 is untouched
+- Strict cycle: Turn 1 → player, Turn 2 → CPU ally 1, Turn 3 → CPU ally 2, Turn 4 → back to player
+- Rotation advances each turn regardless of whether Dynamax was used
+- The Dynamax option appears in the attack selection menu only for the currently eligible battler; all other battlers never see it
+- No energy mechanic — eligibility is purely rotation-based
+- Only one battler may be Dynamaxed at a time; while any battler is actively Dynamaxed, the rotation does not advance and no other ally may Dynamax until it ends
 
 ### Rotation Interruption (fainted ally)
-- If the eligible battler has fainted, the rotation stays on that battler's slot for that turn; nobody Dynamaxes that turn and the rotation counter does not advance
-- On the following turn, the fainted battler is still skipped (same result) until they are revived (Phase 5 handles respawn)
+- If the eligible battler has fainted on their Dynamax turn, the slot is skipped — nobody Dynamaxes that turn; rotation advances normally on the next turn
+
+### Dynamax Duration
+- 3 turns total, counting the activation turn (so the battler attacks as Dynamaxed on turns 1, 2, and 3, then reverts at the start of turn 4)
 
 ### Ally Sprite Swap
-- On Dynamax trigger: replace the icon sprite with the full front sprite
+- On Dynamax trigger: replace the icon sprite with the full front sprite (same as the boss uses)
 - On `UndoDynamax`: restore the icon sprite
 - Applies to CPU ally battlers only (battlers 2 and 3); player uses standard battle sprite
 
 ### Claude's Discretion
-- Exact hook point for advancing the rotation counter (when Dynamax expires vs. start of next turn) — planner decides
-- Whether `dynamaxEnergy` is renamed to `rotationIndex` for clarity — planner decides
+- Exact hook point for advancing the rotation counter (end of turn vs. start of next turn) — planner decides
+- Field naming for the rotation index in `RaidData` — planner decides
 
 </decisions>
 
