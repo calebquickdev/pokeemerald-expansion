@@ -2,12 +2,18 @@
 .set LOCALID_MOM, 4
 .set LOCALID_RIVAL, 7
 .set LOCALID_BIRCH, 8
+.set LOCALID_RAID_DEN_0, 9
 
 LittlerootTown_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, LittlerootTown_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_OnFrame
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_OnWarp
 	.byte 0
+
+LittlerootTown_OnLoad:
+	special SetupDynamaxDenObjects
+	end
 
 	@ State descriptions for VAR_LITTLEROOT_TOWN_STATE
 	@ 1: Met Rival
@@ -1018,4 +1024,50 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
+
+LittlerootTown_EventScript_RaidDen_0::
+	lock
+	faceplayer
+	@ FLAG not set = active den (Pokémon available)
+	goto_if_unset FLAG_DAILY_DEN_RAIDED_0, LittlerootTown_EventScript_RaidDen_0_Enter
+	@ FLAG set = raided/inactive den
+	checkitem ITEM_WISHING_PIECE, 1
+	goto_if_eq VAR_RESULT, FALSE, LittlerootTown_EventScript_RaidDen_0_NoItem
+	msgbox LittlerootTown_Text_RaidDen_UseWishingPiece, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, LittlerootTown_EventScript_RaidDen_0_Decline
+	removeitem ITEM_WISHING_PIECE, 1
+	setvar VAR_0x8000, 0
+	special ActivateDynamaxDen
+	special SetupDynamaxDenObjects
+	msgbox LittlerootTown_Text_RaidDen_Activated, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_RaidDen_0_NoItem:
+	msgbox LittlerootTown_Text_RaidDen_Inactive, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_RaidDen_0_Decline:
+	release
+	end
+
+LittlerootTown_EventScript_RaidDen_0_Enter:
+	setvar VAR_0x8000, 0
+	special OpenDenLobbyScreen
+	release
+	end
+
+LittlerootTown_Text_RaidDen_Inactive:
+	.string "Seems it's a den for\n"
+	.string "DYNAMAX Pokémon\n"
+	.string "to appear...$"
+
+LittlerootTown_Text_RaidDen_UseWishingPiece:
+	.string "Would you like to use\n"
+	.string "a Wishing Piece?$"
+
+LittlerootTown_Text_RaidDen_Activated:
+	.string "A Pokémon appeared\n"
+	.string "in the den!$"
 
