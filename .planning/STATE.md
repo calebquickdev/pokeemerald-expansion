@@ -10,24 +10,24 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 1 of 7 (Den Foundation)
-Plan: 0 of 3 in current phase
-Status: Ready to plan
-Last activity: 2026-02-27 — Roadmap created
+Plan: 2 of 3 in current phase
+Status: In progress
+Last activity: 2026-02-27 — Completed 01-02-PLAN.md
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] ~10% (2/~20 plans estimated)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: —
+- Total plans completed: 2
+- Average duration: ~10 minutes
+- Total execution time: ~20 minutes
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01 Den Foundation | 2 | ~20 min | ~10 min |
 
 *Updated after each plan completion*
 
@@ -50,12 +50,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- [Phase 1]: Save block extension must add `dynamaxDens[]` at end of SaveBlock2 to avoid save corruption — no migration needed if added at end
+- [Phase 1 - RESOLVED]: Save block extension added `dynamaxDens[]` at end of SaveBlock2 — sizeof now 0xF7C (3964), 4 bytes below sector limit
 - [Phase 3+]: OAM sprite budget: destroy lobby sprites before battle starts to stay under 64 sprites per screen
 - [Phase 4]: Boss permanent Dynamax requires guarding `UndoDynamax` and Dynamax timer — unguarded, end-of-turn logic will break
 
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Roadmap created; no phases planned or executed yet
+Stopped at: Completed 01-02-PLAN.md — dynamaxDens in SaveBlock2
 Resume file: None
