@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-02-27)
 
 **Core value:** Player can find an active raid den, enter it, and complete a 3v1 Dynamax battle to catch a powerful (potentially Gigantamax) Pokémon.
-**Current focus:** Phase 1 — Den Foundation
+**Current focus:** Phase 2 — Overworld Den Object
 
 ## Current Position
 

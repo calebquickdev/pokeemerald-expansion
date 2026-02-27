@@ -6,7 +6,7 @@ Adds a complete Dynamax Raid Den system to pokeemerald-expansion: interactable o
 
 ## Phases
 
-- [ ] **Phase 1: Den Foundation** — Save structure, flags, and daily RTC reset
+- [x] **Phase 1: Den Foundation** — Save structure, flags, and daily RTC reset
 - [ ] **Phase 2: Overworld Den Object** — Map objects, interaction scripts, Wishing Piece item
 - [ ] **Phase 3: Battle Core** — BATTLE_TYPE_RAID, 3v1 layout, boss stats, RaidAlly controller
 - [ ] **Phase 4: Dynamax Integration** — RaidData struct, permanent boss Dynamax, ally rotation, sprite swap
@@ -29,9 +29,9 @@ Adds a complete Dynamax Raid Den system to pokeemerald-expansion: interactable o
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Add `FLAG_DAILY_DEN_RAIDED(denId)` macro to the DAILY_FLAGS range; verify `ClearDailyFlags()` resets all den flags
-- [ ] 01-02: Add `struct DynamaxDen { u16 species; u8 isGmax:1; }` and `dynamaxDens[MAX_DYNAMAX_DENS]` to the end of SaveBlock2
-- [ ] 01-03: Stub `RollDynamaxDenPokemon(denId)` (returns a placeholder species) and wire `UpdateDynamaxDens()` into `UpdatePerDay()` in `src/clock.c`
+- [x] 01-01: Add `FLAG_DAILY_DEN_RAIDED(denId)` macro to the DAILY_FLAGS range; verify `ClearDailyFlags()` resets all den flags
+- [x] 01-02: Add `struct DynamaxDen { u16 species; u8 isGmax:1; }` and `dynamaxDens[MAX_DYNAMAX_DENS]` to the end of SaveBlock2
+- [x] 01-03: Stub `RollDynamaxDenPokemon(denId)` (returns a placeholder species) and wire `UpdateDynamaxDens()` into `UpdatePerDay()` in `src/clock.c`
 
 ---
 
@@ -155,7 +155,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Den Foundation | 0/3 | Not started | - |
+| 1. Den Foundation | 3/3 | Complete | 2026-02-27 |
 | 2. Overworld Den Object | 0/4 | Not started | - |
 | 3. Battle Core | 0/3 | Not started | - |
 | 4. Dynamax Integration | 0/3 | Not started | - |
