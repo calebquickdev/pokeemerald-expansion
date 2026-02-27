@@ -587,6 +587,14 @@ struct BattleGimmickData
     bool8 activated[MAX_BATTLERS_COUNT][GIMMICKS_COUNT]; // stores whether a trainer has used gimmick
 };
 
+struct RaidData
+{
+    u8 dynamaxEnergy;        // index of the battler eligible to Dynamax this turn (0, 2, or 3)
+    u8 allyIconSpriteId[2];  // icon sprite IDs for battlers 2 and 3; MAX_SPRITES = sentinel
+    u8 shieldHp;             // Phase 5: boss shield units remaining (zeroed this phase)
+    u8 respawnTimer[3];      // Phase 5: per-ally faint respawn countdowns (zeroed this phase)
+};
+
 struct LostItem
 {
     u16 originalItem:15;
@@ -756,6 +764,7 @@ struct BattleStruct
     struct ZMoveData zmove;
     struct DynamaxData dynamax;
     struct BattleGimmickData gimmick;
+    struct RaidData raid;
     const u8 *trainerSlideMsg;
     enum BattleIntroStates introState:8;
     u8 ateBerry[2]; // array id determined by side, each party pokemon as bit
