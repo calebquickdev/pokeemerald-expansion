@@ -29,6 +29,7 @@
 #include "m4a.h"
 #include "mail.h"
 #include "event_data.h"
+#include "nuzlocke.h"
 #include "pokemon_storage_system.h"
 #include "task.h"
 #include "naming_screen.h"
@@ -15722,6 +15723,14 @@ static void Cmd_handleballthrow(void)
         return;
 
     gBattlerTarget = GetCatchingBattler();
+
+    if (gNuzlockeCatchBlocked && !(gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL))
+    {
+        BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_TRAINER_BLOCK);
+        MarkBattlerForControllerExec(gBattlerAttacker);
+        gBattlescriptCurrInstr = BattleScript_NuzlockeBallBlock;
+        return;
+    }
 
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {

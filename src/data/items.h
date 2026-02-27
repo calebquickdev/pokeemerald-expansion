@@ -14093,4 +14093,19 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
+
+    [ITEM_CANDY_JAR] =
+    {
+        .name = _("Candy Jar"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Raises a Pokémon's\n"
+            "level by 1. Cannot\n"
+            "exceed the level cap."),
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CandyJar,
+        .iconPic = gItemIcon_RareCandy,
+        .iconPalette = gItemIconPalette_RareCandy,
+    },
 };

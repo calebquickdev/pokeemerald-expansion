@@ -1,4 +1,5 @@
 #include "global.h"
+#include "nuzlocke.h"
 #include "wild_encounter.h"
 #include "pokemon.h"
 #include "metatile_behavior.h"
@@ -700,6 +701,7 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
             {
                 if (DoMassOutbreakEncounterTest() == TRUE && SetUpMassOutbreakEncounter(WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
+                    CheckAndUpdateNuzlockeEncounterState(headerId);
                     BattleSetup_StartWildBattle();
                     return TRUE;
                 }
@@ -707,6 +709,7 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
                 // try a regular wild land encounter
                 if (TryGenerateWildMon(gWildMonHeaders[headerId].landMonsInfo, WILD_AREA_LAND, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
+                    CheckAndUpdateNuzlockeEncounterState(headerId);
                     if (TryDoDoubleWildBattle())
                     {
                         struct Pokemon mon1 = gEnemyParty[0];
@@ -749,6 +752,7 @@ bool8 StandardWildEncounter(u16 curMetatileBehavior, u16 prevMetatileBehavior)
             {
                 if (TryGenerateWildMon(gWildMonHeaders[headerId].waterMonsInfo, WILD_AREA_WATER, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
                 {
+                    CheckAndUpdateNuzlockeEncounterState(headerId);
                     gIsSurfingEncounter = TRUE;
                     if (TryDoDoubleWildBattle())
                     {
@@ -787,6 +791,7 @@ void RockSmashWildEncounter(void)
         else if (WildEncounterCheck(wildPokemonInfo->encounterRate, TRUE) == TRUE
          && TryGenerateWildMon(wildPokemonInfo, WILD_AREA_ROCKS, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
         {
+            CheckAndUpdateNuzlockeEncounterState(headerId);
             BattleSetup_StartWildBattle();
             gSpecialVar_Result = TRUE;
         }

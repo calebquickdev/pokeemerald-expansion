@@ -7863,3 +7863,60 @@ void IsLastMonThatKnowsSurf(void)
             gSpecialVar_Result = !P_CAN_FORGET_HIDDEN_MOVE;
     }
 }
+
+void ItemUseCB_CandyJar(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    struct PartyMenuInternal *ptr = sPartyMenuInternal;
+    s16 *arrayPtr = ptr->data;
+    bool8 cannotUseEffect;
+
+    sInitialLevel = GetMonData(mon, MON_DATA_LEVEL);
+
+    // Candy Jar is always hard-capped; it cannot raise a Pokemon above the level cap
+    if (sInitialLevel >= GetCurrentLevelCap())
+    {
+        cannotUseEffect = TRUE;
+    }
+    else
+    {
+        BufferMonStatsToTaskData(mon, arrayPtr);
+        // Apply Rare Candy effect but don't use gSpecialVar_ItemId (which would be removed from bag)
+        cannotUseEffect = ExecuteTableBasedItemEffect(mon, ITEM_RARE_CANDY, gPartyMenu.slotId, 0);
+        BufferMonStatsToTaskData(mon, &ptr->data[NUM_STATS]);
+    }
+
+    PlaySE(SE_SELECT);
+    if (cannotUseEffect)
+    {
+        sInitialLevel = 0;
+        sFinalLevel = 0;
+        gPartyMenuUseExitCallback = FALSE;
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+    }
+    else
+    {
+        sFinalLevel = GetMonData(mon, MON_DATA_LEVEL, NULL);
+        gPartyMenuUseExitCallback = TRUE;
+        UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
+        GetMonNickname(mon, gStringVar1);
+        if (sFinalLevel > sInitialLevel)
+        {
+            PlayFanfareByFanfareNum(FANFARE_LEVEL_UP);
+            ConvertIntToDecimalStringN(gStringVar2, sFinalLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
+            StringExpandPlaceholders(gStringVar4, gText_PkmnElevatedToLvVar2);
+            DisplayPartyMenuMessage(gStringVar4, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_DisplayLevelUpStatsPg1;
+        }
+        else
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = task;
+        }
+    }
+}

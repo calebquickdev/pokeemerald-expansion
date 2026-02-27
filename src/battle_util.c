@@ -31,6 +31,7 @@
 #include "battle_ai_main.h"
 #include "battle_ai_util.h"
 #include "event_data.h"
+#include "nuzlocke.h"
 #include "link.h"
 #include "malloc.h"
 #include "berry.h"
@@ -3078,6 +3079,13 @@ bool32 HandleFaintedMonActions(void)
                 if (gBattleMons[gBattleStruct->faintedActionsBattlerId].hp == 0
                  && !(gAbsentBattlerFlags & (1u << gBattleStruct->faintedActionsBattlerId)))
                 {
+                    if (IsNuzlockeModeEnabled()
+                     && GetBattlerSide(gBattleStruct->faintedActionsBattlerId) == B_SIDE_PLAYER)
+                    {
+                        u8 trueVal = TRUE;
+                        u32 partyIdx = gBattlerPartyIndexes[gBattleStruct->faintedActionsBattlerId];
+                        SetMonData(&gPlayerParty[partyIdx], MON_DATA_IS_NUZLOCKE_DEAD, &trueVal);
+                    }
                     BattleScriptExecute(BattleScript_HandleFaintedMon);
                     gBattleStruct->faintedActionsState = 5;
                     return TRUE;

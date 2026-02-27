@@ -71,6 +71,7 @@ PlayersHouse_2F_EventScript_WallClock::
 	call_if_eq VAR_RESULT, FEMALE, PlayersHouse_2F_EventScript_MomComesUpstairsFemale
 	playse SE_EXIT
 	removeobject VAR_0x8008
+	call EventScript_NuzlockePrompt
 	releaseall
 	end
 
@@ -678,3 +679,32 @@ PlayersHouse_1F_Movement_PlayerApproachTVForLatiFemale:
 EventScript_RunningShoesManual::
 	msgbox PlayersHouse_1F_Text_RunningShoesManual, MSGBOX_SIGN
 	end
+
+EventScript_NuzlockePrompt::
+	msgbox PlayersHouse_Text_NuzlockeQuestion, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, EventScript_NuzlockeDeclined
+	setflag FLAG_NUZLOCKE_MODE
+	msgbox PlayersHouse_Text_NuzlockeEnabled, MSGBOX_DEFAULT
+	return
+
+EventScript_NuzlockeDeclined::
+	msgbox PlayersHouse_Text_NuzlockeDisabled, MSGBOX_DEFAULT
+	return
+
+PlayersHouse_Text_NuzlockeQuestion:
+	.string "Would you like to play in\n"
+	.string "Nuzlocke Mode?\p"
+	.string "- Pokémon that faint are\n"
+	.string "  permanently lost.\p"
+	.string "- Only the first Pokémon\n"
+	.string "  encountered per route\n"
+	.string "  may be caught.\l"
+	.string "  (Shiny Pokémon excluded){PAUSE_UNTIL_PRESS}"
+
+PlayersHouse_Text_NuzlockeEnabled:
+	.string "Nuzlocke Mode enabled!\n"
+	.string "Good luck, Trainer!{PAUSE_UNTIL_PRESS}"
+
+PlayersHouse_Text_NuzlockeDisabled:
+	.string "Nuzlocke Mode disabled.\n"
+	.string "Enjoy your adventure!{PAUSE_UNTIL_PRESS}"

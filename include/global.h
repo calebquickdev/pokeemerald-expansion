@@ -215,6 +215,8 @@ struct SaveBlock3
     u8 dexNavSearchLevels[NUM_SPECIES];
 #endif
     u8 dexNavChain;
+    // Nuzlocke: 1 bit per wild encounter header index (supports up to 128 encounter zones)
+    u8 nuzlockeRouteEncountered[16];
 }; /* max size 1624 bytes */
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;

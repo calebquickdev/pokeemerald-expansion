@@ -14,6 +14,7 @@
 #include "data.h"
 #include "dexnav.h"
 #include "event_data.h"
+#include "nuzlocke.h"
 #include "event_object_movement.h"
 #include "evolution_scene.h"
 #include "field_specials.h"
@@ -2874,6 +2875,9 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_DAYS_SINCE_FORM_CHANGE:
             retVal = boxMon->daysSinceFormChange;
             break;
+        case MON_DATA_IS_NUZLOCKE_DEAD:
+            retVal = boxMon->isNuzlockeDead;
+            break;
         default:
             break;
         }
@@ -3301,6 +3305,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         }
         case MON_DATA_DAYS_SINCE_FORM_CHANGE:
             SET8(boxMon->daysSinceFormChange);
+            break;
+        case MON_DATA_IS_NUZLOCKE_DEAD:
+            SET8(boxMon->isNuzlockeDead);
             break;
         }
     }
@@ -3971,6 +3978,12 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         break;
 
                     case 2: // ITEM4_HEAL_HP
+                        // Nuzlocke: dead Pokemon cannot be revived
+                        if ((effectFlags & (ITEM4_REVIVE >> 2)) && GetMonData(mon, MON_DATA_IS_NUZLOCKE_DEAD, NULL))
+                        {
+                            itemEffectParam++;
+                            break;
+                        }
                         // Check use validity.
                         if ((effectFlags & (ITEM4_REVIVE >> 2) && GetMonData(mon, MON_DATA_HP, NULL) != 0)
                               || (!(effectFlags & (ITEM4_REVIVE >> 2)) && GetMonData(mon, MON_DATA_HP, NULL) == 0))
@@ -6896,6 +6909,9 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
 void HealPokemon(struct Pokemon *mon)
 {
     u32 data;
+
+    if (GetMonData(mon, MON_DATA_IS_NUZLOCKE_DEAD, NULL))
+        return;
 
     data = GetMonData(mon, MON_DATA_MAX_HP);
     SetMonData(mon, MON_DATA_HP, &data);

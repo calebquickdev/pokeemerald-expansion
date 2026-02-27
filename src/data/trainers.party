@@ -23,6 +23,11 @@ Optional (but still recommended) fields for trainers:
     - Double Battle (Yes/No, defaults to No)
     - AI (Ai Flag / Another Flag / Third Flag / ...
           see "constants/battle_ai.h" for all flags)
+          Common presets: Basic Trainer, Smart Trainer, Smart Doubles Trainer
+          Doubles-specific flag: Doubles Trigger Setup
+            (turn 1 ally synergy: Weakness Policy, Anger Point, Justified,
+             Guts, Poison Heal, Toxic Boost, Storm Drain, Water Absorb,
+             Own Tempo Swagger, Instruct+setup combos, etc.)
     - Mugshot (enable Mugshots during battle transition
                set to one of Purple, Green, Pink, Blue or Yellow)
     - Starting Status (see include/constants/battle.h for values)
@@ -4795,29 +4800,60 @@ Pic: Leader Roxanne
 Gender: Female
 Music: Female
 Items: Potion / Potion
-Double Battle: No
-AI: Basic Trainer
+Double Battle: Yes
+AI: Basic Trainer / Double Battle
 
-Geodude
+Rolycoly
+Ability: Steam Engine
 Level: 12
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Tackle
-- Defense Curl
-- Rock Throw
-- Rock Tomb
+- Iron Head
+- Rock Blast
+- Rock Slide
+- Heat Crash
 
-Geodude
+Binacle
+Ability: Pickpocket
+Level: 12
+Adamant Nature
+IVs: 12 HP / 12 Atk / 12 Def / 0 SpA / 12 SpD / 12 Spe
+- Surf
+- Stealth Rock
+- Rock Tomb
+- Smack Down
+
+Glimmet @ Power Herb  
+Ability: Toxic Debris  
+Level: 12 
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Spikes  
+- Reflect  
+- Light Screen  
+- Meteor Beam
+
+Tyrunt @ Choice Band  
+Ability: Strong Jaw
 Level: 12
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Tackle
-- Defense Curl
-- Rock Throw
-- Rock Tomb
+- Fire Fang  
+- Thunder Fang  
+- Crunch  
+- Rock Slide
 
-Nosepass @ Oran Berry
+Growlithe-Hisui @ Passho Berry
+Level: 12
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Ability: Intimidate   
+- Fire Fang  
+- Rock Slide  
+- Bite  
+- Snarl
+
+Nosepass @ Eviolite
 Level: 15
+Shiny: Yes
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Block
+- Sandstorm
 - Harden
 - Tackle
 - Rock Tomb
@@ -4829,32 +4865,62 @@ Pic: Leader Brawly
 Gender: Male
 Music: Male
 Items: Super Potion / Super Potion
-Double Battle: No
-AI: Basic Trainer
+Double Battle: Yes
+AI: Basic Trainer / Doubles Trigger Setup
 
-Machop
+Combusken @ Muscle Band
+Ability: Speed Boost
 Level: 16
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Karate Chop
-- Low Kick
-- Seismic Toss
+- Will-O-Wisp  
+- Thunder Punch  
+- Flame Charge  
+- Low Sweep
+
+Makuhita @ Black Belt
+Ability: Guts
+Level: 16
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Arm Thrust
+- Vital Throw
+- Fake Out
 - Bulk Up
 
-Meditite
+Meditite @ Light Clay
 Level: 16
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Focus Punch
+- Power-Up Punch
 - Light Screen
 - Reflect
 - Bulk Up
 
-Makuhita @ Sitrus Berry
-Level: 19
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Arm Thrust
-- Vital Throw
-- Reversal
+Scraggy @ Leftovers
+Ability: Poison Touch
+Level: 17
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Brick Break
+- Detect
+- Thunder Punch
+- Coaching
+
+Croagunk @ Poison Barb
+Ability: Poison Touch
+Level: 17
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Brick Break
+- Poison Jab
+- Sucker Punch
 - Bulk Up
+
+Sneasel-Hisui @ Choice Scarf  
+Ability: Inner Focus
+Level: 18
+Shiny: Yes
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Close Combat  
+- Fake Out  
+- Switcheroo  
+- Poison Jab
 
 === TRAINER_WATTSON_1 ===
 Name: WATTSON
@@ -4863,40 +4929,73 @@ Pic: Leader Wattson
 Gender: Male
 Music: Male
 Items: Super Potion / Super Potion
-Double Battle: No
+Double Battle: Yes
 AI: Basic Trainer
 
-Voltorb
+Pachirisu @ Leftovers
+Ability: Volt Absorb
 Level: 20
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Rollout
-- Spark
-- Self Destruct
-- Shock Wave
+EVs: 252 HP / 252 Def / 4 SpD
+Impish Nature
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe 
+- U-turn
+- Nuzzle
+- Toxic
+- Super Fang
 
-Electrike
-Level: 20
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Shock Wave
-- Leer
-- Quick Attack
-- Howl
-
-Magneton
-Level: 22
-IVs: 26 HP / 26 Atk / 26 Def / 26 SpA / 26 SpD / 26 Spe
-- Supersonic
-- Shock Wave
-- Thunder Wave
-- Sonic Boom
-
-Manectric @ Sitrus Berry
+Manectric @ Manectite
+Ability: Lightning Rod
 Level: 24
+Shiny: Yes
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Quick Attack
-- Thunder Wave
-- Shock Wave
-- Howl
+Timid Nature
+EVs: 4 Def / 252 SpA / 252 Spe
+- Volt Switch
+- Overheat
+- Thunderbolt
+- Hidden Power Ice
+
+Rotom-Frost @ Ice Gem
+Level: 20
+Ability: Levitate
+EVs: 12 HP / 248 SpA / 248 Spe
+Modest Nature
+IVs: 24 HP / 0 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe 
+- Blizzard
+- Thunderbolt
+- Hidden Power Fire
+- Protect
+
+Voltorb-Hisui @ Choice Specs  
+Ability: Aftermath  
+Tera Type: Electric  
+EVs: 4 HP / 252 SpA / 252 Spe  
+Modest Nature  
+IVs: 24 HP / 0 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe 
+- Energy Ball  
+- Discharge  
+- Volt Switch  
+- Giga Drain
+
+Pawmo @ Air Balloon  
+Ability: Iron Fist  
+Level: 20
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Fake Out  
+- Mach Punch  
+- Thunder Punch  
+- Wish
+
+Electabuzz @ Eviolite
+Level: 50
+Ability: Vital Spirit
+EVs: 252 HP / 180 Def / 76 SpD
+Bold Nature
+IVs: 26 HP / 26 Atk / 26 Def / 26 SpA / 26 SpD / 26 Spe
+- Follow Me
+- Volt Switch
+- Taunt
+- Feint
 
 === TRAINER_FLANNERY_1 ===
 Name: FLANNERY
@@ -4908,37 +5007,74 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: No
 AI: Basic Trainer
 
-Numel
-Level: 24
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Overheat
-- Take Down
-- Magnitude
-- Sunny Day
-
-Slugma
-Level: 24
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Overheat
-- Smog
-- Light Screen
-- Sunny Day
-
-Camerupt
+Armarouge @ Life Orb
 Level: 26
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Overheat
-- Tackle
-- Sunny Day
-- Attract
+Ability: Flash Fire
+EVs: 228 HP / 28 Def / 252 SpA
+IVs: 0 Atk / 0 Spe
+Quiet Nature
+- Expanding Force
+- Armor Cannon
+- Protect
+- Trick Room
 
-Torkoal @ White Herb
+Torkoal @ Heat Rock
 Level: 29
+Shiny: Yes
+Ability: Drought
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Overheat
-- Sunny Day
-- Body Slam
-- Attract
+EVs: 248 HP / 8 Def / 252 SpD
+Tera Type: Fire
+Calm Nature
+- Lava Plume
+- Rapid Spin
+- Stealth Rock
+- Will-O-Wisp
+
+Camerupt @ Cameruptite
+Level: 29
+Shiny: Yes
+Ability: Solid Rock
+EVs: 252 HP / 4 Def / 252 SpA
+IVs: 0 Spe
+Quiet Nature
+- Heat Wave
+- Earth Power
+- Nature Power
+- Protect
+
+Talonflame @ Flyinium Z
+Level: 26
+Ability: Gale Wings
+EVs: 4 HP / 252 Atk / 252 Spe
+Adamant Nature
+- Brave Bird
+- Flare Blitz
+- Tailwind
+- Protect
+
+Ceruledge @ Life Orb
+Level: 26
+Ability: Weak Armor
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+EVs: 252 Atk / 4 SpD / 252 Spe
+Tera Type: Ghost
+Jolly Nature
+- Swords Dance
+- Bitter Blade
+- Shadow Sneak
+- Poltergeist
+
+Scovillain @ Choice Specs
+Level: 26
+Ability: Chlorophyll
+EVs: 252 SpA / 4 SpD / 252 Spe
+Tera Type: Fire
+Timid Nature
+- Flamethrower
+- Fire Blast
+- Solar Beam
+- Giga Drain
 
 === TRAINER_NORMAN_1 ===
 Name: NORMAN
@@ -14361,7 +14497,7 @@ Gender: Male
 Music: Male
 Items: Full Restore / Full Restore / Full Restore
 Double Battle: Yes
-AI: Basic Trainer
+AI: Double
 
 Machamp @ Sitrus Berry
 Level: 33

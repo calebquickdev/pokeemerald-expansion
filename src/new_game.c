@@ -189,6 +189,7 @@ void NewGameInitData(void)
     gSaveBlock1Ptr->registeredItem = ITEM_NONE;
     ClearBag();
     NewGameInitPCItems();
+    AddBagItem(ITEM_CANDY_JAR, 1);
     ClearPokeblocks();
     ClearDecorationInventories();
     InitEasyChatPhrases();

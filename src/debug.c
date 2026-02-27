@@ -54,8 +54,10 @@
 #include "task.h"
 #include "pokemon_summary_screen.h"
 #include "wild_encounter.h"
+#include "battle_main.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
+#include "constants/opponents.h"
 #include "constants/battle_frontier.h"
 #include "constants/coins.h"
 #include "constants/expansion.h"
@@ -78,8 +80,21 @@ enum DebugMenu
     DEBUG_MENU_ITEM_SCRIPTS,
     DEBUG_MENU_ITEM_FLAGVAR,
     //DEBUG_MENU_ITEM_BATTLE,
+    DEBUG_MENU_ITEM_GYM_LEADERS,
     DEBUG_MENU_ITEM_SOUND,
     DEBUG_MENU_ITEM_CANCEL,
+};
+
+enum GymLeaderDebugMenu
+{
+    DEBUG_GYM_ROXANNE,
+    DEBUG_GYM_BRAWLY,
+    DEBUG_GYM_WATTSON,
+    DEBUG_GYM_FLANNERY,
+    DEBUG_GYM_NORMAN,
+    DEBUG_GYM_WINONA,
+    DEBUG_GYM_TATE_AND_LIZA,
+    DEBUG_GYM_JUAN,
 };
 
 enum UtilDebugMenu
@@ -336,6 +351,7 @@ static void DebugAction_OpenScriptsMenu(u8 taskId);
 static void DebugAction_OpenFlagsVarsMenu(u8 taskId);
 static void DebugAction_OpenGiveMenu(u8 taskId);
 static void DebugAction_OpenSoundMenu(u8 taskId);
+static void DebugAction_OpenGymLeadersMenu(u8 taskId);
 
 static void DebugTask_HandleMenuInput_Main(u8 taskId);
 static void DebugTask_HandleMenuInput_Utilities(u8 taskId);
@@ -348,6 +364,7 @@ static void DebugTask_HandleMenuInput_Battle(u8 taskId);
 static void DebugTask_HandleMenuInput_Give(u8 taskId);
 static void DebugTask_HandleMenuInput_Sound(u8 taskId);
 static void DebugTask_HandleMenuInput_BerryFunctions(u8 taskId);
+static void DebugTask_HandleMenuInput_GymLeaders(u8 taskId);
 
 static void DebugAction_Util_Fly(u8 taskId);
 static void DebugAction_Util_Warp_Warp(u8 taskId);
@@ -561,8 +578,21 @@ static const struct ListMenuItem sDebugMenu_Items_Main[] =
     [DEBUG_MENU_ITEM_SCRIPTS]       = {COMPOUND_STRING("Scripts…{CLEAR_TO 110}{RIGHT_ARROW}"),      DEBUG_MENU_ITEM_SCRIPTS},
     [DEBUG_MENU_ITEM_FLAGVAR]       = {COMPOUND_STRING("Flags & Vars…{CLEAR_TO 110}{RIGHT_ARROW}"), DEBUG_MENU_ITEM_FLAGVAR},
     //[DEBUG_MENU_ITEM_BATTLE]        = {COMPOUND_STRING("Battle Test{CLEAR_TO 110}{RIGHT_ARROW}"),   DEBUG_MENU_ITEM_BATTLE},
+    [DEBUG_MENU_ITEM_GYM_LEADERS]   = {COMPOUND_STRING("Gym Leaders…{CLEAR_TO 110}{RIGHT_ARROW}"),  DEBUG_MENU_ITEM_GYM_LEADERS},
     [DEBUG_MENU_ITEM_SOUND]         = {COMPOUND_STRING("Sound…{CLEAR_TO 110}{RIGHT_ARROW}"),        DEBUG_MENU_ITEM_SOUND},
     [DEBUG_MENU_ITEM_CANCEL]        = {COMPOUND_STRING("Cancel"),                                   DEBUG_MENU_ITEM_CANCEL},
+};
+
+static const struct ListMenuItem sDebugMenu_Items_GymLeaders[] =
+{
+    [DEBUG_GYM_ROXANNE]     = {COMPOUND_STRING("Roxanne"),       DEBUG_GYM_ROXANNE},
+    [DEBUG_GYM_BRAWLY]      = {COMPOUND_STRING("Brawly"),        DEBUG_GYM_BRAWLY},
+    [DEBUG_GYM_WATTSON]     = {COMPOUND_STRING("Wattson"),       DEBUG_GYM_WATTSON},
+    [DEBUG_GYM_FLANNERY]    = {COMPOUND_STRING("Flannery"),      DEBUG_GYM_FLANNERY},
+    [DEBUG_GYM_NORMAN]      = {COMPOUND_STRING("Norman"),        DEBUG_GYM_NORMAN},
+    [DEBUG_GYM_WINONA]      = {COMPOUND_STRING("Winona"),        DEBUG_GYM_WINONA},
+    [DEBUG_GYM_TATE_AND_LIZA] = {COMPOUND_STRING("Tate & Liza"), DEBUG_GYM_TATE_AND_LIZA},
+    [DEBUG_GYM_JUAN]        = {COMPOUND_STRING("Juan"),          DEBUG_GYM_JUAN},
 };
 
 static const struct ListMenuItem sDebugMenu_Items_Utilities[] =
@@ -734,6 +764,7 @@ static void (*const sDebugMenu_Actions_Main[])(u8) =
     [DEBUG_MENU_ITEM_SCRIPTS]       = DebugAction_OpenScriptsMenu,
     [DEBUG_MENU_ITEM_FLAGVAR]       = DebugAction_OpenFlagsVarsMenu,
     //[DEBUG_MENU_ITEM_BATTLE]        = DebugAction_OpenBattleMenu,
+    [DEBUG_MENU_ITEM_GYM_LEADERS]   = DebugAction_OpenGymLeadersMenu,
     [DEBUG_MENU_ITEM_SOUND]         = DebugAction_OpenSoundMenu,
     [DEBUG_MENU_ITEM_CANCEL]        = DebugAction_Cancel
 };
@@ -849,6 +880,28 @@ static void (*const sDebugMenu_Actions_BerryFunctions[])(u8) =
     [DEBUG_BERRY_FUNCTIONS_MENU_WEEDS]      = DebugAction_BerryFunctions_Weeds,
 };
 
+static void DebugAction_GymLeader_Battle(u8 taskId, u16 trainerId);
+static void DebugAction_GymLeader_Roxanne(u8 taskId);
+static void DebugAction_GymLeader_Brawly(u8 taskId);
+static void DebugAction_GymLeader_Wattson(u8 taskId);
+static void DebugAction_GymLeader_Flannery(u8 taskId);
+static void DebugAction_GymLeader_Norman(u8 taskId);
+static void DebugAction_GymLeader_Winona(u8 taskId);
+static void DebugAction_GymLeader_TateAndLiza(u8 taskId);
+static void DebugAction_GymLeader_Juan(u8 taskId);
+
+static void (*const sDebugMenu_Actions_GymLeaders[])(u8) =
+{
+    [DEBUG_GYM_ROXANNE]       = DebugAction_GymLeader_Roxanne,
+    [DEBUG_GYM_BRAWLY]        = DebugAction_GymLeader_Brawly,
+    [DEBUG_GYM_WATTSON]       = DebugAction_GymLeader_Wattson,
+    [DEBUG_GYM_FLANNERY]      = DebugAction_GymLeader_Flannery,
+    [DEBUG_GYM_NORMAN]        = DebugAction_GymLeader_Norman,
+    [DEBUG_GYM_WINONA]        = DebugAction_GymLeader_Winona,
+    [DEBUG_GYM_TATE_AND_LIZA] = DebugAction_GymLeader_TateAndLiza,
+    [DEBUG_GYM_JUAN]          = DebugAction_GymLeader_Juan,
+};
+
 // *******************************
 // Windows
 static const struct WindowTemplate sDebugMenuWindowTemplateMain =
@@ -962,6 +1015,13 @@ static const struct ListMenuTemplate sDebugMenu_ListTemplate_Battle_0 =
     .items = sDebugMenu_Items_Battle_0,
     .moveCursorFunc = ListMenuDefaultCursorMoveFunc,
     .totalItems = ARRAY_COUNT(sDebugMenu_Items_Battle_0),
+};
+
+static const struct ListMenuTemplate sDebugMenu_ListTemplate_GymLeaders =
+{
+    .items = sDebugMenu_Items_GymLeaders,
+    .moveCursorFunc = ListMenuDefaultCursorMoveFunc,
+    .totalItems = ARRAY_COUNT(sDebugMenu_Items_GymLeaders),
 };
 
 static const struct ListMenuTemplate sDebugMenu_ListTemplate_Battle_1 =
@@ -4539,3 +4599,36 @@ static void DebugAction_Util_CheckEWRAMCounters(u8 taskId)
 {
     Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_EWRAMCounters);
 }
+
+// *******************************
+// Gym Leader Battle Debug
+
+static void DebugTask_HandleMenuInput_GymLeaders(u8 taskId)
+{
+    DebugTask_HandleMenuInput_General(taskId, sDebugMenu_Actions_GymLeaders, DebugTask_HandleMenuInput_Main, sDebugMenu_ListTemplate_Main);
+}
+
+static void DebugAction_OpenGymLeadersMenu(u8 taskId)
+{
+    Debug_DestroyMenu(taskId);
+    Debug_ShowMenu(DebugTask_HandleMenuInput_GymLeaders, sDebugMenu_ListTemplate_GymLeaders);
+}
+
+static void DebugAction_GymLeader_Battle(u8 taskId, u16 trainerId)
+{
+    ZeroEnemyPartyMons();
+    CreateNPCTrainerPartyFromTrainer(gEnemyParty, GetTrainerStructFromId(trainerId), TRUE, BATTLE_TYPE_TRAINER);
+    gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+    gIsDebugBattle = TRUE;
+    BattleSetup_StartTrainerBattle_Debug();
+    Debug_DestroyMenu_Full(taskId);
+}
+
+static void DebugAction_GymLeader_Roxanne(u8 taskId)    { DebugAction_GymLeader_Battle(taskId, TRAINER_ROXANNE_1); }
+static void DebugAction_GymLeader_Brawly(u8 taskId)     { DebugAction_GymLeader_Battle(taskId, TRAINER_BRAWLY_1); }
+static void DebugAction_GymLeader_Wattson(u8 taskId)    { DebugAction_GymLeader_Battle(taskId, TRAINER_WATTSON_1); }
+static void DebugAction_GymLeader_Flannery(u8 taskId)   { DebugAction_GymLeader_Battle(taskId, TRAINER_FLANNERY_1); }
+static void DebugAction_GymLeader_Norman(u8 taskId)     { DebugAction_GymLeader_Battle(taskId, TRAINER_NORMAN_1); }
+static void DebugAction_GymLeader_Winona(u8 taskId)     { DebugAction_GymLeader_Battle(taskId, TRAINER_WINONA_1); }
+static void DebugAction_GymLeader_TateAndLiza(u8 taskId){ DebugAction_GymLeader_Battle(taskId, TRAINER_TATE_AND_LIZA_1); }
+static void DebugAction_GymLeader_Juan(u8 taskId)       { DebugAction_GymLeader_Battle(taskId, TRAINER_JUAN_1); }

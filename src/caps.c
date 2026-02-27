@@ -3,32 +3,61 @@
 #include "event_data.h"
 #include "caps.h"
 #include "pokemon.h"
+#include "data.h"
+#include "constants/opponents.h"
 
+
+// Returns the highest level among all party members of the given trainer.
+static u32 GetGymLeaderHighestLevel(u16 trainerId)
+{
+    const struct Trainer *trainer = GetTrainerStructFromId(trainerId);
+    u32 maxLevel = 1;
+    u32 i;
+
+    for (i = 0; i < trainer->partySize; i++)
+    {
+        if (trainer->party[i].lvl > maxLevel)
+            maxLevel = trainer->party[i].lvl;
+    }
+    return maxLevel;
+}
+
+// After all 8 badges, the cap is the LOWEST of the highest levels across all Elite Four members
+// and the Champion. This ensures the player must grind to match the weakest E4 member.
+static u32 GetE4LevelCap(void)
+{
+    static const u16 sEliteFourTrainers[] = {
+        TRAINER_SIDNEY,
+        TRAINER_PHOEBE,
+        TRAINER_GLACIA,
+        TRAINER_DRAKE,
+        TRAINER_WALLACE,
+    };
+    u32 minMax = 100;
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sEliteFourTrainers); i++)
+    {
+        u32 highest = GetGymLeaderHighestLevel(sEliteFourTrainers[i]);
+        if (highest < minMax)
+            minMax = highest;
+    }
+    return minMax;
+}
 
 u32 GetCurrentLevelCap(void)
 {
-    static const u32 sLevelCapFlagMap[][2] =
-    {
-        {FLAG_BADGE01_GET, 15},
-        {FLAG_BADGE02_GET, 19},
-        {FLAG_BADGE03_GET, 24},
-        {FLAG_BADGE04_GET, 29},
-        {FLAG_BADGE05_GET, 31},
-        {FLAG_BADGE06_GET, 33},
-        {FLAG_BADGE07_GET, 42},
-        {FLAG_BADGE08_GET, 46},
-        {FLAG_IS_CHAMPION, 58},
-    };
-
-    u32 i;
-
     if (B_LEVEL_CAP_TYPE == LEVEL_CAP_FLAG_LIST)
     {
-        for (i = 0; i < ARRAY_COUNT(sLevelCapFlagMap); i++)
-        {
-            if (!FlagGet(sLevelCapFlagMap[i][0]))
-                return sLevelCapFlagMap[i][1];
-        }
+        if (!FlagGet(FLAG_BADGE01_GET)) return GetGymLeaderHighestLevel(TRAINER_ROXANNE_1);
+        if (!FlagGet(FLAG_BADGE02_GET)) return GetGymLeaderHighestLevel(TRAINER_BRAWLY_1);
+        if (!FlagGet(FLAG_BADGE03_GET)) return GetGymLeaderHighestLevel(TRAINER_WATTSON_1);
+        if (!FlagGet(FLAG_BADGE04_GET)) return GetGymLeaderHighestLevel(TRAINER_FLANNERY_1);
+        if (!FlagGet(FLAG_BADGE05_GET)) return GetGymLeaderHighestLevel(TRAINER_NORMAN_1);
+        if (!FlagGet(FLAG_BADGE06_GET)) return GetGymLeaderHighestLevel(TRAINER_WINONA_1);
+        if (!FlagGet(FLAG_BADGE07_GET)) return GetGymLeaderHighestLevel(TRAINER_TATE_AND_LIZA_1);
+        if (!FlagGet(FLAG_BADGE08_GET)) return GetGymLeaderHighestLevel(TRAINER_JUAN_1);
+        if (!FlagGet(FLAG_IS_CHAMPION)) return GetE4LevelCap();
     }
     else if (B_LEVEL_CAP_TYPE == LEVEL_CAP_VARIABLE)
     {
