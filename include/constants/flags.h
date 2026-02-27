@@ -1593,6 +1593,11 @@
 #define FLAG_DAILY_APPRENTICE_LEAVES                (DAILY_FLAGS_START + 0x14)
 
 // 0x935–0x948: Reserved for raid den raided flags (see FLAG_DAILY_DEN_RAIDED in raid_den.h)
+// Script-accessible aliases for dens 0–3:
+#define FLAG_DAILY_DEN_RAIDED_0   (DAILY_FLAGS_START + 0x15)
+#define FLAG_DAILY_DEN_RAIDED_1   (DAILY_FLAGS_START + 0x16)
+#define FLAG_DAILY_DEN_RAIDED_2   (DAILY_FLAGS_START + 0x17)
+#define FLAG_DAILY_DEN_RAIDED_3   (DAILY_FLAGS_START + 0x18)
 #define FLAG_UNUSED_0x949                           (DAILY_FLAGS_START + 0x29) // Unused Flag
 #define FLAG_UNUSED_0x94A                           (DAILY_FLAGS_START + 0x2A) // Unused Flag
 #define FLAG_UNUSED_0x94B                           (DAILY_FLAGS_START + 0x2B) // Unused Flag

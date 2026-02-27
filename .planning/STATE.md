@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 
 ## Current Position
 
-Phase: 1 of 7 (Den Foundation)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-02-27 — Completed 01-03-PLAN.md
+Phase: 2 of 7 (Overworld Den Object)
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-02-27 — Completed 02-01-PLAN.md
 
-Progress: [███░░░░░░░] ~15% (3/~20 plans estimated)
+Progress: [████░░░░░░] ~20% (4/~20 plans estimated)
 
 ## Performance Metrics
 
@@ -57,5 +57,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 01-03-PLAN.md — UpdateDynamaxDens daily hook + RollDynamaxDenPokemon stub
+Stopped at: Completed 02-01-PLAN.md — Wishing Piece type set to ITEM_USE_FIELD
 Resume file: None

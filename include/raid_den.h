@@ -19,5 +19,8 @@ struct DynamaxDen
 
 void UpdateDynamaxDens(u16 daysSince);
 u16 RollDynamaxDenPokemon(u8 denId);
+void SetupDynamaxDenObjects(void);
+void ActivateDynamaxDen(void);
+void OpenDenLobbyScreen(void);
 
 #endif // GUARD_RAID_DEN_H

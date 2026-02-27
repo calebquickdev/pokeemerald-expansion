@@ -563,3 +563,6 @@ gSpecials::
 	def_special UseBlankMessageToCancelPokemonPic
 	def_special EnterCode
 	def_special GetCodeFeedback
+	def_special SetupDynamaxDenObjects
+	def_special ActivateDynamaxDen
+	def_special OpenDenLobbyScreen
