@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 
 ## Current Position
 
-Phase: 2 of 7 (Overworld Den Object)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-02-27 — Completed 02-04-PLAN.md
+Phase: 3 of 7 (Battle Core)
+Plan: 1 of ? in current phase
+Status: In progress
+Last activity: 2026-02-27 — Completed 03-01-PLAN.md
 
-Progress: [█████░░░░░] ~30% (7/~20 plans estimated)
+Progress: [████████░░] ~40% (8/~20 plans estimated)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: ~9 minutes
-- Total execution time: ~63 minutes
+- Total execution time: ~72 minutes
 
 **By Phase:**
 
@@ -29,6 +29,7 @@ Progress: [█████░░░░░] ~30% (7/~20 plans estimated)
 |-------|-------|-------|----------|
 | 01 Den Foundation | 3 | ~27 min | ~9 min |
 | 02 Overworld Den Object | 4 | ~36 min | ~9 min |
+| 03 Battle Core | 1 | ~9 min | ~9 min |
 
 *Updated after each plan completion*
 
@@ -47,6 +48,8 @@ Recent decisions affecting current work:
 - [Phase 2]: Wishing Piece uses ITEM_USE_FIELD with CannotUse fieldUseFunc; activation is script-driven (not bag-use)
 - [Phase 2]: Den object is always present in map; graphics switch via SetupDynamaxDenObjects on MAP_SCRIPT_ON_LOAD
 - [Phase 2]: Test den placed in LittlerootTown at (7,3), local ID 9, den ID 0
+- [Phase 3, 03-01]: CreateBattleStartTask exported (was static) via battle_setup.h — needed by raid_den.c
+- [Phase 3, 03-01]: Battler 3 holds B_POSITION_OPPONENT_RIGHT but GetBattlerSide returns B_SIDE_PLAYER for it during RAID battles
 
 ### Pending Todos
 
@@ -62,5 +65,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 02-04-PLAN.md — Den interaction script and LittlerootTown map object
+Stopped at: Completed 03-01-PLAN.md — DoRaidBattle entry point and RAID controller branch
 Resume file: None
