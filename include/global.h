@@ -19,6 +19,7 @@
 #include "constants/trainer_hill.h"
 #include "constants/items.h"
 #include "config/save.h"
+#include "raid_den.h"
 
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
@@ -569,7 +570,8 @@ struct SaveBlock2
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     /*0x64C*/ struct BattleFrontier frontier;
     u32 randomizerSeed;
-}; // sizeof=0xF2C
+    struct DynamaxDen dynamaxDens[MAX_DYNAMAX_DENS];
+}; // sizeof=0xF7C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
 
