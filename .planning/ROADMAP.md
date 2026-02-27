@@ -7,7 +7,7 @@ Adds a complete Dynamax Raid Den system to pokeemerald-expansion: interactable o
 ## Phases
 
 - [x] **Phase 1: Den Foundation** — Save structure, flags, and daily RTC reset
-- [ ] **Phase 2: Overworld Den Object** — Map objects, interaction scripts, Wishing Piece item
+- [x] **Phase 2: Overworld Den Object** — Map objects, interaction scripts, Wishing Piece item
 - [ ] **Phase 3: Battle Core** — BATTLE_TYPE_RAID, 3v1 layout, boss stats, RaidAlly controller
 - [ ] **Phase 4: Dynamax Integration** — RaidData struct, permanent boss Dynamax, ally rotation, sprite swap
 - [ ] **Phase 5: Raid Mechanics** — Shield, turn limit, storm messages, ally respawn
@@ -48,10 +48,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Update Wishing Piece `.type` to `ITEM_USE_FIELD` in `src/data/items.h`
-- [ ] 02-02-PLAN.md — Create placeholder den sprites; register GFX constants, `ObjectEventGraphicsInfo` structs, pointer table entries, and palette lookup
-- [ ] 02-03-PLAN.md — Declare `ObjectEventSetGraphicsIdByLocalIdAndMap`; add script flag aliases; implement `SetupDynamaxDenObjects`, `ActivateDynamaxDen`, `OpenDenLobbyScreen` stub; register specials
-- [ ] 02-04-PLAN.md — Add den object event to LittlerootTown map; `MAP_SCRIPT_ON_LOAD` hook; full den interaction script with Wishing Piece flow
+- [x] 02-01-PLAN.md — Update Wishing Piece `.type` to `ITEM_USE_FIELD` in `src/data/items.h`
+- [x] 02-02-PLAN.md — Create placeholder den sprites; register GFX constants, `ObjectEventGraphicsInfo` structs, pointer table entries, and palette lookup
+- [x] 02-03-PLAN.md — Declare `ObjectEventSetGraphicsIdByLocalIdAndMap`; add script flag aliases; implement `SetupDynamaxDenObjects`, `ActivateDynamaxDen`, `OpenDenLobbyScreen` stub; register specials
+- [x] 02-04-PLAN.md — Add den object event to LittlerootTown map; `MAP_SCRIPT_ON_LOAD` hook; full den interaction script with Wishing Piece flow
 
 ---
 
@@ -156,7 +156,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Den Foundation | 3/3 | Complete | 2026-02-27 |
-| 2. Overworld Den Object | 0/4 | Not started | - |
+| 2. Overworld Den Object | 4/4 | Complete | 2026-02-27 |
 | 3. Battle Core | 0/3 | Not started | - |
 | 4. Dynamax Integration | 0/3 | Not started | - |
 | 5. Raid Mechanics | 0/4 | Not started | - |
