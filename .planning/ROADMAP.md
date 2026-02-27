@@ -68,9 +68,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: Define `BATTLE_TYPE_RAID` flag; implement `DoRaidBattle()` entry point callable from event script; branch `InitSinglePlayerBtlControllers` for raid layout
-- [ ] 03-02: Add `SetControllerToRaidAlly` controller (cloned from `SetControllerToPlayerPartner`); strip Bag/Run/catch; register for ally battler slots
-- [ ] 03-03: Implement boss setup: star→level range randomization, HP × 3 multiplier, permanent-Dynamax guard in `UndoDynamax` and Dynamax timer
+- [ ] 03-01-PLAN.md — DoRaidBattle() entry point, starRating rename, BATTLE_TYPE_RAID branch in InitSinglePlayerBtlControllers
+- [ ] 03-02-PLAN.md — SetControllerToRaidAlly controller cloned from PlayerPartner; header declaration
+- [ ] 03-03-PLAN.md — SetupRaidBossParty() with level/HP×3; UndoDynamax guard; permanent dynamaxTurns[1]=0xFF
 
 ---
 
