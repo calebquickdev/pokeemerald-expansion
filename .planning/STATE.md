@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 6 of 7 (Den Lobby Screen)
-Plan: 1 of 5 in current phase
+Plan: 2 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-27 — Completed 06-01-PLAN.md
+Last activity: 2026-02-28 — Completed 06-02-PLAN.md
 
-Progress: [████████████░] ~78% (18/~23 plans estimated)
+Progress: [████████████░] ~83% (19/~23 plans estimated)
 
 ## Performance Metrics
 
@@ -58,6 +58,7 @@ Recent decisions affecting current work:
 - [Phase 5 - 05-01]: respawnTimer[4] indexed directly by battler; index 1 (boss) intentionally unused
 - [Phase 5 - 05-04]: printfromtable requires const u16[] of STRINGIDs, not pointer array; storm messages use dedicated IDs 731/732; STRINGID_STORM_HURLED_OUT_OF_DEN=733; BATTLESTRINGS_COUNT=734
 - [Phase 6 - 06-01]: RollDynamaxDenPokemon owns all three den field writes; BstToStarRating thresholds ≤299/≤460/≤494/≤549 → 1-5 stars; GMAX upgrade is 10% post-selection pass
+- [Phase 6 - 06-02]: sLobbyState.returnedFromParty guards denId caching (gSpecialVar_0x8000 only valid on first CB2 entry); Task_LobbyFadeOut is intentionally minimal — exit caller sets next callback before fade
 
 ### Pending Todos
 
@@ -72,6 +73,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-27
-Stopped at: Completed 06-01-PLAN.md — RollDynamaxDenPokemon with real species pool and BST star rating
+Last session: 2026-02-28
+Stopped at: Completed 06-02-PLAN.md — CB2_DenLobbyScreen scaffold with EWRAM LobbyState and fade task chain
 Resume file: None
