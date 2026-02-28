@@ -3086,6 +3086,22 @@ bool32 HandleFaintedMonActions(void)
                 if (gBattleMons[gBattleStruct->faintedActionsBattlerId].hp == 0
                  && !(gAbsentBattlerFlags & (1u << gBattleStruct->faintedActionsBattlerId)))
                 {
+                    if ((gBattleTypeFlags & BATTLE_TYPE_RAID)
+                     && GetBattlerSide(gBattleStruct->faintedActionsBattlerId) == B_SIDE_PLAYER)
+                    {
+                        u32 battler = gBattleStruct->faintedActionsBattlerId;
+                        gBattleStruct->raid.respawnTimer[battler] = 2;
+                        gAbsentBattlerFlags |= (1u << battler);
+                        if (gBattleStruct->raid.respawnTimer[0] > 0
+                         && gBattleStruct->raid.respawnTimer[2] > 0
+                         && gBattleStruct->raid.respawnTimer[3] > 0)
+                        {
+                            gBattleOutcome = B_OUTCOME_PLAYER_TELEPORTED;
+                            BattleScriptExecute(BattleScript_RaidStormExpired);
+                        }
+                        gBattleStruct->faintedActionsState = 5;
+                        return TRUE;
+                    }
                     if (IsNuzlockeModeEnabled()
                      && GetBattlerSide(gBattleStruct->faintedActionsBattlerId) == B_SIDE_PLAYER)
                     {

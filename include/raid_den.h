@@ -25,6 +25,7 @@ void OpenDenLobbyScreen(void);
 void DoRaidBattle(void);
 void TryAdvanceRaidRotation(void);
 bool32 TryRaidStormTick(void);
+void TryRaidAllyRespawn(void);
 
 extern u8 gRaidCurrentStarRating;
 

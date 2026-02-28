@@ -157,3 +157,22 @@ bool32 TryRaidStormTick(void)
     BattleScriptExecute(BattleScript_RaidStormMessage);
     return TRUE;
 }
+
+void TryRaidAllyRespawn(void)
+{
+    static const u8 sAllyBattlers[] = {0, 2, 3};
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sAllyBattlers); i++)
+    {
+        u8 battler = sAllyBattlers[i];
+        if (gBattleStruct->raid.respawnTimer[battler] == 0)
+            continue;
+        gBattleStruct->raid.respawnTimer[battler]--;
+        if (gBattleStruct->raid.respawnTimer[battler] == 0)
+        {
+            gBattleMons[battler].hp = gBattleMons[battler].maxHP;
+            gAbsentBattlerFlags &= ~(1u << battler);
+        }
+    }
+}
