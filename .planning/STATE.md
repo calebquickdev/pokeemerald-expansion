@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-27)
 
 **Core value:** Player can find an active raid den, enter it, and complete a 3v1 Dynamax battle to catch a powerful (potentially Gigantamax) Pokémon.
-**Current focus:** Phase 5 — Raid Mechanics
+**Current focus:** Phase 6 — Den Lobby Screen
 
 ## Current Position
 
 Phase: 5 of 7 (Raid Mechanics)
-Plan: 5 of ~5 in current phase
-Status: In progress
+Plan: 4 of 4 in current phase
+Status: Phase complete
 Last activity: 2026-02-28 — Completed 05-03-PLAN.md
 
-Progress: [█████████░] ~70% (16/~23 plans estimated)
+Progress: [██████████░] ~74% (17/~23 plans estimated)
 
 ## Performance Metrics
 
