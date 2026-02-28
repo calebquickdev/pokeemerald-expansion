@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 5 of 7 (Raid Mechanics)
-Plan: 1 of ~5 in current phase
+Plan: 4 of ~5 in current phase
 Status: In progress
-Last activity: 2026-02-28 — Completed 05-01-PLAN.md
+Last activity: 2026-02-28 — Completed 05-04-PLAN.md
 
-Progress: [█████████░] ~61% (14/~23 plans estimated)
+Progress: [█████████░] ~65% (15/~23 plans estimated)
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Recent decisions affecting current work:
 - [Phase 4]: Icon sprite at GetBattlerSpriteCoord positions; invisible full-sprite for Dynamax swap
 - [Phase 5 - 05-01]: Shield intercept uses continue pattern (like Ice Face); zeros moveDamage while leaving other flags; no MOVE_RESULT_NO_EFFECT
 - [Phase 5 - 05-01]: respawnTimer[4] indexed directly by battler; index 1 (boss) intentionally unused
+- [Phase 5 - 05-04]: printfromtable requires const u16[] of STRINGIDs, not pointer array; storm messages use dedicated IDs 731/732; STRINGID_STORM_HURLED_OUT_OF_DEN=733; BATTLESTRINGS_COUNT=734
 
 ### Pending Todos
 
@@ -71,5 +72,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 05-01-PLAN.md — RaidData struct extension, gRaidCurrentStarRating global, shield intercept
+Stopped at: Completed 05-04-PLAN.md — ENDTURN_RAID_STORM, TryRaidStormTick(), battle scripts, storm string IDs
 Resume file: None
