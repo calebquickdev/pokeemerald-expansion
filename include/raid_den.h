@@ -25,4 +25,6 @@ void OpenDenLobbyScreen(void);
 void DoRaidBattle(void);
 void TryAdvanceRaidRotation(void);
 
+extern u8 gRaidCurrentStarRating;
+
 #endif // GUARD_RAID_DEN_H

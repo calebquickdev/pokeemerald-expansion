@@ -591,8 +591,9 @@ struct RaidData
 {
     u8 dynamaxEnergy;        // index of the battler eligible to Dynamax this turn (0, 2, or 3)
     u8 allyIconSpriteId[2];  // icon sprite IDs for battlers 2 and 3; MAX_SPRITES = sentinel
-    u8 shieldHp;             // Phase 5: boss shield units remaining (zeroed this phase)
-    u8 respawnTimer[3];      // Phase 5: per-ally faint respawn countdowns (zeroed this phase)
+    u8 shieldHp;             // boss shield units remaining
+    u8 shieldPhase;          // 0 = no shield granted, 1 = 75% shield granted, 2 = 50% shield granted
+    u8 respawnTimer[4];      // per-ally respawn countdown indexed by battler (battlers 0, 2, 3; index 1 unused)
 };
 
 struct LostItem

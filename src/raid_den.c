@@ -14,6 +14,8 @@
 #include "constants/battle.h"
 #include "constants/event_objects.h"
 
+EWRAM_DATA u8 gRaidCurrentStarRating = 0;
+
 static const struct {
     u8 mapGroup;
     u8 mapNum;
@@ -87,6 +89,7 @@ static void SetupRaidBossParty(u8 denId)
 
     if (stars == 0 || stars > 5)
         stars = 1;
+    gRaidCurrentStarRating = stars;
     if (species == 0)
         species = SPECIES_ZIGZAGOON;
 
