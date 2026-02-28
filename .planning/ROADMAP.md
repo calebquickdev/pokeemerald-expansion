@@ -124,11 +124,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 06-01: Complete `RollDynamaxDenPokemon(denId)`: base-form-only species pool (GMAX forms as the sole exception); BST→star formula (0–299=1★, 300–460=2★, 461–494=3★, 495–549=4★, 550+=5★; GMAX always 5★)
-- [ ] 06-02: Build `CB2_DenLobbyScreen` scaffolding: `SetMainCallback2`, `CreateTask`, `RunTasks`; allocate and free VRAM/palettes on enter/exit
-- [ ] 06-03: Render left half: orange background fill; load and display boss silhouette via `LoadSpecialPokePic`; draw star rating above silhouette
-- [ ] 06-04: Render right half: player trainer name text; create party Pokémon icon via `CreateMonIcon`; hook "Change Pokémon" to party screen and update icon on return
-- [ ] 06-05: Implement lobby menu: "Invite Others" WIP message, "Don't Invite Others" calls `DoRaidBattle()`, "Quit" returns to overworld via `SetMainCallback2(CB2_ReturnToFieldWithOpenMenu)`
+- [ ] 06-01-PLAN.md — `RollDynamaxDenPokemon`: base-form species pool (GMAX exception), BST→star formula, write full den struct
+- [ ] 06-02-PLAN.md — `CB2_DenLobbyScreen` scaffolding: EWRAM state struct, VBlank/Main callbacks, fade-in task chain, `OpenDenLobbyScreen` replacement
+- [ ] 06-03-PLAN.md — Left half: orange BG fill, boss front-sprite silhouette via `HandleLoadSpecialPokePic`, star rating text above
+- [ ] 06-04-PLAN.md — Right half: player name text, party icon via `CreateMonIcon`, "Change Pokémon" round-trip with `ChooseMonForTradingBoard`
+- [ ] 06-05-PLAN.md — Lobby menu: all four options ("Invite Others" WIP, "Don't Invite Others" → `DoRaidBattle`, "Change Pokémon", "Quit" → overworld)
 
 ---
 
