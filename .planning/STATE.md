@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 6 of 7 (Den Lobby Screen)
-Plan: 3 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-28 — Completed 06-03-PLAN.md
+Last activity: 2026-02-27 — Completed 06-04-PLAN.md
 
-Progress: [████████████░] ~83% (19/~23 plans estimated)
+Progress: [█████████████░] ~87% (20/~23 plans estimated)
 
 ## Performance Metrics
 
@@ -61,6 +61,8 @@ Recent decisions affecting current work:
 - [Phase 6 - 06-02]: sLobbyState.returnedFromParty guards denId caching (gSpecialVar_0x8000 only valid on first CB2 entry); Task_LobbyFadeOut is intentionally minimal — exit caller sets next callback before fade
 - [Phase 6 - 06-03]: Star rating uses 0xAB (CHAR_EXCL_MARK, '!') — no star/asterisk glyph in GBA charmap
 - [Phase 6 - 06-03]: BG_PLTT_ID(n)+1 for fill color index 1 (PIXEL_FILL(1)); window baseBlocks: win0=1 (300 tiles), win1=301
+- [Phase 6 - 06-04]: AddTextPrinterParameterized4 arg 7 is const u8[] color, arg 9 is str; playerName passed directly (no StringCopy needed)
+- [Phase 6 - 06-04]: GetCursorSelectionMonId() called before ResetSpriteData/ResetTasks in CB2_DenLobbyScreen re-entry; selectedSlot=0 only on fresh entry
 
 ### Pending Todos
 
@@ -75,6 +77,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-28
-Stopped at: Completed 06-03-PLAN.md — orange left panel BG, boss silhouette sprite, star rating text
+Last session: 2026-02-27
+Stopped at: Completed 06-04-PLAN.md — right panel player name + party icon; Change Pokemon round-trip via ChooseMonForTradingBoard
 Resume file: None
