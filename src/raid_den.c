@@ -23,6 +23,7 @@
 #include "bg.h"
 #include "window.h"
 #include "text.h"
+#include "text_window.h"
 #include "menu.h"
 #include "string_util.h"
 #include "decompress.h"
@@ -42,6 +43,7 @@ struct LobbyState
     u8    iconSpriteId;
     u8    menuWindowId;
     u8    infoWindowId;
+    u8    starSpriteIds[5];
     bool8 returnedFromParty;
 };
 
@@ -51,7 +53,6 @@ static void Task_LobbyFadeIn(u8 taskId);
 static void Task_LobbyRenderLeft(u8 taskId);
 static void Task_LobbyRenderRight(u8 taskId);
 static void Task_LobbyMain(u8 taskId);
-static void Task_LobbyFadeOut(u8 taskId);
 static void Task_LobbyChangePokemon(u8 taskId);
 static void Task_LobbyChangePokemon_WaitFade(u8 taskId);
 static void Task_LobbyInputLoop(u8 taskId);
@@ -285,10 +286,57 @@ static const struct WindowTemplate sLobbyWindowTemplates[] = {
         .tilemapTop = 0,
         .width = 15,
         .height = 20,
-        .paletteNum = 2,
+        .paletteNum = STD_WINDOW_PALETTE_NUM,
         .baseBlock = 301,
     },
     DUMMY_WIN_TEMPLATE
+};
+
+// Unique tags that won't conflict with other sprite systems.
+#define LOBBY_STAR_TILE_TAG 0xDA01
+#define LOBBY_STAR_PAL_TAG  0xDA02
+
+static const u32 sLobbyStarGfx[] = INCBIN_U32("graphics/dexnav/star.4bpp.lz");
+
+static const struct OamData sLobbyStarOam =
+{
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode    = ST_OAM_OBJ_NORMAL,
+    .shape      = SPRITE_SHAPE(8x8),
+    .size       = SPRITE_SIZE(8x8),
+    .priority   = 0,
+};
+
+// Silhouette palette: color 0 = transparent, colors 1-15 = black.
+static const u16 sLobbyStarPalette[] =
+{
+    RGB(0, 0, 0),   // [0] transparent
+    RGB_BLACK,      // [1] black star body
+    RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK,
+    RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK,
+    RGB_BLACK, RGB_BLACK, RGB_BLACK, RGB_BLACK,
+    RGB_BLACK, RGB_BLACK,
+};
+
+static const struct SpritePalette sLobbyStarSpritePalette =
+{
+    sLobbyStarPalette, LOBBY_STAR_PAL_TAG
+};
+
+static const struct CompressedSpriteSheet sLobbyStarSpriteSheet =
+{
+    sLobbyStarGfx, (8 * 8) / 2, LOBBY_STAR_TILE_TAG
+};
+
+static const struct SpriteTemplate sLobbyStarTemplate =
+{
+    .tileTag     = LOBBY_STAR_TILE_TAG,
+    .paletteTag  = LOBBY_STAR_PAL_TAG,
+    .oam         = &sLobbyStarOam,
+    .anims       = gDummySpriteAnimTable,
+    .images      = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback    = SpriteCallbackDummy,
 };
 
 static void VBlankCB_Lobby(void)
@@ -335,21 +383,41 @@ void CB2_DenLobbyScreen(void)
 
     ResetBgsAndClearDma3BusyFlags(0);
     InitBgsFromTemplates(0, sLobbyBgTemplates, ARRAY_COUNT(sLobbyBgTemplates));
+    FreeAllWindowBuffers();
     InitWindows(sLobbyWindowTemplates);
     DeactivateAllTextPrinters();
     sLobbyState.menuWindowId = 1;
+
+    // Standard menu palette (palette 14) is required by SetStandardWindowBorderStyle
+    // and for correct FONT_NORMAL rendering (fgColor=2, bgColor=1, shadowColor=3).
+    Menu_LoadStdPal();
+    LoadUserWindowBorderGfx(0, STD_WINDOW_BASE_TILE_NUM, BG_PLTT_ID(STD_WINDOW_PALETTE_NUM));
+
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0 | DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON);
     ShowBg(0);
 
-    FillPalette(RGB(31, 16, 0), BG_PLTT_ID(1) + 1, PLTT_SIZEOF(1));
+    // Left panel palette (palette 1):
+    //   [0] = transparent black (color behind window tiles)
+    //   [1] = Dynamax orange fill (PIXEL_FILL(1) background)
+    //   [2] = white (FONT_NORMAL fgColor=2)
+    //   [3] = dark shadow (FONT_NORMAL shadowColor=3)
+    FillPalette(RGB_BLACK,        BG_PLTT_ID(1),     PLTT_SIZEOF(16));
+    FillPalette(RGB(31, 16, 0),   BG_PLTT_ID(1) + 1, PLTT_SIZEOF(1));
+    FillPalette(RGB_WHITE,        BG_PLTT_ID(1) + 2, PLTT_SIZEOF(1));
+    FillPalette(RGB(8, 4, 0),     BG_PLTT_ID(1) + 3, PLTT_SIZEOF(1));
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
     PutWindowTilemap(0);
     CopyWindowToVram(0, COPYWIN_FULL);
 
-    FillPalette(RGB(28, 24, 20), BG_PLTT_ID(2) + 1, PLTT_SIZEOF(1));
+    // Right panel uses STD_WINDOW_PALETTE_NUM (14) loaded above; fill with
+    // bgColor index 1 from the standard palette = the standard dialog background.
     FillWindowPixelBuffer(1, PIXEL_FILL(1));
     PutWindowTilemap(1);
     CopyWindowToVram(1, COPYWIN_FULL);
+
+    // Roll species now if this den has never been activated (prevents defaulting to Zigzagoon).
+    if (gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].species == SPECIES_NONE)
+        RollDynamaxDenPokemon(sLobbyState.denId);
 
     BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
@@ -372,48 +440,57 @@ static void Task_LobbyFadeIn(u8 taskId)
 
 static void Task_LobbyRenderLeft(u8 taskId)
 {
+    u16 species = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].species;
+
     switch (gTasks[taskId].data[0])
     {
     case 0:
-        {
-            u16 species = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].species;
-            AllocateMonSpritesGfx();
-            HandleLoadSpecialPokePic(TRUE,
-                gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT],
-                species, 0);
-            gTasks[taskId].data[0] = 1;
-        }
+        AllocateMonSpritesGfx();
+        HandleLoadSpecialPokePic(TRUE,
+            gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT],
+            species, 0);
+        gTasks[taskId].data[0] = 1;
         break;
     case 1:
+        // Wait for the decompression DMA to finish before creating the sprite.
+        if (IsDma3ManagerBusyWithBgCopy())
+            break;
         {
-            u16 species = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].species;
             u8 palNum;
             LoadCompressedSpritePaletteWithTag(
                 GetMonSpritePalFromSpecies(species, FALSE, FALSE), species);
             SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_OPPONENT_LEFT);
-            sLobbyState.bossSpriteId = CreateSprite(&gMultiuseSpriteTemplate, 28, 40, 1);
+            // Center on the 120×160 left panel (15×20 tiles at 8px each).
+            sLobbyState.bossSpriteId = CreateSprite(&gMultiuseSpriteTemplate, 60, 80, 1);
             gSprites[sLobbyState.bossSpriteId].callback = SpriteCallbackDummy;
             gSprites[sLobbyState.bossSpriteId].oam.priority = 0;
             palNum = gSprites[sLobbyState.bossSpriteId].oam.paletteNum;
+            // Silhouette: blacken all non-transparent OBJ palette entries.
             FillPalette(RGB_BLACK, OBJ_PLTT_ID(palNum) + 1, PLTT_SIZE_4BPP - 2);
-            gTasks[taskId].data[0] = 2;
         }
+        gTasks[taskId].data[0] = 2;
         break;
     case 2:
         {
             u8 stars = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].starRating;
-            static u8 sStarText[12];
-            static const u8 sStarColor[] = {1, 0, 0};
             u8 i;
-            u8 *ptr = sStarText;
+            s16 startX;
             if (stars == 0 || stars > 5)
                 stars = 1;
-            // CHAR_EXCL_MARK (0xAB) used as star placeholder — no ★ in GBA font
+
+            LoadCompressedSpriteSheetUsingHeap(&sLobbyStarSpriteSheet);
+            LoadSpritePalette(&sLobbyStarSpritePalette);
+
+            // Center the star row at x=60 (mid-point of the 120px left panel).
+            // Each star is 8px wide; sprite anchor is at tile center.
+            startX = 60 - (s16)((stars * 8) / 2) + 4;
             for (i = 0; i < stars; i++)
-                *ptr++ = 0xAB;
-            *ptr = EOS;
-            AddTextPrinterParameterized4(0, FONT_NORMAL, 8, 8, 0, 0, sStarColor, TEXT_SKIP_DRAW, sStarText);
-            CopyWindowToVram(0, COPYWIN_GFX);
+            {
+                u8 sprId = CreateSprite(&sLobbyStarTemplate, startX + i * 8, 20, 0);
+                sLobbyState.starSpriteIds[i] = sprId;
+            }
+            for (; i < 5; i++)
+                sLobbyState.starSpriteIds[i] = MAX_SPRITES;
         }
         gTasks[taskId].func = Task_LobbyRenderRight;
         break;
@@ -427,25 +504,27 @@ static void Task_LobbyRenderRight(u8 taskId)
     u32 personality = GetMonData(&gPlayerParty[slot], MON_DATA_PERSONALITY, NULL);
 
     LoadMonIconPalette(species);
-    // Icon at (200, 120): below the four menu items, within the right panel.
-    sLobbyState.iconSpriteId = CreateMonIcon(species, SpriteCB_MonIcon, 200, 120, 4, personality);
+    // Icon on the right side of the panel; name will be printed at window y=90
+    // so we anchor the icon center to screen y=96 for a side-by-side grouping.
+    sLobbyState.iconSpriteId = CreateMonIcon(species, SpriteCB_MonIcon, 208, 96, 4, personality);
 
     gTasks[taskId].func = Task_LobbyMain;
 }
 
 static void Task_LobbyMain(u8 taskId)
 {
-    static const u8 sNameColor[] = {1, 0, 0};
-
+    // Clear to standard bgColor (index 1) before redrawing menu and name.
+    FillWindowPixelBuffer(sLobbyState.menuWindowId, PIXEL_FILL(1));
     SetStandardWindowBorderStyle(sLobbyState.menuWindowId, FALSE);
     PrintMenuTable(sLobbyState.menuWindowId,
                    ARRAY_COUNT(sLobbyMenuActions), sLobbyMenuActions);
     InitMenuInUpperLeftCornerNormal(sLobbyState.menuWindowId,
                                    ARRAY_COUNT(sLobbyMenuActions), 0);
-    // Player name printed after menu items (4 items * ~16px = ~64px; name at y=80).
-    AddTextPrinterParameterized4(sLobbyState.menuWindowId, FONT_NORMAL,
-                                 4, 80, 0, 0, sNameColor, TEXT_SKIP_DRAW,
-                                 gSaveBlock2Ptr->playerName);
+    // Player name at y=88 in window; icon is at screen y=96. Both sit in the lower
+    // quarter of the right panel, visually grouped as a unit.
+    AddTextPrinterParameterized(sLobbyState.menuWindowId, FONT_NORMAL,
+                                gSaveBlock2Ptr->playerName, 4, 88,
+                                TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(sLobbyState.menuWindowId, COPYWIN_FULL);
     gTasks[taskId].func = Task_LobbyInputLoop;
 }
@@ -468,11 +547,10 @@ static void Task_LobbyInputLoop(u8 taskId)
 
 static void Task_LobbyInviteOthers(u8 taskId)
 {
-    static const u8 sWipColor[] = {0, 1, 2};
-    FillWindowPixelBuffer(sLobbyState.menuWindowId, PIXEL_FILL(0));
-    AddTextPrinterParameterized4(sLobbyState.menuWindowId, FONT_NORMAL,
-                                 4, 4, 0, 0, sWipColor,
-                                 TEXT_SKIP_DRAW, sText_InviteWIP);
+    FillWindowPixelBuffer(sLobbyState.menuWindowId, PIXEL_FILL(1));
+    AddTextPrinterParameterized(sLobbyState.menuWindowId, FONT_NORMAL,
+                                sText_InviteWIP, 4, 4,
+                                TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(sLobbyState.menuWindowId, COPYWIN_FULL);
     gTasks[taskId].func = Task_LobbyInviteOthers_WaitDismiss;
 }
@@ -494,7 +572,16 @@ static void Task_LobbyStartRaid_WaitFade(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        u8 i;
         FreeMonSpritesGfx();
+        FreeSpriteTilesByTag(LOBBY_STAR_TILE_TAG);
+        FreeSpritePaletteByTag(LOBBY_STAR_PAL_TAG);
+        for (i = 0; i < 5; i++)
+        {
+            if (sLobbyState.starSpriteIds[i] < MAX_SPRITES)
+                DestroySprite(&gSprites[sLobbyState.starSpriteIds[i]]);
+        }
+        FreeAllWindowBuffers();
         DoRaidBattle();
         DestroyTask(taskId);
     }
@@ -510,23 +597,36 @@ static void Task_LobbyQuit_WaitFade(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        u8 i;
         FreeMonSpritesGfx();
+        FreeSpriteTilesByTag(LOBBY_STAR_TILE_TAG);
+        FreeSpritePaletteByTag(LOBBY_STAR_PAL_TAG);
+        for (i = 0; i < 5; i++)
+        {
+            if (sLobbyState.starSpriteIds[i] < MAX_SPRITES)
+                DestroySprite(&gSprites[sLobbyState.starSpriteIds[i]]);
+        }
+        FreeAllWindowBuffers();
         DestroyTask(taskId);
         SetMainCallback2(CB2_ReturnToFieldWithOpenMenu);
     }
 }
 
-static void Task_LobbyFadeOut(u8 taskId)
-{
-    if (!gPaletteFade.active)
-        DestroyTask(taskId);
-}
-
 static void Task_LobbyChangePokemon(u8 taskId)
 {
+    u8 i;
     u16 species = GetMonData(&gPlayerParty[sLobbyState.selectedSlot], MON_DATA_SPECIES, NULL);
     FreeAndDestroyMonIconSprite(&gSprites[sLobbyState.iconSpriteId]);
     FreeMonIconPalette(species);
+    // Must free before the party menu runs; CB2_DenLobbyScreen will AllocateMonSpritesGfx again on return.
+    FreeMonSpritesGfx();
+    for (i = 0; i < 5; i++)
+    {
+        if (sLobbyState.starSpriteIds[i] < MAX_SPRITES)
+            DestroySprite(&gSprites[sLobbyState.starSpriteIds[i]]);
+    }
+    FreeSpriteTilesByTag(LOBBY_STAR_TILE_TAG);
+    FreeSpritePaletteByTag(LOBBY_STAR_PAL_TAG);
 
     sLobbyState.returnedFromParty = TRUE;
 
@@ -538,6 +638,7 @@ static void Task_LobbyChangePokemon_WaitFade(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        FreeAllWindowBuffers();
         ChooseMonForTradingBoard(PARTY_MENU_TYPE_FIELD, CB2_DenLobbyScreen);
         DestroyTask(taskId);
     }
