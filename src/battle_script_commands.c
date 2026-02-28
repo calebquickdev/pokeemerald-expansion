@@ -2639,6 +2639,30 @@ static void Cmd_datahpupdate(void)
                     gBattleMons[battler].hp = 0;
                 }
 
+                if ((gBattleTypeFlags & BATTLE_TYPE_RAID)
+                 && battler == B_POSITION_OPPONENT_LEFT
+                 && !(gHitMarker & HITMARKER_PASSIVE_DAMAGE)
+                 && !(gBattleStruct->moveResultFlags[battler] & MOVE_RESULT_NO_EFFECT))
+                {
+                    u32 hp    = gBattleMons[B_POSITION_OPPONENT_LEFT].hp;
+                    u32 maxHp = gBattleMons[B_POSITION_OPPONENT_LEFT].maxHP;
+                    if (gBattleStruct->raid.shieldPhase == 0 && hp * 4 < maxHp * 3)
+                    {
+                        gBattleStruct->raid.shieldHp    = 1 + gRaidCurrentStarRating;
+                        gBattleStruct->raid.shieldPhase = 1;
+                        if (hp * 2 < maxHp)
+                        {
+                            gBattleStruct->raid.shieldHp    = 1 + gRaidCurrentStarRating;
+                            gBattleStruct->raid.shieldPhase = 2;
+                        }
+                    }
+                    else if (gBattleStruct->raid.shieldPhase == 1 && hp * 2 < maxHp)
+                    {
+                        gBattleStruct->raid.shieldHp    = 1 + gRaidCurrentStarRating;
+                        gBattleStruct->raid.shieldPhase = 2;
+                    }
+                }
+
                 u32 effect = GetMoveEffect(gCurrentMove);
 
                 // Note: While physicalDmg/specialDmg below are only distinguished between for Counter/Mirror Coat, they are
