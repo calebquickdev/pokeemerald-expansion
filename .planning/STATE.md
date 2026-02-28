@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 
 ## Current Position
 
-Phase: 5 of 7 (Raid Mechanics)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-02-28 — Completed 05-03-PLAN.md
+Phase: 6 of 7 (Den Lobby Screen)
+Plan: 1 of 5 in current phase
+Status: In progress
+Last activity: 2026-02-27 — Completed 06-01-PLAN.md
 
-Progress: [██████████░] ~74% (17/~23 plans estimated)
+Progress: [████████████░] ~78% (18/~23 plans estimated)
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Recent decisions affecting current work:
 - [Phase 5 - 05-01]: Shield intercept uses continue pattern (like Ice Face); zeros moveDamage while leaving other flags; no MOVE_RESULT_NO_EFFECT
 - [Phase 5 - 05-01]: respawnTimer[4] indexed directly by battler; index 1 (boss) intentionally unused
 - [Phase 5 - 05-04]: printfromtable requires const u16[] of STRINGIDs, not pointer array; storm messages use dedicated IDs 731/732; STRINGID_STORM_HURLED_OUT_OF_DEN=733; BATTLESTRINGS_COUNT=734
+- [Phase 6 - 06-01]: RollDynamaxDenPokemon owns all three den field writes; BstToStarRating thresholds ≤299/≤460/≤494/≤549 → 1-5 stars; GMAX upgrade is 10% post-selection pass
 
 ### Pending Todos
 
@@ -71,6 +72,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-28
-Stopped at: Completed 05-03-PLAN.md — Ally respawn cycle: faint intercept, TryRaidAllyRespawn(), all-fainted flee trigger
+Last session: 2026-02-27
+Stopped at: Completed 06-01-PLAN.md — RollDynamaxDenPokemon with real species pool and BST star rating
 Resume file: None
