@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 5 of 7 (Raid Mechanics)
-Plan: 4 of ~5 in current phase
+Plan: 5 of ~5 in current phase
 Status: In progress
-Last activity: 2026-02-28 — Completed 05-04-PLAN.md
+Last activity: 2026-02-28 — Completed 05-03-PLAN.md
 
-Progress: [█████████░] ~65% (15/~23 plans estimated)
+Progress: [█████████░] ~70% (16/~23 plans estimated)
 
 ## Performance Metrics
 
@@ -72,5 +72,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 05-04-PLAN.md — ENDTURN_RAID_STORM, TryRaidStormTick(), battle scripts, storm string IDs
+Stopped at: Completed 05-03-PLAN.md — Ally respawn cycle: faint intercept, TryRaidAllyRespawn(), all-fainted flee trigger
 Resume file: None
