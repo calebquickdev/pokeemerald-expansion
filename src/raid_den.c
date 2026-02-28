@@ -54,6 +54,26 @@ static void Task_LobbyMain(u8 taskId);
 static void Task_LobbyFadeOut(u8 taskId);
 static void Task_LobbyChangePokemon(u8 taskId);
 static void Task_LobbyChangePokemon_WaitFade(u8 taskId);
+static void Task_LobbyInputLoop(u8 taskId);
+static void Task_LobbyInviteOthers(u8 taskId);
+static void Task_LobbyInviteOthers_WaitDismiss(u8 taskId);
+static void Task_LobbyStartRaid(u8 taskId);
+static void Task_LobbyStartRaid_WaitFade(u8 taskId);
+static void Task_LobbyQuit(u8 taskId);
+static void Task_LobbyQuit_WaitFade(u8 taskId);
+
+static const u8 sText_InviteOthers[]     = _("Invite Others");
+static const u8 sText_DontInviteOthers[] = _("Don't Invite Others");
+static const u8 sText_ChangePokemon[]    = _("Change Pokemon");
+static const u8 sText_Quit[]             = _("Quit");
+static const u8 sText_InviteWIP[]        = _("This feature is not complete yet.");
+
+static const struct MenuAction sLobbyMenuActions[] = {
+    { sText_InviteOthers,     { .void_u8 = Task_LobbyInviteOthers  } },
+    { sText_DontInviteOthers, { .void_u8 = Task_LobbyStartRaid     } },
+    { sText_ChangePokemon,    { .void_u8 = Task_LobbyChangePokemon  } },
+    { sText_Quit,             { .void_u8 = Task_LobbyQuit           } },
+};
 
 static const struct {
     u8 mapGroup;
@@ -416,7 +436,79 @@ static void Task_LobbyRenderRight(u8 taskId)
 
 static void Task_LobbyMain(u8 taskId)
 {
-    (void)taskId;
+    SetStandardWindowBorderStyle(sLobbyState.menuWindowId, FALSE);
+    PrintMenuTable(sLobbyState.menuWindowId,
+                   ARRAY_COUNT(sLobbyMenuActions), sLobbyMenuActions);
+    InitMenuInUpperLeftCornerNormal(sLobbyState.menuWindowId,
+                                   ARRAY_COUNT(sLobbyMenuActions), 0);
+    CopyWindowToVram(sLobbyState.menuWindowId, COPYWIN_FULL);
+    gTasks[taskId].func = Task_LobbyInputLoop;
+}
+
+static void Task_LobbyInputLoop(u8 taskId)
+{
+    s8 selection = Menu_ProcessInputNoWrap();
+
+    if (selection == MENU_NOTHING_CHOSEN)
+        return;
+
+    if (selection == MENU_B_PRESSED)
+    {
+        gTasks[taskId].func = Task_LobbyQuit;
+        return;
+    }
+
+    gTasks[taskId].func = sLobbyMenuActions[selection].func.void_u8;
+}
+
+static void Task_LobbyInviteOthers(u8 taskId)
+{
+    static const u8 sWipColor[] = {0, 1, 2};
+    FillWindowPixelBuffer(sLobbyState.menuWindowId, PIXEL_FILL(0));
+    AddTextPrinterParameterized4(sLobbyState.menuWindowId, FONT_NORMAL,
+                                 4, 4, 0, 0, sWipColor,
+                                 TEXT_SKIP_DRAW, sText_InviteWIP);
+    CopyWindowToVram(sLobbyState.menuWindowId, COPYWIN_FULL);
+    gTasks[taskId].func = Task_LobbyInviteOthers_WaitDismiss;
+}
+
+static void Task_LobbyInviteOthers_WaitDismiss(u8 taskId)
+{
+    if (JOY_NEW(A_BUTTON | B_BUTTON))
+        gTasks[taskId].func = Task_LobbyMain;
+}
+
+static void Task_LobbyStartRaid(u8 taskId)
+{
+    gSpecialVar_0x8000 = sLobbyState.denId;
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+    gTasks[taskId].func = Task_LobbyStartRaid_WaitFade;
+}
+
+static void Task_LobbyStartRaid_WaitFade(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FreeMonSpritesGfx();
+        DoRaidBattle();
+        DestroyTask(taskId);
+    }
+}
+
+static void Task_LobbyQuit(u8 taskId)
+{
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+    gTasks[taskId].func = Task_LobbyQuit_WaitFade;
+}
+
+static void Task_LobbyQuit_WaitFade(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FreeMonSpritesGfx();
+        DestroyTask(taskId);
+        SetMainCallback2(CB2_ReturnToFieldWithOpenMenu);
+    }
 }
 
 static void Task_LobbyFadeOut(u8 taskId)
