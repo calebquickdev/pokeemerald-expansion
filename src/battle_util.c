@@ -33,6 +33,7 @@
 #include "event_data.h"
 #include "nuzlocke.h"
 #include "link.h"
+#include "raid_den.h"
 #include "malloc.h"
 #include "berry.h"
 #include "pokedex.h"
@@ -1645,6 +1646,7 @@ enum
     ENDTURN_RAINBOW,
     ENDTURN_SEA_OF_FIRE,
     ENDTURN_SWAMP,
+    ENDTURN_RAID_STORM,
     ENDTURN_FIELD_COUNT,
 };
 
@@ -2140,6 +2142,11 @@ u8 DoFieldEndTurnEffects(void)
                 gBattleStruct->turnCountersTracker++;
                 gBattleStruct->turnSideTracker = 0;
             }
+            break;
+        case ENDTURN_RAID_STORM:
+            if (gBattleTypeFlags & BATTLE_TYPE_RAID)
+                effect = TryRaidStormTick();
+            gBattleStruct->turnCountersTracker++;
             break;
         case ENDTURN_FIELD_COUNT:
             effect++;

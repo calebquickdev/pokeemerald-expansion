@@ -10083,3 +10083,14 @@ BattleScript_SleepClausePreventsEnd::
 	printstring STRINGID_BLOCKEDBYSLEEPCLAUSE
 	waitmessage B_WAIT_TIME_LONG
 	end2
+
+BattleScript_RaidStormMessage::
+	printfromtable gRaidStormStringIds
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_RaidStormExpired::
+	printstring STRINGID_STORM_HURLED_OUT_OF_DEN
+	waitmessage B_WAIT_TIME_LONG
+	end2
+

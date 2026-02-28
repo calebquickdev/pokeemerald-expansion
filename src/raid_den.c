@@ -5,6 +5,7 @@
 #include "event_object_movement.h"
 #include "battle.h"
 #include "battle_gimmick.h"
+#include "battle_scripts.h"
 #include "battle_setup.h"
 #include "battle_transition.h"
 #include "overworld.h"
@@ -142,4 +143,17 @@ void DoRaidBattle(void)
 void OpenDenLobbyScreen(void)
 {
     DoRaidBattle();
+}
+
+bool32 TryRaidStormTick(void)
+{
+    if (gBattleTurnCounter >= 10)
+    {
+        gBattleOutcome = B_OUTCOME_PLAYER_TELEPORTED;
+        BattleScriptExecute(BattleScript_RaidStormExpired);
+        return TRUE;
+    }
+    gBattleCommunication[MULTISTRING_CHOOSER] = (gBattleTurnCounter == 9) ? 1 : 0;
+    BattleScriptExecute(BattleScript_RaidStormMessage);
+    return TRUE;
 }

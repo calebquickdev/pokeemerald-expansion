@@ -894,6 +894,14 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_SENDCAUGHTMONPARTYORBOX]              = COMPOUND_STRING("Add {B_DEF_NAME} to your party?"),
     [STRINGID_PKMNSENTTOPCAFTERCATCH]               = gText_PkmnSentToPCAfterCatch,
     [STRINGID_NUZLOCKEBALLBLOCK]                    = COMPOUND_STRING("You may only catch the first\nPokémon on a route."),
+    [STRINGID_STORM_GROWING_STRONGER]               = COMPOUND_STRING("The storm is\ngrowing stronger."),
+    [STRINGID_STORM_GROWING_UNBEARABLE]             = COMPOUND_STRING("The storm is\ngrowing unbearable!"),
+    [STRINGID_STORM_HURLED_OUT_OF_DEN]              = COMPOUND_STRING("The storm hurled you\nout of the den."),
+};
+
+const u16 gRaidStormStringIds[] = {
+    [0] = STRINGID_STORM_GROWING_STRONGER,
+    [1] = STRINGID_STORM_GROWING_UNBEARABLE,
 };
 
 const u16 gTrainerUsedItemStringIds[] =

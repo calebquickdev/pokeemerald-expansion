@@ -24,6 +24,7 @@ void ActivateDynamaxDen(void);
 void OpenDenLobbyScreen(void);
 void DoRaidBattle(void);
 void TryAdvanceRaidRotation(void);
+bool32 TryRaidStormTick(void);
 
 extern u8 gRaidCurrentStarRating;
 
