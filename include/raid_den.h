@@ -21,6 +21,7 @@ void UpdateDynamaxDens(u16 daysSince);
 u16 RollDynamaxDenPokemon(u8 denId);
 void SetupDynamaxDenObjects(void);
 void ActivateDynamaxDen(void);
+void CB2_DenLobbyScreen(void);
 void OpenDenLobbyScreen(void);
 void DoRaidBattle(void);
 void TryAdvanceRaidRotation(void);

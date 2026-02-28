@@ -47,6 +47,10 @@ struct LobbyState
 
 static EWRAM_DATA struct LobbyState sLobbyState = {0};
 
+static void Task_LobbyFadeIn(u8 taskId);
+static void Task_LobbyMain(u8 taskId);
+static void Task_LobbyFadeOut(u8 taskId);
+
 static const struct {
     u8 mapGroup;
     u8 mapNum;
@@ -220,9 +224,64 @@ void DoRaidBattle(void)
     ScriptContext_Stop();
 }
 
+static void VBlankCB_Lobby(void)
+{
+    LoadOam();
+    ProcessSpriteCopyRequests();
+    TransferPlttBuffer();
+}
+
+static void MainCB2_Lobby(void)
+{
+    RunTasks();
+    AnimateSprites();
+    BuildOamBuffer();
+    UpdatePaletteFade();
+}
+
+void CB2_DenLobbyScreen(void)
+{
+    if (!sLobbyState.returnedFromParty)
+        sLobbyState.denId = (u8)gSpecialVar_0x8000;
+
+    SetVBlankCallback(NULL);
+    SetGpuReg(REG_OFFSET_DISPCNT, 0);
+    DmaFill16(3, 0, VRAM, VRAM_SIZE);
+    DmaFill32(3, 0, OAM, OAM_SIZE);
+    DmaFill16(3, 0, PLTT, PLTT_SIZE);
+    ScanlineEffect_Stop();
+    ResetTasks();
+    ResetSpriteData();
+    ResetPaletteFade();
+    FreeAllSpritePalettes();
+    BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
+    EnableInterrupts(1);
+    SetVBlankCallback(VBlankCB_Lobby);
+    SetMainCallback2(MainCB2_Lobby);
+    CreateTask(Task_LobbyFadeIn, 0);
+}
+
 void OpenDenLobbyScreen(void)
 {
-    DoRaidBattle();
+    SetMainCallback2(CB2_DenLobbyScreen);
+}
+
+static void Task_LobbyFadeIn(u8 taskId)
+{
+    if (!gPaletteFade.active)
+        gTasks[taskId].func = Task_LobbyMain;
+}
+
+static void Task_LobbyMain(u8 taskId)
+{
+    (void)taskId;
+}
+
+static void Task_LobbyFadeOut(u8 taskId)
+{
+    if (!gPaletteFade.active)
+        DestroyTask(taskId);
 }
 
 bool32 TryRaidStormTick(void)
