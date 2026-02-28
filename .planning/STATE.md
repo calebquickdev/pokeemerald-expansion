@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 
 ## Current Position
 
-Phase: 4 of 7 (Dynamax Integration)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-02-27 — Completed 04-03-PLAN.md
+Phase: 5 of 7 (Raid Mechanics)
+Plan: 1 of ~5 in current phase
+Status: In progress
+Last activity: 2026-02-28 — Completed 05-01-PLAN.md
 
-Progress: [█████████░] ~57% (13/~23 plans estimated)
+Progress: [█████████░] ~61% (14/~23 plans estimated)
 
 ## Performance Metrics
 
@@ -54,6 +54,8 @@ Recent decisions affecting current work:
 - [Phase 3]: Allies placed in gPlayerParty[3] (Sceptile) and gPlayerParty[4] (Blaziken) — test save must use ≤2 party slots
 - [Phase 4]: Skip HasTrainerUsedGimmick for RAID player-side in CanDynamax — prevents cross-contamination blocking battler 3
 - [Phase 4]: Icon sprite at GetBattlerSpriteCoord positions; invisible full-sprite for Dynamax swap
+- [Phase 5 - 05-01]: Shield intercept uses continue pattern (like Ice Face); zeros moveDamage while leaving other flags; no MOVE_RESULT_NO_EFFECT
+- [Phase 5 - 05-01]: respawnTimer[4] indexed directly by battler; index 1 (boss) intentionally unused
 
 ### Pending Todos
 
@@ -64,10 +66,10 @@ None.
 - [Phase 1 - RESOLVED]: Save block extension added `dynamaxDens[]` at end of SaveBlock2 — sizeof now 0xF7C (3964), 4 bytes below sector limit
 - [Phase 2 - NOTE]: Pre-existing build error in `src/data/trainers.h` (MOVE_HIDDEN_POWER_ICE, AI_FLAG_DOUBLE undefined) unrelated to raid den work
 - [Phase 3 - NOTE]: gPlayerParty slots 3 and 4 overwritten by SetupRaidBossParty — test saves must have ≤2 party mons (Phase 6 fix)
-- [Phase 5]: Shield damage intercept and 10-turn limit need to build on RaidData.shieldHp and RaidData.respawnTimer[] — both initialized to 0 this phase
+- [Phase 5 - RESOLVED]: Shield damage intercept built on RaidData.shieldHp and RaidData.respawnTimer[4] — complete in 05-01
 
 ## Session Continuity
 
-Last session: 2026-02-27
-Stopped at: Completed 04-03-PLAN.md — Ally sprite swap, RaidAllyHandleLoadMonSprite two-sprite setup
+Last session: 2026-02-28
+Stopped at: Completed 05-01-PLAN.md — RaidData struct extension, gRaidCurrentStarRating global, shield intercept
 Resume file: None
