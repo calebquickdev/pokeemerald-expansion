@@ -145,9 +145,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 07-01: Implement left-side battle UI: render animated icon sprites for all 3 allied battlers with relative HP bars; update bars on HP change
-- [ ] 07-02: Implement right-side boss UI: load full front sprite, HP bar, and name window; add Run option to player menu that triggers raid-exit battle script
-- [ ] 07-03: Implement post-battle catch: ball selection prompt after boss KO; `BALL_3_SHAKES_SUCCESS` branch in `Cmd_handleballthrow` for `BATTLE_TYPE_RAID`; GMAX form → base species + Gigantamax Factor flag on delivery
+- [ ] 07-01-PLAN.md — Third healthbox tile tag + RAID coordinate overrides in GetBattlerHealthboxCoords (ally HUD)
+- [ ] 07-02-PLAN.md — Replace RAID Run intercept with BattleScript_RaidConfirmRun YesNo confirmation
+- [ ] 07-03-PLAN.md — Post-battle catch: Cmd_raidBallSelect, RAID branch in Cmd_handleballthrow, Cmd_raidPrepGmaxCatch GMAX delivery
 
 ---
 
