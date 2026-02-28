@@ -15,8 +15,37 @@
 #include "script.h"
 #include "constants/battle.h"
 #include "constants/event_objects.h"
+#include "gpu_regs.h"
+#include "scanline_effect.h"
+#include "task.h"
+#include "sprite.h"
+#include "palette.h"
+#include "bg.h"
+#include "window.h"
+#include "text.h"
+#include "menu.h"
+#include "string_util.h"
+#include "decompress.h"
+#include "battle_gfx_sfx_util.h"
+#include "pokemon_icon.h"
+#include "party_menu.h"
+#include "constants/rgb.h"
+#include "constants/party_menu.h"
 
 EWRAM_DATA u8 gRaidCurrentStarRating = 0;
+
+struct LobbyState
+{
+    u8    denId;
+    u8    selectedSlot;
+    u8    bossSpriteId;
+    u8    iconSpriteId;
+    u8    menuWindowId;
+    u8    infoWindowId;
+    bool8 returnedFromParty;
+};
+
+static EWRAM_DATA struct LobbyState sLobbyState = {0};
 
 static const struct {
     u8 mapGroup;
