@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-27)
 
 **Core value:** Player can find an active raid den, enter it, and complete a 3v1 Dynamax battle to catch a powerful (potentially Gigantamax) Pokémon.
-**Current focus:** Phase 4 — Dynamax Integration
+**Current focus:** Phase 5 — Raid Mechanics
 
 ## Current Position
 
 Phase: 4 of 7 (Dynamax Integration)
-Plan: 2 of ? in current phase
-Status: In progress
-Last activity: 2026-02-27 — Completed 04-02-PLAN.md
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-02-27 — Completed 04-03-PLAN.md
 
-Progress: [███████░░░] ~48% (11/~23 plans estimated)
+Progress: [█████████░] ~57% (13/~23 plans estimated)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
-- Average duration: ~8 minutes
-- Total execution time: ~96 minutes
+- Total plans completed: 13
+- Average duration: ~9 minutes
+- Total execution time: ~117 minutes
 
 **By Phase:**
 
@@ -30,7 +30,7 @@ Progress: [███████░░░] ~48% (11/~23 plans estimated)
 | 01 Den Foundation | 3 | ~27 min | ~9 min |
 | 02 Overworld Den Object | 4 | ~36 min | ~9 min |
 | 03 Battle Core | 3 | ~27 min | ~9 min |
-| 04 Dynamax Integration | 1 (ongoing) | ~6 min | ~6 min |
+| 04 Dynamax Integration | 3 | ~27 min | ~9 min |
 
 *Updated after each plan completion*
 
@@ -52,7 +52,8 @@ Recent decisions affecting current work:
 - [Phase 3]: CreateBattleStartTask was de-static'd in battle_setup.c and declared in battle_setup.h for external use
 - [Phase 3]: Battler 3 uses B_POSITION_OPPONENT_RIGHT; GetBattlerSide guard in battle.h returns B_SIDE_PLAYER for battler 3 during RAID
 - [Phase 3]: Allies placed in gPlayerParty[3] (Sceptile) and gPlayerParty[4] (Blaziken) — test save must use ≤2 party slots
-- [Phase 4]: allyIconSpriteId sentinel is MAX_SPRITES (64), not SPRITE_NONE (0xFF) — use MAX_SPRITES for "unset" checks in Plans 04-02/03
+- [Phase 4]: Skip HasTrainerUsedGimmick for RAID player-side in CanDynamax — prevents cross-contamination blocking battler 3
+- [Phase 4]: Icon sprite at GetBattlerSpriteCoord positions; invisible full-sprite for Dynamax swap
 
 ### Pending Todos
 
@@ -63,11 +64,10 @@ None.
 - [Phase 1 - RESOLVED]: Save block extension added `dynamaxDens[]` at end of SaveBlock2 — sizeof now 0xF7C (3964), 4 bytes below sector limit
 - [Phase 2 - NOTE]: Pre-existing build error in `src/data/trainers.h` (MOVE_HIDDEN_POWER_ICE, AI_FLAG_DOUBLE undefined) unrelated to raid den work
 - [Phase 3 - NOTE]: gPlayerParty slots 3 and 4 overwritten by SetupRaidBossParty — test saves must have ≤2 party mons (Phase 6 fix)
-- [Phase 4 - RESOLVED]: struct RaidData now defined and embedded in BattleStruct; raid fields zeroed at RAID battle start
-- [Phase 4]: Dynamax rotation (04-02) needs dynamaxEnergy rotation logic; ally sprite swap (04-03) needs allyIconSpriteId management
+- [Phase 5]: Shield damage intercept and 10-turn limit need to build on RaidData.shieldHp and RaidData.respawnTimer[] — both initialized to 0 this phase
 
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 04-01-PLAN.md — struct RaidData defined, BattleStruct embedded, RAID branch initialized
+Stopped at: Completed 04-03-PLAN.md — Ally sprite swap, RaidAllyHandleLoadMonSprite two-sprite setup
 Resume file: None

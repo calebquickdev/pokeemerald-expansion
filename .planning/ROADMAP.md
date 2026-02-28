@@ -9,7 +9,7 @@ Adds a complete Dynamax Raid Den system to pokeemerald-expansion: interactable o
 - [x] **Phase 1: Den Foundation** — Save structure, flags, and daily RTC reset
 - [x] **Phase 2: Overworld Den Object** — Map objects, interaction scripts, Wishing Piece item
 - [x] **Phase 3: Battle Core** — BATTLE_TYPE_RAID, 3v1 layout, boss stats, RaidAlly controller
-- [ ] **Phase 4: Dynamax Integration** — RaidData struct, permanent boss Dynamax, ally rotation, sprite swap
+- [x] **Phase 4: Dynamax Integration** — RaidData struct, permanent boss Dynamax, ally rotation, sprite swap
 - [ ] **Phase 5: Raid Mechanics** — Shield, turn limit, storm messages, ally respawn
 - [ ] **Phase 6: Den Lobby Screen** — Species pool, BST→star formula, full CB2 lobby UI
 - [ ] **Phase 7: Battle UI & Post-Battle Catch** — Raid battle UI, Run menu, 100% catch, GMAX delivery
@@ -85,9 +85,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Add `struct RaidData` to `BattleStruct`; initialize all raid fields in RAID battle start path
-- [ ] 04-02-PLAN.md — `TryAdvanceRaidRotation()` + hook in `BattleTurnPassed()`; patch `CanDynamax()` for RAID rotation gating
-- [ ] 04-03-PLAN.md — Ally sprite swap: `RaidAllyHandleLoadMonSprite` two-sprite setup; `ActivateDynamax`/`UndoDynamax` icon↔front swap hooks
+- [x] 04-01-PLAN.md — Add `struct RaidData` to `BattleStruct`; initialize all raid fields in RAID battle start path
+- [x] 04-02-PLAN.md — `TryAdvanceRaidRotation()` + hook in `BattleTurnPassed()`; patch `CanDynamax()` for RAID rotation gating
+- [x] 04-03-PLAN.md — Ally sprite swap: `RaidAllyHandleLoadMonSprite` two-sprite setup; `ActivateDynamax`/`UndoDynamax` icon↔front swap hooks
 
 ---
 
@@ -158,7 +158,7 @@ Plans:
 | 1. Den Foundation | 3/3 | Complete | 2026-02-27 |
 | 2. Overworld Den Object | 4/4 | Complete | 2026-02-27 |
 | 3. Battle Core | 3/3 | Complete | 2026-02-27 |
-| 4. Dynamax Integration | 0/3 | Not started | - |
+| 4. Dynamax Integration | 3/3 | Complete | 2026-02-27 |
 | 5. Raid Mechanics | 0/4 | Not started | - |
 | 6. Den Lobby Screen | 0/5 | Not started | - |
 | 7. Battle UI & Post-Battle Catch | 0/3 | Not started | - |
