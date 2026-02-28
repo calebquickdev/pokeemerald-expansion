@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 6 of 7 (Den Lobby Screen)
-Plan: 2 of 5 in current phase
+Plan: 3 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-28 — Completed 06-02-PLAN.md
+Last activity: 2026-02-28 — Completed 06-03-PLAN.md
 
 Progress: [████████████░] ~83% (19/~23 plans estimated)
 
@@ -59,6 +59,8 @@ Recent decisions affecting current work:
 - [Phase 5 - 05-04]: printfromtable requires const u16[] of STRINGIDs, not pointer array; storm messages use dedicated IDs 731/732; STRINGID_STORM_HURLED_OUT_OF_DEN=733; BATTLESTRINGS_COUNT=734
 - [Phase 6 - 06-01]: RollDynamaxDenPokemon owns all three den field writes; BstToStarRating thresholds ≤299/≤460/≤494/≤549 → 1-5 stars; GMAX upgrade is 10% post-selection pass
 - [Phase 6 - 06-02]: sLobbyState.returnedFromParty guards denId caching (gSpecialVar_0x8000 only valid on first CB2 entry); Task_LobbyFadeOut is intentionally minimal — exit caller sets next callback before fade
+- [Phase 6 - 06-03]: Star rating uses 0xAB (CHAR_EXCL_MARK, '!') — no star/asterisk glyph in GBA charmap
+- [Phase 6 - 06-03]: BG_PLTT_ID(n)+1 for fill color index 1 (PIXEL_FILL(1)); window baseBlocks: win0=1 (300 tiles), win1=301
 
 ### Pending Todos
 
@@ -74,5 +76,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 06-02-PLAN.md — CB2_DenLobbyScreen scaffold with EWRAM LobbyState and fade task chain
+Stopped at: Completed 06-03-PLAN.md — orange left panel BG, boss silhouette sprite, star rating text
 Resume file: None
