@@ -49,8 +49,11 @@ static EWRAM_DATA struct LobbyState sLobbyState = {0};
 
 static void Task_LobbyFadeIn(u8 taskId);
 static void Task_LobbyRenderLeft(u8 taskId);
+static void Task_LobbyRenderRight(u8 taskId);
 static void Task_LobbyMain(u8 taskId);
 static void Task_LobbyFadeOut(u8 taskId);
+static void Task_LobbyChangePokemon(u8 taskId);
+static void Task_LobbyChangePokemon_WaitFade(u8 taskId);
 
 static const struct {
     u8 mapGroup;
@@ -285,8 +288,19 @@ static void MainCB2_Lobby(void)
 
 void CB2_DenLobbyScreen(void)
 {
-    if (!sLobbyState.returnedFromParty)
-        sLobbyState.denId = (u8)gSpecialVar_0x8000;
+    if (sLobbyState.returnedFromParty)
+    {
+        // GetCursorSelectionMonId must be called before ResetSpriteData/ResetTasks clear party menu context.
+        u8 selected = GetCursorSelectionMonId();
+        if (selected < PARTY_SIZE)
+            sLobbyState.selectedSlot = selected;
+        sLobbyState.returnedFromParty = FALSE;
+    }
+    else
+    {
+        sLobbyState.denId        = (u8)gSpecialVar_0x8000;
+        sLobbyState.selectedSlot = 0;
+    }
 
     SetVBlankCallback(NULL);
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
@@ -379,9 +393,25 @@ static void Task_LobbyRenderLeft(u8 taskId)
             AddTextPrinterParameterized4(0, FONT_NORMAL, 8, 8, 0, 0, sStarColor, TEXT_SKIP_DRAW, sStarText);
             CopyWindowToVram(0, COPYWIN_GFX);
         }
-        gTasks[taskId].func = Task_LobbyMain;
+        gTasks[taskId].func = Task_LobbyRenderRight;
         break;
     }
+}
+
+static void Task_LobbyRenderRight(u8 taskId)
+{
+    u8  slot = sLobbyState.selectedSlot;
+    u16 species     = GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES, NULL);
+    u32 personality = GetMonData(&gPlayerParty[slot], MON_DATA_PERSONALITY, NULL);
+    static const u8 sNameColor[] = {0, 1, 2};
+
+    AddTextPrinterParameterized4(1, FONT_NORMAL, 4, 4, 0, 0, sNameColor, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
+    CopyWindowToVram(1, COPYWIN_GFX);
+
+    LoadMonIconPalette(species);
+    sLobbyState.iconSpriteId = CreateMonIcon(species, SpriteCB_MonIcon, 200, 72, 4, personality);
+
+    gTasks[taskId].func = Task_LobbyMain;
 }
 
 static void Task_LobbyMain(u8 taskId)
@@ -393,6 +423,27 @@ static void Task_LobbyFadeOut(u8 taskId)
 {
     if (!gPaletteFade.active)
         DestroyTask(taskId);
+}
+
+static void Task_LobbyChangePokemon(u8 taskId)
+{
+    u16 species = GetMonData(&gPlayerParty[sLobbyState.selectedSlot], MON_DATA_SPECIES, NULL);
+    FreeAndDestroyMonIconSprite(&gSprites[sLobbyState.iconSpriteId]);
+    FreeMonIconPalette(species);
+
+    sLobbyState.returnedFromParty = TRUE;
+
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+    gTasks[taskId].func = Task_LobbyChangePokemon_WaitFade;
+}
+
+static void Task_LobbyChangePokemon_WaitFade(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        ChooseMonForTradingBoard(PARTY_MENU_TYPE_FIELD, CB2_DenLobbyScreen);
+        DestroyTask(taskId);
+    }
 }
 
 bool32 TryRaidStormTick(void)
