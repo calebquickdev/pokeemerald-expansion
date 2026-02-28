@@ -392,6 +392,7 @@ static void Task_LobbyRenderLeft(u8 taskId)
                 GetMonSpritePalFromSpecies(species, FALSE, FALSE), species);
             SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_OPPONENT_LEFT);
             sLobbyState.bossSpriteId = CreateSprite(&gMultiuseSpriteTemplate, 28, 40, 1);
+            gSprites[sLobbyState.bossSpriteId].callback = SpriteCallbackDummy;
             gSprites[sLobbyState.bossSpriteId].oam.priority = 0;
             palNum = gSprites[sLobbyState.bossSpriteId].oam.paletteNum;
             FillPalette(RGB_BLACK, OBJ_PLTT_ID(palNum) + 1, PLTT_SIZE_4BPP - 2);
@@ -405,8 +406,10 @@ static void Task_LobbyRenderLeft(u8 taskId)
             static const u8 sStarColor[] = {1, 0, 0};
             u8 i;
             u8 *ptr = sStarText;
+            if (stars == 0 || stars > 5)
+                stars = 1;
             // CHAR_EXCL_MARK (0xAB) used as star placeholder — no ★ in GBA font
-            for (i = 0; i < stars && i < 5; i++)
+            for (i = 0; i < stars; i++)
                 *ptr++ = 0xAB;
             *ptr = EOS;
             AddTextPrinterParameterized4(0, FONT_NORMAL, 8, 8, 0, 0, sStarColor, TEXT_SKIP_DRAW, sStarText);
@@ -422,24 +425,27 @@ static void Task_LobbyRenderRight(u8 taskId)
     u8  slot = sLobbyState.selectedSlot;
     u16 species     = GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gPlayerParty[slot], MON_DATA_PERSONALITY, NULL);
-    static const u8 sNameColor[] = {1, 0, 0};
-
-    AddTextPrinterParameterized4(1, FONT_NORMAL, 4, 4, 0, 0, sNameColor, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
-    CopyWindowToVram(1, COPYWIN_GFX);
 
     LoadMonIconPalette(species);
-    sLobbyState.iconSpriteId = CreateMonIcon(species, SpriteCB_MonIcon, 200, 72, 4, personality);
+    // Icon at (200, 120): below the four menu items, within the right panel.
+    sLobbyState.iconSpriteId = CreateMonIcon(species, SpriteCB_MonIcon, 200, 120, 4, personality);
 
     gTasks[taskId].func = Task_LobbyMain;
 }
 
 static void Task_LobbyMain(u8 taskId)
 {
+    static const u8 sNameColor[] = {1, 0, 0};
+
     SetStandardWindowBorderStyle(sLobbyState.menuWindowId, FALSE);
     PrintMenuTable(sLobbyState.menuWindowId,
                    ARRAY_COUNT(sLobbyMenuActions), sLobbyMenuActions);
     InitMenuInUpperLeftCornerNormal(sLobbyState.menuWindowId,
                                    ARRAY_COUNT(sLobbyMenuActions), 0);
+    // Player name printed after menu items (4 items * ~16px = ~64px; name at y=80).
+    AddTextPrinterParameterized4(sLobbyState.menuWindowId, FONT_NORMAL,
+                                 4, 80, 0, 0, sNameColor, TEXT_SKIP_DRAW,
+                                 gSaveBlock2Ptr->playerName);
     CopyWindowToVram(sLobbyState.menuWindowId, COPYWIN_FULL);
     gTasks[taskId].func = Task_LobbyInputLoop;
 }
