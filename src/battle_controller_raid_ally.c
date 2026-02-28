@@ -4,6 +4,7 @@
 #include "battle_ai_util.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
+#include "battle_gfx_sfx_util.h"
 #include "battle_message.h"
 #include "battle_interface.h"
 #include "battle_setup.h"
@@ -11,6 +12,7 @@
 #include "battle_z_move.h"
 #include "bg.h"
 #include "data.h"
+#include "decompress.h"
 #include "item_use.h"
 #include "link.h"
 #include "main.h"
@@ -19,6 +21,7 @@
 #include "party_menu.h"
 #include "pokeball.h"
 #include "pokemon.h"
+#include "pokemon_icon.h"
 #include "reshow_battle_screen.h"
 #include "sound.h"
 #include "string_util.h"
@@ -33,6 +36,7 @@
 #include "constants/trainers.h"
 
 static void RaidAllyHandleLoadMonSprite(u32 battler);
+static void RaidAllyHandleFaintAnimation(u32 battler);
 static void RaidAllyHandleSwitchInAnim(u32 battler);
 static void RaidAllyHandleDrawTrainerPic(u32 battler);
 static void RaidAllyHandleTrainerSlideBack(u32 battler);
@@ -63,7 +67,7 @@ static void (*const sRaidAllyBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler)
     [CONTROLLER_DRAWTRAINERPIC]           = RaidAllyHandleDrawTrainerPic,
     [CONTROLLER_TRAINERSLIDE]             = BtlController_Empty,
     [CONTROLLER_TRAINERSLIDEBACK]         = RaidAllyHandleTrainerSlideBack,
-    [CONTROLLER_FAINTANIMATION]           = BtlController_HandleFaintAnimation,
+    [CONTROLLER_FAINTANIMATION]           = RaidAllyHandleFaintAnimation,
     [CONTROLLER_PALETTEFADE]              = BtlController_Empty,
     [CONTROLLER_SUCCESSBALLTHROWANIM]     = BtlController_Empty,
     [CONTROLLER_BALLTHROWANIM]            = BtlController_Empty,
@@ -274,9 +278,50 @@ static void RaidAllyBufferExecCompleted(u32 battler)
     }
 }
 
+static void RaidAllyHandleFaintAnimation(u32 battler)
+{
+    u8 iconIdx = battler - 2;
+    if (gBattleStruct->raid.allyIconSpriteId[iconIdx] != MAX_SPRITES)
+    {
+        FreeAndDestroyMonIconSprite(&gSprites[gBattleStruct->raid.allyIconSpriteId[iconIdx]]);
+        gBattleStruct->raid.allyIconSpriteId[iconIdx] = MAX_SPRITES;
+    }
+    BtlController_HandleFaintAnimation(battler);
+}
+
 static void RaidAllyHandleLoadMonSprite(u32 battler)
 {
-    BtlController_HandleLoadMonSprite(battler, WaitForMonAnimAfterLoad);
+    struct Pokemon *party = GetBattlerParty(battler);
+    u16 species = GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES);
+    u32 personality = GetMonData(&party[gBattlerPartyIndexes[battler]], MON_DATA_PERSONALITY);
+    u32 position = GetBattlerPosition(battler);
+
+    // Load palette first via BattleLoadMonSpriteGfx (handles shiny/illusion correctly),
+    // then overwrite the pixel buffer with front sprite pixels.
+    BattleLoadMonSpriteGfx(&party[gBattlerPartyIndexes[battler]], battler);
+    HandleLoadSpecialPokePic(TRUE, gMonSpritesGfxPtr->spritesGfx[position], species, personality);
+
+    // Create the full front sprite (invisible — shown only while Dynamaxed).
+    SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_OPPONENT_LEFT);
+    gBattlerSpriteIds[battler] = CreateSprite(&gMultiuseSpriteTemplate,
+                                              GetBattlerSpriteCoord(battler, BATTLER_COORD_X_2),
+                                              GetBattlerSpriteDefault_Y(battler),
+                                              GetBattlerSpriteSubpriority(battler));
+    gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
+    gSprites[gBattlerSpriteIds[battler]].data[0] = battler;
+    gSprites[gBattlerSpriteIds[battler]].data[2] = species;
+    StartSpriteAnim(&gSprites[gBattlerSpriteIds[battler]], 0);
+    gSprites[gBattlerSpriteIds[battler]].invisible = TRUE;
+
+    // Create 32×32 icon sprite for normal (non-Dynamax) display.
+    LoadMonIconPalette(species);
+    gBattleStruct->raid.allyIconSpriteId[battler - 2] =
+        CreateMonIcon(species, SpriteCB_MonIcon,
+                      GetBattlerSpriteCoord(battler, BATTLER_COORD_X),
+                      GetBattlerSpriteCoord(battler, BATTLER_COORD_Y),
+                      0, personality);
+
+    gBattlerControllerFuncs[battler] = WaitForMonAnimAfterLoad;
 }
 
 static void RaidAllyHandleSwitchInAnim(u32 battler)
