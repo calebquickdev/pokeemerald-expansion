@@ -4,6 +4,7 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "battle.h"
+#include "battle_ai_util.h"
 #include "battle_gimmick.h"
 #include "battle_scripts.h"
 #include "battle_setup.h"
@@ -26,10 +27,63 @@ static const struct {
     { MAP_GROUP(LITTLEROOT_TOWN), MAP_NUM(LITTLEROOT_TOWN), 9, 0 },
 };
 
+static u8 BstToStarRating(u32 bst)
+{
+    if (bst <= 299) return 1;
+    if (bst <= 460) return 2;
+    if (bst <= 494) return 3;
+    if (bst <= 549) return 4;
+    return 5;
+}
+
 u16 RollDynamaxDenPokemon(u8 denId)
 {
-    (void)denId;
-    return SPECIES_RALTS;
+    u16 species, picked = SPECIES_ZIGZAGOON;
+    u16 count = 0, target, i;
+    bool8 isGmax = FALSE;
+
+    for (species = 1; species < NUM_SPECIES; species++)
+    {
+        if (GetTotalBaseStat(species) == 0) continue;
+        if (gSpeciesInfo[species].isGigantamax) continue;
+        if (GET_BASE_SPECIES_ID(species) != species) continue;
+        count++;
+    }
+
+    if (count > 0)
+    {
+        target = (u16)(Random() % count);
+        i = 0;
+        for (species = 1; species < NUM_SPECIES; species++)
+        {
+            if (GetTotalBaseStat(species) == 0) continue;
+            if (gSpeciesInfo[species].isGigantamax) continue;
+            if (GET_BASE_SPECIES_ID(species) != species) continue;
+            if (i++ == target)
+            {
+                picked = species;
+                break;
+            }
+        }
+    }
+
+    if ((Random() % 10) == 0)
+    {
+        for (species = 1; species < NUM_SPECIES; species++)
+        {
+            if (gSpeciesInfo[species].isGigantamax && GET_BASE_SPECIES_ID(species) == picked)
+            {
+                picked = species;
+                isGmax = TRUE;
+                break;
+            }
+        }
+    }
+
+    gSaveBlock2Ptr->dynamaxDens[denId].species    = picked;
+    gSaveBlock2Ptr->dynamaxDens[denId].isGmax     = isGmax;
+    gSaveBlock2Ptr->dynamaxDens[denId].starRating = isGmax ? 5 : BstToStarRating(GetTotalBaseStat(picked));
+    return picked;
 }
 
 void UpdateDynamaxDens(u16 daysSince)
@@ -39,8 +93,7 @@ void UpdateDynamaxDens(u16 daysSince)
 
     for (i = 0; i < MAX_DYNAMAX_DENS; i++)
     {
-        gSaveBlock2Ptr->dynamaxDens[i].species = RollDynamaxDenPokemon(i);
-        gSaveBlock2Ptr->dynamaxDens[i].isGmax = 0;
+        RollDynamaxDenPokemon(i);
     }
 }
 
@@ -73,9 +126,7 @@ void ActivateDynamaxDen(void)
 {
     u8 denId = (u8)gSpecialVar_0x8000;
     FlagClear(FLAG_DAILY_DEN_RAIDED(denId));
-    gSaveBlock2Ptr->dynamaxDens[denId].species = RollDynamaxDenPokemon(denId);
-    gSaveBlock2Ptr->dynamaxDens[denId].isGmax = 0;
-    gSaveBlock2Ptr->dynamaxDens[denId].starRating = 1;
+    RollDynamaxDenPokemon(denId);
 }
 
 static const u8 sStarLevelMin[6] = {0, 15, 25, 35, 45, 55};
