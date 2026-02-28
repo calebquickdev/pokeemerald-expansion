@@ -104,10 +104,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 05-01: Implement shield damage intercept in the damage-apply path: 0 damage while `shieldHp > 0`; subtract 1 (or 2 for Max moves); read shield count from `RaidData`
-- [ ] 05-02: Trigger shield activation at 75% and 50% HP thresholds: set `shieldHp = 1 + star_count` on first crossing, second set on second crossing
-- [ ] 05-03: Implement `respawnTimer[]`: on faint set timer to 1; at turn start if timer > 0 decrement and skip; when timer hits 0 restore HP and re-enter battle
-- [ ] 05-04: Implement 10-turn counter in `RaidData`; display turn-end storm messages via battle script; on expiry execute boss-flee sequence and return to overworld
+- [ ] 05-01-PLAN.md — Struct changes (shieldPhase, respawnTimer[4], gRaidCurrentStarRating) + shield damage intercept in Cmd_adjustdamage
+- [ ] 05-04-PLAN.md — Storm counter + battle scripts (BattleScript_RaidStormMessage, BattleScript_RaidStormExpired) + boss flee via B_OUTCOME_PLAYER_TELEPORTED
+- [ ] 05-02-PLAN.md — Shield activation at 75%/50% HP thresholds in Cmd_datahpupdate using shieldPhase tracking
+- [ ] 05-03-PLAN.md — Ally respawn: faint intercept in HandleFaintedMonActions + TryRaidAllyRespawn() + all-allies-fainted edge case
 
 ---
 
