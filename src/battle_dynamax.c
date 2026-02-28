@@ -11,6 +11,7 @@
 #include "graphics.h"
 #include "item.h"
 #include "pokemon.h"
+#include "pokemon_icon.h"
 #include "random.h"
 #include "sprite.h"
 #include "string_util.h"
@@ -183,6 +184,21 @@ void ActivateDynamax(u32 battler)
 {
     // Set appropriate use flags.
     SetActiveGimmick(battler, GIMMICK_DYNAMAX);
+
+    // Swap icon for full front sprite when a RAID ally Dynamaxes.
+    if ((gBattleTypeFlags & BATTLE_TYPE_RAID)
+        && GetBattlerSide(battler) == B_SIDE_PLAYER
+        && battler != B_POSITION_PLAYER_LEFT)
+    {
+        u8 iconIdx = battler - 2;
+        if (gBattleStruct->raid.allyIconSpriteId[iconIdx] != MAX_SPRITES)
+        {
+            FreeAndDestroyMonIconSprite(&gSprites[gBattleStruct->raid.allyIconSpriteId[iconIdx]]);
+            gBattleStruct->raid.allyIconSpriteId[iconIdx] = MAX_SPRITES;
+        }
+        gSprites[gBattlerSpriteIds[battler]].invisible = FALSE;
+    }
+
     SetGimmickAsActivated(battler, GIMMICK_DYNAMAX);
     gBattleStruct->dynamax.dynamaxTurns[battler] = DYNAMAX_TURNS_COUNT;
 
@@ -223,6 +239,24 @@ void UndoDynamax(u32 battler)
     // Undo form change if needed.
     if (IsGigantamaxed(battler))
         TryBattleFormChange(battler, FORM_CHANGE_END_BATTLE);
+
+    // Restore icon sprite for RAID allies when their Dynamax ends.
+    if ((gBattleTypeFlags & BATTLE_TYPE_RAID)
+        && GetBattlerSide(battler) == B_SIDE_PLAYER
+        && battler != B_POSITION_PLAYER_LEFT)
+    {
+        u16 species = gBattleMons[battler].species;
+        u32 personality = gBattleMons[battler].personality;
+        u8 iconIdx = battler - 2;
+
+        gSprites[gBattlerSpriteIds[battler]].invisible = TRUE;
+        LoadMonIconPalette(species);
+        gBattleStruct->raid.allyIconSpriteId[iconIdx] =
+            CreateMonIcon(species, SpriteCB_MonIcon,
+                          GetBattlerSpriteCoord(battler, BATTLER_COORD_X),
+                          GetBattlerSpriteCoord(battler, BATTLER_COORD_Y),
+                          0, personality);
+    }
 }
 
 // Certain moves are blocked by Max Guard that normally ignore protection.
