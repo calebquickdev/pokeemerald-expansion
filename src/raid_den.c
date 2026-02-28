@@ -48,6 +48,7 @@ struct LobbyState
 static EWRAM_DATA struct LobbyState sLobbyState = {0};
 
 static void Task_LobbyFadeIn(u8 taskId);
+static void Task_LobbyRenderLeft(u8 taskId);
 static void Task_LobbyMain(u8 taskId);
 static void Task_LobbyFadeOut(u8 taskId);
 
@@ -224,6 +225,49 @@ void DoRaidBattle(void)
     ScriptContext_Stop();
 }
 
+static const struct BgTemplate sLobbyBgTemplates[] = {
+    {
+        .bg = 0,
+        .charBaseIndex = 0,
+        .mapBaseIndex = 31,
+        .screenSize = 0,
+        .paletteMode = 0,
+        .priority = 1,
+        .baseTile = 0,
+    },
+    {
+        .bg = 1,
+        .charBaseIndex = 2,
+        .mapBaseIndex = 29,
+        .screenSize = 0,
+        .paletteMode = 0,
+        .priority = 2,
+        .baseTile = 0,
+    },
+};
+
+static const struct WindowTemplate sLobbyWindowTemplates[] = {
+    [0] = {
+        .bg = 0,
+        .tilemapLeft = 0,
+        .tilemapTop = 0,
+        .width = 15,
+        .height = 20,
+        .paletteNum = 1,
+        .baseBlock = 1,
+    },
+    [1] = {
+        .bg = 0,
+        .tilemapLeft = 15,
+        .tilemapTop = 0,
+        .width = 15,
+        .height = 20,
+        .paletteNum = 2,
+        .baseBlock = 301,
+    },
+    DUMMY_WIN_TEMPLATE
+};
+
 static void VBlankCB_Lobby(void)
 {
     LoadOam();
@@ -254,6 +298,25 @@ void CB2_DenLobbyScreen(void)
     ResetSpriteData();
     ResetPaletteFade();
     FreeAllSpritePalettes();
+
+    ResetBgsAndClearDma3BusyFlags(0);
+    InitBgsFromTemplates(0, sLobbyBgTemplates, ARRAY_COUNT(sLobbyBgTemplates));
+    InitWindows(sLobbyWindowTemplates);
+    DeactivateAllTextPrinters();
+    sLobbyState.menuWindowId = 1;
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0 | DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON);
+    ShowBg(0);
+
+    FillPalette(RGB(31, 16, 0), BG_PLTT_ID(1) + 1, PLTT_SIZEOF(1));
+    FillWindowPixelBuffer(0, PIXEL_FILL(1));
+    PutWindowTilemap(0);
+    CopyWindowToVram(0, COPYWIN_FULL);
+
+    FillPalette(RGB(28, 24, 20), BG_PLTT_ID(2) + 1, PLTT_SIZEOF(1));
+    FillWindowPixelBuffer(1, PIXEL_FILL(1));
+    PutWindowTilemap(1);
+    CopyWindowToVram(1, COPYWIN_FULL);
+
     BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
     EnableInterrupts(1);
@@ -270,7 +333,55 @@ void OpenDenLobbyScreen(void)
 static void Task_LobbyFadeIn(u8 taskId)
 {
     if (!gPaletteFade.active)
+        gTasks[taskId].func = Task_LobbyRenderLeft;
+}
+
+static void Task_LobbyRenderLeft(u8 taskId)
+{
+    switch (gTasks[taskId].data[0])
+    {
+    case 0:
+        {
+            u16 species = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].species;
+            AllocateMonSpritesGfx();
+            HandleLoadSpecialPokePic(TRUE,
+                gMonSpritesGfxPtr->spritesGfx[B_POSITION_OPPONENT_LEFT],
+                species, 0);
+            gTasks[taskId].data[0] = 1;
+        }
+        break;
+    case 1:
+        {
+            u16 species = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].species;
+            u8 palNum;
+            if (IsDma3ManagerBusyWithBgCopy())
+                break;
+            LoadCompressedSpritePaletteWithTag(
+                GetMonSpritePalFromSpecies(species, FALSE, FALSE), species);
+            SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_OPPONENT_LEFT);
+            sLobbyState.bossSpriteId = CreateSprite(&gMultiuseSpriteTemplate, 60, 72, 1);
+            palNum = gSprites[sLobbyState.bossSpriteId].oam.paletteNum;
+            FillPalette(RGB_BLACK, OBJ_PLTT_ID(palNum) + 1, PLTT_SIZE_4BPP - 2);
+            gTasks[taskId].data[0] = 2;
+        }
+        break;
+    case 2:
+        {
+            u8 stars = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].starRating;
+            static u8 sStarText[12];
+            static const u8 sStarColor[] = {0, 1, 2};
+            u8 i;
+            u8 *ptr = sStarText;
+            // CHAR_EXCL_MARK (0xAB) used as star placeholder — no ★ in GBA font
+            for (i = 0; i < stars && i < 5; i++)
+                *ptr++ = 0xAB;
+            *ptr = EOS;
+            AddTextPrinterParameterized4(0, FONT_NORMAL, 8, 8, 0, 0, sStarColor, TEXT_SKIP_DRAW, sStarText);
+            CopyWindowToVram(0, COPYWIN_GFX);
+        }
         gTasks[taskId].func = Task_LobbyMain;
+        break;
+    }
 }
 
 static void Task_LobbyMain(u8 taskId)
