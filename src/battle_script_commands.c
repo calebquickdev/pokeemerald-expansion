@@ -48,6 +48,7 @@
 #include "data.h"
 #include "generational_changes.h"
 #include "move.h"
+#include "raid_den.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
@@ -2105,6 +2106,18 @@ static void Cmd_adjustdamage(void)
         if (DoesDisguiseBlockMove(battlerDef, gCurrentMove))
         {
             gSpecialStatuses[battlerDef].enduredDamage = TRUE;
+            continue;
+        }
+        if ((gBattleTypeFlags & BATTLE_TYPE_RAID)
+         && battlerDef == B_POSITION_OPPONENT_LEFT
+         && gBattleStruct->raid.shieldHp > 0)
+        {
+            u8 consume = IsMaxMove(gCurrentMove) ? 2 : 1;
+            gBattleStruct->raid.shieldHp = (gBattleStruct->raid.shieldHp > consume)
+                                         ? gBattleStruct->raid.shieldHp - consume : 0;
+            gBattleStruct->moveDamage[battlerDef] = 0;
+            gBattleStruct->moveResultFlags[battlerDef] &=
+                ~(MOVE_RESULT_SUPER_EFFECTIVE | MOVE_RESULT_NOT_VERY_EFFECTIVE);
             continue;
         }
         if (GetBattlerAbility(battlerDef) == ABILITY_ICE_FACE && IsBattleMovePhysical(gCurrentMove) && gBattleMons[battlerDef].species == SPECIES_EISCUE)
