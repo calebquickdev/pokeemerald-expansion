@@ -388,12 +388,11 @@ static void Task_LobbyRenderLeft(u8 taskId)
         {
             u16 species = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].species;
             u8 palNum;
-            if (IsDma3ManagerBusyWithBgCopy())
-                break;
             LoadCompressedSpritePaletteWithTag(
                 GetMonSpritePalFromSpecies(species, FALSE, FALSE), species);
             SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_OPPONENT_LEFT);
-            sLobbyState.bossSpriteId = CreateSprite(&gMultiuseSpriteTemplate, 60, 72, 1);
+            sLobbyState.bossSpriteId = CreateSprite(&gMultiuseSpriteTemplate, 28, 40, 1);
+            gSprites[sLobbyState.bossSpriteId].oam.priority = 0;
             palNum = gSprites[sLobbyState.bossSpriteId].oam.paletteNum;
             FillPalette(RGB_BLACK, OBJ_PLTT_ID(palNum) + 1, PLTT_SIZE_4BPP - 2);
             gTasks[taskId].data[0] = 2;
@@ -403,7 +402,7 @@ static void Task_LobbyRenderLeft(u8 taskId)
         {
             u8 stars = gSaveBlock2Ptr->dynamaxDens[sLobbyState.denId].starRating;
             static u8 sStarText[12];
-            static const u8 sStarColor[] = {0, 1, 2};
+            static const u8 sStarColor[] = {1, 0, 0};
             u8 i;
             u8 *ptr = sStarText;
             // CHAR_EXCL_MARK (0xAB) used as star placeholder — no ★ in GBA font
@@ -423,7 +422,7 @@ static void Task_LobbyRenderRight(u8 taskId)
     u8  slot = sLobbyState.selectedSlot;
     u16 species     = GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gPlayerParty[slot], MON_DATA_PERSONALITY, NULL);
-    static const u8 sNameColor[] = {0, 1, 2};
+    static const u8 sNameColor[] = {1, 0, 0};
 
     AddTextPrinterParameterized4(1, FONT_NORMAL, 4, 4, 0, 0, sNameColor, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
     CopyWindowToVram(1, COPYWIN_GFX);
