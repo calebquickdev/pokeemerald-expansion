@@ -1008,8 +1008,7 @@ static void DrawHeaderText(void)
 
 static bool8 IsAutosaveHidden(void)
 {
-    // Nuzlocke mode forcibly enables autosaving, so the option is redundant and hidden.
-    return gSaveBlock1Ptr->nuzlockeModeEnabled;
+    return FALSE;
 }
 
 // Hidden until the first-playthrough gate

@@ -227,7 +227,7 @@ void UnlockPlayerFieldControls(void)
 {
     sLockFieldControls = FALSE;
 
-    if (gSaveBlock1Ptr->nuzlockeModeEnabled || gSaveBlock1Ptr->autosaveModeEnabled)
+    if (gSaveBlock1Ptr->autosaveModeEnabled)
         gDoAutosave = TRUE;
 }
 

@@ -2135,13 +2135,10 @@ static void CB2_LoadMapOnReturnToFieldCableClub(void)
 void CB2_ReturnToField(void)
 {
     if (gSaveBlock1Ptr->nuzlockeModeEnabled)
-    {
-        gDoAutosave = TRUE;
         RemoveFaintedMonsFromParty();
-    }
-    else if (gSaveBlock1Ptr->autosaveModeEnabled) {
+
+    if (gSaveBlock1Ptr->autosaveModeEnabled)
         gDoAutosave = TRUE;
-    }
     if (IsOverworldLinkActive() == TRUE)
     {
         SetMainCallback2(CB2_ReturnToFieldLink);
@@ -2242,9 +2239,6 @@ void RemoveFaintedMonsFromParty(void)
             Achievement_RecordPartyWipe();
             // Wipe the save file
             ClearSaveData();
-        }
-        else {
-            gDoAutosave = TRUE;
         }
     }
 }

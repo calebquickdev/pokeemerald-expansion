@@ -689,8 +689,6 @@ static void CB2_EndWildBattle(void)
                 SET_NUZLOCKE_EXTRA_FLAG(route);
             else
                 SET_NUZLOCKE_FLAG(route);
-
-            gDoAutosaveAfterBattle = TRUE;
         }
         else if (gSaveBlock1Ptr->autosaveModeEnabled) {
             gDoAutosaveAfterBattle = TRUE;
@@ -1473,7 +1471,7 @@ static void CB2_EndTrainerBattle(void)
 
     HandleBattleVariantEndParty();
 
-    if (gSaveBlock1Ptr->nuzlockeModeEnabled)
+    if (gSaveBlock1Ptr->autosaveModeEnabled)
     {
         gDoAutosaveAfterBattle = TRUE;
     }

@@ -200,8 +200,8 @@ void CB2_InitNewGameSettingsMenu(void)
     case 0:
         SetVBlankCallback(NULL);
         gPendingNewGameSettings.difficulty = DIFFICULTY_NORMAL;
-        gPendingNewGameSettings.nuzlockeEnabled = FALSE;
-        gPendingNewGameSettings.randomizeSpecies = FALSE;
+        gPendingNewGameSettings.nuzlockeEnabled = TRUE;
+        gPendingNewGameSettings.randomizeSpecies = TRUE;
         gPendingNewGameSettings.randomizeTypes = FALSE;
         gPendingNewGameSettings.randomizeMoves = FALSE;
         gPendingNewGameSettings.allowStatEditor = FALSE;
