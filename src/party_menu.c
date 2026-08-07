@@ -6242,6 +6242,77 @@ void ItemUseCB_RareCandy(u8 taskId, TaskFunc task)
     }
 }
 
+void ItemUseCB_CandyJar(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    struct PartyMenuInternal *ptr = sPartyMenuInternal;
+    s16 *arrayPtr = ptr->data;
+    u16 *itemPtr = &gSpecialVar_ItemId;
+    bool8 cannotUseEffect;
+
+    sInitialLevel = GetMonData(mon, MON_DATA_LEVEL);
+    if (!(B_RARE_CANDY_CAP && sInitialLevel >= GetCurrentLevelCap()))
+    {
+        BufferMonStatsToTaskData(mon, arrayPtr);
+        cannotUseEffect = ExecuteTableBasedItemEffect(mon, *itemPtr, gPartyMenu.slotId, 0);
+        BufferMonStatsToTaskData(mon, &ptr->data[NUM_STATS]);
+    }
+    else
+    {
+        cannotUseEffect = TRUE;
+    }
+    PlaySE(SE_SELECT);
+    if (cannotUseEffect)
+    {
+        enum Species targetSpecies = SPECIES_NONE;
+        bool32 canStopEvo = TRUE;
+
+        sInitialLevel = 0;
+        sFinalLevel = 0;
+
+        targetSpecies = GetEvolutionTargetSpecies(mon, EVO_MODE_NORMAL, ITEM_NONE, NULL, &canStopEvo, CHECK_EVO);
+
+        if (targetSpecies != SPECIES_NONE)
+        {
+            GetEvolutionTargetSpecies(mon, EVO_MODE_NORMAL, ITEM_NONE, NULL, &canStopEvo, DO_EVO);
+            FreePartyPointers();
+            gCB2_AfterEvolution = gPartyMenu.exitCallback;
+            BeginEvolutionScene(mon, targetSpecies, canStopEvo, gPartyMenu.slotId);
+            DestroyTask(taskId);
+        }
+        else
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = task;
+        }
+    }
+    else
+    {
+        sFinalLevel = GetMonData(mon, MON_DATA_LEVEL);
+        gPartyMenuUseExitCallback = TRUE;
+        UpdateMonDisplayInfoAfterRareCandy(gPartyMenu.slotId, mon);
+        GetMonNickname(mon, gStringVar1);
+        if (sFinalLevel > sInitialLevel)
+        {
+            PlayFanfareByFanfareNum(FANFARE_LEVEL_UP);
+            ConvertIntToDecimalStringN(gStringVar2, sFinalLevel, STR_CONV_MODE_LEFT_ALIGN, 4);
+            StringExpandPlaceholders(gStringVar4, gText_PkmnElevatedToLvVar2);
+            DisplayPartyMenuMessage(gStringVar4, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_DisplayLevelUpStatsPg1;
+        }
+        else
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = task;
+        }
+    }
+}
+
 static void UpdateMonDisplayInfoAfterRareCandy(u8 slot, struct Pokemon *mon)
 {
     SetPartyMonAilmentGfx(mon, &sPartyMenuBoxes[slot]);

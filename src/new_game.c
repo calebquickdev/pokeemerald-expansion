@@ -325,6 +325,8 @@ void NewGameInitData(void)
         AddBagItem(ITEM_ESCAPE_ROPE, 2);
         AddMoney(&gSaveBlock1Ptr->money, 3000); // on top of the 5000 set above
     }
+    if (!isNewGamePlus && gSaveBlock1Ptr->nuzlockeModeEnabled)
+        AddBagItem(ITEM_CANDY_JAR, 1);
     ClearPokeblocks();
     ClearDecorationInventories();
     InitEasyChatPhrases();
