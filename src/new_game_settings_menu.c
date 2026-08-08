@@ -20,6 +20,8 @@
 #include "constants/flags.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/species_random.h"
+#include "constants/vars.h"
 
 // A one-time, scrollable ruleset menu shown right before the Professor Birch intro
 // when a New Game is started. Values chosen here are held in EWRAM (not save data)
@@ -31,6 +33,8 @@ enum
     SETTING_NUZLOCKE,
     SETTING_DIFFICULTY,
     SETTING_RANDOMIZE_SPECIES,
+    SETTING_RANDOMIZE_LEGENDS,
+    SETTING_STARTER_RANDOM,
     SETTING_RANDOMIZE_TYPES,
     SETTING_RANDOMIZE_MOVES,
     SETTING_STAT_EDITOR,
@@ -89,6 +93,13 @@ static const u8 *const sDifficultyTexts[] =
     [DIFFICULTY_HARD]   = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}HARD"),
 };
 
+static const u8 *const sStarterRandomTexts[] =
+{
+    [STARTER_RANDOM_ALL]           = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}ALL"),
+    [STARTER_RANDOM_NON_LEGEND]    = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}NO LEGEND"),
+    [STARTER_RANDOM_STARTERS_ONLY] = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}STARTERS"),
+};
+
 static const u8 *const sSettingDescriptions[SETTING_COUNT] =
 {
     [SETTING_NUZLOCKE]          = COMPOUND_STRING(
@@ -97,7 +108,15 @@ static const u8 *const sSettingDescriptions[SETTING_COUNT] =
     [SETTING_DIFFICULTY]        = COMPOUND_STRING(
                                        "Changes encountered Pokémon levels\n"
                                        "and Trainer AI complexity."),
-    [SETTING_RANDOMIZE_SPECIES] = COMPOUND_STRING("Pokémon species are randomized."),
+    [SETTING_RANDOMIZE_SPECIES] = COMPOUND_STRING(
+                                       "Pokémon species are randomized\n"
+                                       "per area using your OT ID."),
+    [SETTING_RANDOMIZE_LEGENDS] = COMPOUND_STRING(
+                                       "Allow Legendaries, Mythicals, and\n"
+                                       "Ultra Beasts in the random pool."),
+    [SETTING_STARTER_RANDOM]    = COMPOUND_STRING(
+                                       "Starter pool when species random\n"
+                                       "is on: All, No Legend, or Starters."),
     [SETTING_RANDOMIZE_TYPES]   = COMPOUND_STRING("Pokémon types are randomized."),
     [SETTING_RANDOMIZE_MOVES]   = COMPOUND_STRING("Pokémon movesets are randomized."),
     [SETTING_STAT_EDITOR]       = COMPOUND_STRING("Change IV/EV values of your Pokémon."),
@@ -109,14 +128,16 @@ static const u8 *const sSettingDescriptions[SETTING_COUNT] =
 
 static const struct ListMenuItem sSettingsListItems[SETTING_COUNT] =
 {
-    [SETTING_NUZLOCKE]          = {COMPOUND_STRING("NUZLOCKE MODE"),    SETTING_NUZLOCKE},
-    [SETTING_DIFFICULTY]        = {COMPOUND_STRING("DIFFICULTY"),       SETTING_DIFFICULTY},
-    [SETTING_RANDOMIZE_SPECIES] = {COMPOUND_STRING("RANDOMIZE SPECIES"),SETTING_RANDOMIZE_SPECIES},
-    [SETTING_RANDOMIZE_TYPES]   = {COMPOUND_STRING("RANDOMIZE TYPES"),  SETTING_RANDOMIZE_TYPES},
-    [SETTING_RANDOMIZE_MOVES]   = {COMPOUND_STRING("RANDOMIZE MOVES"),  SETTING_RANDOMIZE_MOVES},
-    [SETTING_STAT_EDITOR]       = {COMPOUND_STRING("STAT EDITOR"),      SETTING_STAT_EDITOR},
-    [SETTING_LEVEL_CAP]         = {COMPOUND_STRING("LEVEL CAP"),        SETTING_LEVEL_CAP},
-    [SETTING_DEBUG]             = {COMPOUND_STRING("DEBUG MODE"),       SETTING_DEBUG},
+    [SETTING_NUZLOCKE]          = {COMPOUND_STRING("NUZLOCKE MODE"),     SETTING_NUZLOCKE},
+    [SETTING_DIFFICULTY]        = {COMPOUND_STRING("DIFFICULTY"),        SETTING_DIFFICULTY},
+    [SETTING_RANDOMIZE_SPECIES] = {COMPOUND_STRING("RANDOMIZE SPECIES"), SETTING_RANDOMIZE_SPECIES},
+    [SETTING_RANDOMIZE_LEGENDS] = {COMPOUND_STRING("RANDOM LEGENDS"),    SETTING_RANDOMIZE_LEGENDS},
+    [SETTING_STARTER_RANDOM]    = {COMPOUND_STRING("STARTER RANDOM"),    SETTING_STARTER_RANDOM},
+    [SETTING_RANDOMIZE_TYPES]   = {COMPOUND_STRING("RANDOMIZE TYPES"),   SETTING_RANDOMIZE_TYPES},
+    [SETTING_RANDOMIZE_MOVES]   = {COMPOUND_STRING("RANDOMIZE MOVES"),   SETTING_RANDOMIZE_MOVES},
+    [SETTING_STAT_EDITOR]       = {COMPOUND_STRING("STAT EDITOR"),       SETTING_STAT_EDITOR},
+    [SETTING_LEVEL_CAP]         = {COMPOUND_STRING("LEVEL CAP"),         SETTING_LEVEL_CAP},
+    [SETTING_DEBUG]             = {COMPOUND_STRING("DEBUG MODE"),        SETTING_DEBUG},
 };
 
 static const struct WindowTemplate sSettingsMenuWinTemplates[] =
@@ -202,6 +223,8 @@ void CB2_InitNewGameSettingsMenu(void)
         gPendingNewGameSettings.difficulty = DIFFICULTY_NORMAL;
         gPendingNewGameSettings.nuzlockeEnabled = TRUE;
         gPendingNewGameSettings.randomizeSpecies = TRUE;
+        gPendingNewGameSettings.randomizeIncludeLegends = FALSE;
+        gPendingNewGameSettings.starterRandomMode = STARTER_RANDOM_NON_LEGEND;
         gPendingNewGameSettings.randomizeTypes = FALSE;
         gPendingNewGameSettings.randomizeMoves = FALSE;
         gPendingNewGameSettings.allowStatEditor = FALSE;
@@ -393,6 +416,9 @@ static void HandleValueChange(u8 settingId, bool8 rightPressed)
     case SETTING_RANDOMIZE_SPECIES:
         gPendingNewGameSettings.randomizeSpecies ^= 1;
         break;
+    case SETTING_RANDOMIZE_LEGENDS:
+        gPendingNewGameSettings.randomizeIncludeLegends ^= 1;
+        break;
     case SETTING_RANDOMIZE_TYPES:
         gPendingNewGameSettings.randomizeTypes ^= 1;
         break;
@@ -407,6 +433,22 @@ static void HandleValueChange(u8 settingId, bool8 rightPressed)
         break;
     case SETTING_LEVEL_CAP:
         gPendingNewGameSettings.levelCapOff ^= 1;
+        break;
+    case SETTING_STARTER_RANDOM:
+        if (rightPressed)
+        {
+            if (gPendingNewGameSettings.starterRandomMode < STARTER_RANDOM_MODE_COUNT - 1)
+                gPendingNewGameSettings.starterRandomMode++;
+            else
+                gPendingNewGameSettings.starterRandomMode = STARTER_RANDOM_ALL;
+        }
+        else
+        {
+            if (gPendingNewGameSettings.starterRandomMode > STARTER_RANDOM_ALL)
+                gPendingNewGameSettings.starterRandomMode--;
+            else
+                gPendingNewGameSettings.starterRandomMode = STARTER_RANDOM_MODE_COUNT - 1;
+        }
         break;
     case SETTING_DIFFICULTY:
         if (rightPressed)
@@ -434,6 +476,8 @@ static const u8 *GetSettingValueText(u8 settingId)
     case SETTING_NUZLOCKE:          return gPendingNewGameSettings.nuzlockeEnabled ? sText_On : sText_Off;
     case SETTING_DIFFICULTY:        return sDifficultyTexts[gPendingNewGameSettings.difficulty];
     case SETTING_RANDOMIZE_SPECIES: return gPendingNewGameSettings.randomizeSpecies ? sText_On : sText_Off;
+    case SETTING_RANDOMIZE_LEGENDS: return gPendingNewGameSettings.randomizeIncludeLegends ? sText_On : sText_Off;
+    case SETTING_STARTER_RANDOM:    return sStarterRandomTexts[gPendingNewGameSettings.starterRandomMode];
     case SETTING_RANDOMIZE_TYPES:   return gPendingNewGameSettings.randomizeTypes ? sText_On : sText_Off;
     case SETTING_RANDOMIZE_MOVES:   return gPendingNewGameSettings.randomizeMoves ? sText_On : sText_Off;
     case SETTING_STAT_EDITOR:       return gPendingNewGameSettings.allowStatEditor ? sText_On : sText_Off;
@@ -511,6 +555,8 @@ void ApplyPendingNewGameSettings(void)
     gSaveBlock1Ptr->difficulty = gPendingNewGameSettings.difficulty;
     gSaveBlock1Ptr->nuzlockeModeEnabled = gPendingNewGameSettings.nuzlockeEnabled;
     gPendingNewGameSettings.randomizeSpecies ? FlagSet(FLAG_RANDOMIZE_MON)     : FlagClear(FLAG_RANDOMIZE_MON);
+    gPendingNewGameSettings.randomizeIncludeLegends ? FlagSet(FLAG_RANDOMIZE_INCLUDE_LEGENDS) : FlagClear(FLAG_RANDOMIZE_INCLUDE_LEGENDS);
+    VarSet(VAR_STARTER_RANDOM_MODE, gPendingNewGameSettings.starterRandomMode);
     gPendingNewGameSettings.randomizeTypes   ? FlagSet(FLAG_RANDOMIZE_TYPE)    : FlagClear(FLAG_RANDOMIZE_TYPE);
     gPendingNewGameSettings.randomizeMoves   ? FlagSet(FLAG_RANDOMIZE_MOVES)   : FlagClear(FLAG_RANDOMIZE_MOVES);
     gPendingNewGameSettings.levelCapOff      ? FlagSet(FLAG_LEVEL_CAP_OFF)     : FlagClear(FLAG_LEVEL_CAP_OFF);

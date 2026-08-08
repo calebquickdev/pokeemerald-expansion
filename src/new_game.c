@@ -20,6 +20,8 @@
 #include "rtc.h"
 #include "easy_chat.h"
 #include "event_data.h"
+#include "constants/flags.h"
+#include "constants/vars.h"
 #include "money.h"
 #include "trainer_hill.h"
 #include "trainer_tower.h"
@@ -232,16 +234,17 @@ void NewGameInitData(void)
         memcpy(roamerLocationBackup, sRoamerLocation, sizeof(sRoamerLocation));
 
         /* Backup only option-related flag bytes (minimize restoring unrelated flags) */
-        flagsBackup = Alloc(3);
+        flagsBackup = Alloc(4);
         ((u8 *)flagsBackup)[0] = gSaveBlock1Ptr->flags[FLAG_AI_BATTLES / 8];
         ((u8 *)flagsBackup)[1] = gSaveBlock1Ptr->flags[FLAG_AUTO_SCROLL_TEXT / 8];
         ((u8 *)flagsBackup)[2] = gSaveBlock1Ptr->flags[FLAG_RANDOMIZE_TYPE / 8];
+        ((u8 *)flagsBackup)[3] = gSaveBlock1Ptr->flags[FLAG_RANDOMIZE_INCLUDE_LEGENDS / 8];
 
         /* Backup SaveBlock2 options (packed bitfields occupy 2 bytes at offset 0x14) */
         optionsBackup = Alloc(sizeof(u16));
         memcpy(optionsBackup, (u8 *)gSaveBlock2Ptr + 0x14, sizeof(u16));
         /* Backup a few SaveBlock1 player settings stored in SaveBlock1 */
-        playerSettingsBackup = Alloc(4);
+        playerSettingsBackup = Alloc(5);
         ((u8 *)playerSettingsBackup)[0] = gSaveBlock1Ptr->nuzlockeModeEnabled;
         ((u8 *)playerSettingsBackup)[1] = gSaveBlock1Ptr->autosaveModeEnabled;
         ((u8 *)playerSettingsBackup)[2] = gSaveBlock1Ptr->difficulty;
@@ -251,6 +254,7 @@ void NewGameInitData(void)
         // this, a run that got permanently blocked by opening the debug menu
         // would come back clean (unblocked) on its next NG+ cycle.
         ((u8 *)playerSettingsBackup)[3] = gSaveBlock1Ptr->achievementsBlocked;
+        ((u8 *)playerSettingsBackup)[4] = VarGet(VAR_STARTER_RANDOM_MODE);
 
         gIsNewGamePlus = FALSE; // consume flag
     }
@@ -405,6 +409,7 @@ void NewGameInitData(void)
                 (fb[2] & (1 << (FLAG_LEVEL_CAP_OFF % 8))) ? FlagSet(FLAG_LEVEL_CAP_OFF) : FlagClear(FLAG_LEVEL_CAP_OFF);
                 (fb[2] & (1 << (FLAG_AI_WILD_BATTLES % 8))) ? FlagSet(FLAG_AI_WILD_BATTLES) : FlagClear(FLAG_AI_WILD_BATTLES);
                 (fb[2] & (1 << (FLAG_ALLOW_STAT_EDITOR % 8))) ? FlagSet(FLAG_ALLOW_STAT_EDITOR) : FlagClear(FLAG_ALLOW_STAT_EDITOR);
+                (fb[3] & (1 << (FLAG_RANDOMIZE_INCLUDE_LEGENDS % 8))) ? FlagSet(FLAG_RANDOMIZE_INCLUDE_LEGENDS) : FlagClear(FLAG_RANDOMIZE_INCLUDE_LEGENDS);
             }
 
             if (optionsBackup != NULL)
@@ -416,6 +421,7 @@ void NewGameInitData(void)
                 gSaveBlock1Ptr->autosaveModeEnabled = ((u8 *)playerSettingsBackup)[1];
                 gSaveBlock1Ptr->difficulty = ((u8 *)playerSettingsBackup)[2];
                 gSaveBlock1Ptr->achievementsBlocked = ((u8 *)playerSettingsBackup)[3];
+                VarSet(VAR_STARTER_RANDOM_MODE, ((u8 *)playerSettingsBackup)[4]);
             }
 
             if (roamersBackup != NULL)

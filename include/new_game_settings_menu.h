@@ -8,6 +8,8 @@ struct NewGameSettings
     bool8 randomizeSpecies;
     bool8 randomizeTypes;
     bool8 randomizeMoves;
+    bool8 randomizeIncludeLegends;
+    u8 starterRandomMode;   // StarterRandomMode
     bool8 allowStatEditor;
     bool8 debugMode;
     bool8 levelCapOff;      // Same polarity as FLAG_LEVEL_CAP_OFF (flag ON means the level cap is disabled)
