@@ -40,6 +40,7 @@
 #include "malloc.h"
 #include "m4a.h"
 #include "new_game.h"
+#include "nuzlocke.h"
 #include "caps.h"
 #include "palette.h"
 #include "party_menu.h"
@@ -1775,6 +1776,7 @@ static void FreeRestoreBattleData(void)
     gMain.callback1 = gPreBattleCallback1;
     gScanlineEffect.state = 3;
     gMain.inBattle = FALSE;
+    gBattleTypeFlags = 0;
     ZeroEnemyPartyMons();
     m4aSongNumStop(SE_LOW_HEALTH);
     FreeMonSpritesGfx();
@@ -3859,6 +3861,7 @@ static void BattleStartClearSetData(void)
     gBattleStruct->palaceFlags = 0;
 
     gBattleResults.shinyWildMon = IsMonShiny(&gParties[B_TRAINER_OPPONENT_A][0]);
+    Nuzlocke_RecordWildEncounterState();
 
     gBattleStruct->arenaLostPlayerMons = 0;
     gBattleStruct->arenaLostOpponentMons = 0;
@@ -6563,6 +6566,7 @@ static void ReturnFromBattleToOverworld(void)
     }
 
     m4aSongNumStop(SE_LOW_HEALTH);
+    gBattleTypeFlags = 0;
     SetMainCallback2(gMain.savedCallback);
     // After every battle, move all roamer locations
     MoveAllRoamersToOtherLocationSets();

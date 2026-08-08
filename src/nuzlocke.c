@@ -12,6 +12,8 @@
 
 #define NUZLOCKE_MAX_FAMILY_MEMBERS 16
 
+EWRAM_DATA static bool8 sEncounterFamilyWasCaught;
+
 static enum Species Nuzlocke_GetEvolutionRoot(enum Species species)
 {
     enum Species pre;
@@ -133,16 +135,30 @@ bool8 Nuzlocke_CanThrowBall(void)
     return Nuzlocke_GetBallBlockReason() == NUZLOCKE_BALL_BLOCK_NONE;
 }
 
-void Nuzlocke_ApplyRouteLockAfterWild(void)
+void Nuzlocke_RecordWildEncounterState(void)
 {
-    u16 route;
     enum Species species;
+
+    sEncounterFamilyWasCaught = FALSE;
 
     if (!Nuzlocke_IsCatchModeActive())
         return;
 
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        return;
+
     species = GetMonData(&gParties[B_TRAINER_OPPONENT_A][0], MON_DATA_SPECIES);
-    if (Nuzlocke_IsEvolutionFamilyCaught(species))
+    sEncounterFamilyWasCaught = Nuzlocke_IsEvolutionFamilyCaught(species);
+}
+
+void Nuzlocke_ApplyRouteLockAfterWild(void)
+{
+    u16 route;
+
+    if (!Nuzlocke_IsCatchModeActive())
+        return;
+
+    if (sEncounterFamilyWasCaught)
         return;
 
     route = GetCurrentMapId();

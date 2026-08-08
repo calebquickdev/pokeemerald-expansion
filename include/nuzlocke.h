@@ -17,6 +17,7 @@ bool8 Nuzlocke_IsWildOpponentShiny(void);
 bool8 Nuzlocke_IsBattlerShiny(enum BattlerId battler);
 bool8 Nuzlocke_CanThrowBall(void);
 enum NuzlockeBallBlockReason Nuzlocke_GetBallBlockReason(void);
+void Nuzlocke_RecordWildEncounterState(void);
 void Nuzlocke_ApplyRouteLockAfterWild(void);
 
 #endif // GUARD_NUZLOCKE_H
