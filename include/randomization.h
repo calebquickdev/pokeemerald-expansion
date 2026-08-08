@@ -74,6 +74,17 @@ enum Species GetProceduralRandomizedStarterSpecies(u8 setIndex, u8 slotIndex);
 // True if species may appear in any procrng destination pool.
 bool32 IsSpeciesAllowedInRandomPool(enum Species species, bool32 allowLegends);
 
+bool32 IsChampionLegendarySpecies(enum Species species);
+bool32 IsPseudoLegendarySpecies(enum Species species);
+bool32 SpeciesMatchesThemeType(enum Species species, u8 themeType);
+u8 GetTrainerPartyThemeType(const struct Trainer *trainer, const u32 *monIndices, u8 monCount);
+enum Species PickChampionLegendarySpecies(rng_value_t *rngState, const enum Species *usedSpecies, u8 usedCount);
+enum Species PickPseudoLegendarySpecies(rng_value_t *rngState, const enum Species *usedSpecies, u8 usedCount);
+enum Species PickFullyEvolvedRandomSpecies(rng_value_t *rngState, const enum Species *usedSpecies, u8 usedCount);
+enum Species PickRandomSpeciesMatchingType(rng_value_t *rngState, u8 themeType, bool32 allowLegends, const enum Species *usedSpecies, u8 usedCount);
+void GenerateWallaceChampionParty(enum Species *outSpecies, u8 count, u32 trainerKey);
+void GenerateTypedBossParty(enum Species *outSpecies, u8 count, u32 trainerKey, const struct Trainer *trainer, const u32 *monIndices);
+
 // On catch / gift persistence: revert non-persistent forms; Zacian/Zamazenta
 // keep rusted items; fusions collapse to base only.
 void NormalizePersistentRandomMon(struct Pokemon *mon);

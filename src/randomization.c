@@ -2,6 +2,7 @@
 #include "randomization.h"
 #include "battle.h"
 #include "caps.h"
+#include "data.h"
 #include "event_data.h"
 #include "new_game.h"
 #include "pokemon.h"
@@ -406,6 +407,428 @@ static enum Species PickUniformFromFixedPool(rng_value_t *rngState, const enum S
         return SPECIES_NONE;
 
     return eligible[LocalRandom32(rngState) % eligibleCount];
+}
+
+static bool32 IncludeLegendsInGeneralPool(void);
+
+static const enum Species sPseudoLegendarySpecies[] =
+{
+    SPECIES_DRAGONITE,
+    SPECIES_TYRANITAR,
+    SPECIES_SALAMENCE,
+    SPECIES_METAGROSS,
+    SPECIES_GARCHOMP,
+    SPECIES_HYDREIGON,
+    SPECIES_GOODRA,
+    SPECIES_GOODRA_HISUI,
+    SPECIES_KOMMO_O,
+    SPECIES_DRAGAPULT,
+    SPECIES_BAXCALIBUR,
+};
+
+static u8 GetMonPrimaryTypeForTheme(enum Species species)
+{
+    u8 primaryType = gSpeciesInfo[species].types[0];
+    u8 secondaryType = gSpeciesInfo[species].types[1];
+
+    if (secondaryType != TYPE_NONE && primaryType == TYPE_NORMAL)
+        return secondaryType;
+
+    return primaryType;
+}
+
+static bool32 IsSpeciesAlreadyUsed(enum Species species, const enum Species *usedSpecies, u8 usedCount)
+{
+    u8 i;
+    enum Species finalSpecies = GetFinalEvolution(species);
+
+    for (i = 0; i < usedCount; i++)
+    {
+        if (GetFinalEvolution(usedSpecies[i]) == finalSpecies)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+static enum Species PickGuaranteedAllowedFinalSpecies(rng_value_t *rngState, bool32 allowLegends, const enum Species *usedSpecies, u8 usedCount, bool32 requireUnique)
+{
+    u32 poolSize = NATIONAL_DEX_COUNT;
+    u32 start = LocalRandom32(rngState) % poolSize;
+    u32 i;
+
+    for (i = 0; i < poolSize; i++)
+    {
+        enum NationalDexOrder dexNum = ((start + i) % poolSize) + 1;
+        enum Species candidate = NationalPokedexNumToSpecies(dexNum);
+        enum Species finalSpecies;
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, allowLegends))
+            continue;
+
+        finalSpecies = GetFinalEvolution(candidate);
+
+        if (requireUnique && IsSpeciesAlreadyUsed(finalSpecies, usedSpecies, usedCount))
+            continue;
+
+        return finalSpecies;
+    }
+
+    for (i = 0; i < poolSize; i++)
+    {
+        enum Species candidate = NationalPokedexNumToSpecies(i + 1);
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, TRUE))
+            continue;
+
+        return GetFinalEvolution(candidate);
+    }
+
+    return SPECIES_TREECKO;
+}
+
+static enum Species ScanChampionLegendarySpecies(rng_value_t *rngState, const enum Species *usedSpecies, u8 usedCount, bool32 requireUnique)
+{
+    u32 poolSize = NATIONAL_DEX_COUNT;
+    u32 start = LocalRandom32(rngState) % poolSize;
+    u32 i;
+
+    for (i = 0; i < poolSize; i++)
+    {
+        enum Species candidate = NationalPokedexNumToSpecies(((start + i) % poolSize) + 1);
+        enum Species finalSpecies;
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, TRUE))
+            continue;
+        if (!IsChampionLegendarySpecies(candidate))
+            continue;
+
+        finalSpecies = GetFinalEvolution(candidate);
+
+        if (requireUnique && IsSpeciesAlreadyUsed(finalSpecies, usedSpecies, usedCount))
+            continue;
+
+        return finalSpecies;
+    }
+
+    return SPECIES_NONE;
+}
+
+static enum Species ScanPseudoLegendarySpecies(rng_value_t *rngState, const enum Species *usedSpecies, u8 usedCount, bool32 requireUnique)
+{
+    u8 i;
+    u8 start = LocalRandom32(rngState) % ARRAY_COUNT(sPseudoLegendarySpecies);
+
+    for (i = 0; i < ARRAY_COUNT(sPseudoLegendarySpecies); i++)
+    {
+        enum Species candidate = sPseudoLegendarySpecies[(start + i) % ARRAY_COUNT(sPseudoLegendarySpecies)];
+        enum Species finalSpecies;
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, TRUE))
+            continue;
+
+        finalSpecies = GetFinalEvolution(candidate);
+
+        if (requireUnique && IsSpeciesAlreadyUsed(finalSpecies, usedSpecies, usedCount))
+            continue;
+
+        return finalSpecies;
+    }
+
+    return SPECIES_NONE;
+}
+
+static enum Species ScanFullyEvolvedRandomSpecies(rng_value_t *rngState, bool32 allowLegends, const enum Species *usedSpecies, u8 usedCount, bool32 requireUnique, bool32 excludeLegendsAndPseudos)
+{
+    u32 poolSize = NATIONAL_DEX_COUNT;
+    u32 start = LocalRandom32(rngState) % poolSize;
+    u32 i;
+
+    for (i = 0; i < poolSize; i++)
+    {
+        enum Species candidate = NationalPokedexNumToSpecies(((start + i) % poolSize) + 1);
+        enum Species finalSpecies;
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, allowLegends))
+            continue;
+
+        finalSpecies = GetFinalEvolution(candidate);
+
+        if (excludeLegendsAndPseudos)
+        {
+            if (IsChampionLegendarySpecies(finalSpecies))
+                continue;
+            if (IsPseudoLegendarySpecies(finalSpecies))
+                continue;
+        }
+
+        if (requireUnique && IsSpeciesAlreadyUsed(finalSpecies, usedSpecies, usedCount))
+            continue;
+
+        return finalSpecies;
+    }
+
+    return SPECIES_NONE;
+}
+
+static enum Species ScanRandomSpeciesMatchingType(rng_value_t *rngState, u8 themeType, bool32 allowLegends, const enum Species *usedSpecies, u8 usedCount, bool32 requireUnique)
+{
+    u32 poolSize = NATIONAL_DEX_COUNT;
+    u32 start = LocalRandom32(rngState) % poolSize;
+    u32 i;
+
+    for (i = 0; i < poolSize; i++)
+    {
+        enum Species candidate = NationalPokedexNumToSpecies(((start + i) % poolSize) + 1);
+        enum Species finalSpecies;
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, allowLegends))
+            continue;
+
+        finalSpecies = GetFinalEvolution(candidate);
+
+        if (!SpeciesMatchesThemeType(finalSpecies, themeType))
+            continue;
+
+        if (requireUnique && IsSpeciesAlreadyUsed(finalSpecies, usedSpecies, usedCount))
+            continue;
+
+        return finalSpecies;
+    }
+
+    return SPECIES_NONE;
+}
+
+bool32 IsChampionLegendarySpecies(enum Species species)
+{
+    const struct SpeciesInfo *info = &gSpeciesInfo[species];
+
+    return info->isRestrictedLegendary
+        || info->isSubLegendary
+        || info->isMythical;
+}
+
+bool32 IsPseudoLegendarySpecies(enum Species species)
+{
+    u32 i;
+    enum Species baseSpecies = GET_BASE_SPECIES_ID(species);
+
+    for (i = 0; i < ARRAY_COUNT(sPseudoLegendarySpecies); i++)
+    {
+        if (baseSpecies == sPseudoLegendarySpecies[i])
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+bool32 SpeciesMatchesThemeType(enum Species species, u8 themeType)
+{
+    if (themeType == TYPE_MYSTERY)
+        return TRUE;
+
+    return GetSpeciesType(species, 0) == themeType
+        || GetSpeciesType(species, 1) == themeType;
+}
+
+u8 GetTrainerPartyThemeType(const struct Trainer *trainer, const u32 *monIndices, u8 monCount)
+{
+    u8 typeCounts[NUMBER_OF_MON_TYPES] = {0};
+    u8 maxCount = 0;
+    u8 themeType = TYPE_MYSTERY;
+    u8 i;
+
+    for (i = 0; i < monCount; i++)
+    {
+        enum Species species = GetFinalEvolution(trainer->party[monIndices[i]].species);
+        u8 type = GetMonPrimaryTypeForTheme(species);
+
+        typeCounts[type]++;
+        if (typeCounts[type] > maxCount)
+        {
+            maxCount = typeCounts[type];
+            themeType = type;
+        }
+    }
+
+    return themeType;
+}
+
+enum Species PickChampionLegendarySpecies(rng_value_t *rngState, const enum Species *usedSpecies, u8 usedCount)
+{
+    u32 attempts;
+    u32 poolSize = NATIONAL_DEX_COUNT;
+    enum Species picked;
+
+    for (attempts = 0; attempts < poolSize * 4; attempts++)
+    {
+        enum NationalDexOrder dexNum = (LocalRandom32(rngState) % poolSize) + 1;
+        enum Species candidate = NationalPokedexNumToSpecies(dexNum);
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, TRUE))
+            continue;
+        if (!IsChampionLegendarySpecies(candidate))
+            continue;
+        if (IsSpeciesAlreadyUsed(candidate, usedSpecies, usedCount))
+            continue;
+
+        return GetFinalEvolution(candidate);
+    }
+
+    picked = ScanChampionLegendarySpecies(rngState, usedSpecies, usedCount, TRUE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    picked = ScanChampionLegendarySpecies(rngState, usedSpecies, usedCount, FALSE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    return PickGuaranteedAllowedFinalSpecies(rngState, TRUE, usedSpecies, usedCount, FALSE);
+}
+
+enum Species PickPseudoLegendarySpecies(rng_value_t *rngState, const enum Species *usedSpecies, u8 usedCount)
+{
+    enum Species eligible[ARRAY_COUNT(sPseudoLegendarySpecies)];
+    u8 eligibleCount = 0;
+    u8 i;
+    enum Species picked;
+
+    for (i = 0; i < ARRAY_COUNT(sPseudoLegendarySpecies); i++)
+    {
+        enum Species candidate = sPseudoLegendarySpecies[i];
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, TRUE))
+            continue;
+        if (IsSpeciesAlreadyUsed(candidate, usedSpecies, usedCount))
+            continue;
+
+        eligible[eligibleCount++] = candidate;
+    }
+
+    if (eligibleCount != 0)
+        return GetFinalEvolution(eligible[LocalRandom32(rngState) % eligibleCount]);
+
+    picked = ScanPseudoLegendarySpecies(rngState, usedSpecies, usedCount, TRUE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    picked = ScanPseudoLegendarySpecies(rngState, usedSpecies, usedCount, FALSE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    return PickGuaranteedAllowedFinalSpecies(rngState, TRUE, usedSpecies, usedCount, FALSE);
+}
+
+enum Species PickFullyEvolvedRandomSpecies(rng_value_t *rngState, const enum Species *usedSpecies, u8 usedCount)
+{
+    u32 attempts;
+    u32 poolSize = NATIONAL_DEX_COUNT;
+    bool32 allowLegends = IncludeLegendsInGeneralPool();
+    enum Species picked;
+
+    for (attempts = 0; attempts < poolSize * 4; attempts++)
+    {
+        enum NationalDexOrder dexNum = (LocalRandom32(rngState) % poolSize) + 1;
+        enum Species candidate = NationalPokedexNumToSpecies(dexNum);
+        enum Species finalSpecies;
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, allowLegends))
+            continue;
+
+        finalSpecies = GetFinalEvolution(candidate);
+
+        if (IsChampionLegendarySpecies(finalSpecies))
+            continue;
+        if (IsPseudoLegendarySpecies(finalSpecies))
+            continue;
+        if (IsSpeciesAlreadyUsed(finalSpecies, usedSpecies, usedCount))
+            continue;
+
+        return finalSpecies;
+    }
+
+    picked = ScanFullyEvolvedRandomSpecies(rngState, allowLegends, usedSpecies, usedCount, TRUE, TRUE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    picked = ScanFullyEvolvedRandomSpecies(rngState, allowLegends, usedSpecies, usedCount, TRUE, FALSE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    picked = ScanFullyEvolvedRandomSpecies(rngState, allowLegends, usedSpecies, usedCount, FALSE, FALSE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    return PickGuaranteedAllowedFinalSpecies(rngState, allowLegends, usedSpecies, usedCount, FALSE);
+}
+
+enum Species PickRandomSpeciesMatchingType(rng_value_t *rngState, u8 themeType, bool32 allowLegends, const enum Species *usedSpecies, u8 usedCount)
+{
+    u32 attempts;
+    u32 poolSize = NATIONAL_DEX_COUNT;
+    enum Species picked;
+
+    for (attempts = 0; attempts < poolSize * 8; attempts++)
+    {
+        enum NationalDexOrder dexNum = (LocalRandom32(rngState) % poolSize) + 1;
+        enum Species candidate = NationalPokedexNumToSpecies(dexNum);
+        enum Species finalSpecies;
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, allowLegends))
+            continue;
+
+        finalSpecies = GetFinalEvolution(candidate);
+
+        if (!SpeciesMatchesThemeType(finalSpecies, themeType))
+            continue;
+        if (IsSpeciesAlreadyUsed(finalSpecies, usedSpecies, usedCount))
+            continue;
+
+        return finalSpecies;
+    }
+
+    picked = ScanRandomSpeciesMatchingType(rngState, themeType, allowLegends, usedSpecies, usedCount, TRUE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    picked = ScanRandomSpeciesMatchingType(rngState, themeType, allowLegends, usedSpecies, usedCount, FALSE);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    picked = PickFullyEvolvedRandomSpecies(rngState, usedSpecies, usedCount);
+    if (picked != SPECIES_NONE)
+        return picked;
+
+    return PickGuaranteedAllowedFinalSpecies(rngState, allowLegends, usedSpecies, usedCount, FALSE);
+}
+
+void GenerateWallaceChampionParty(enum Species *outSpecies, u8 count, u32 trainerKey)
+{
+    u32 otId = GetTrainerId(gSaveBlock2Ptr->playerTrainerId);
+    rng_value_t rngState = LocalRandomSeed(MixSpeciesRandomSeed(otId, trainerKey, GetNewGamePlusLevelOffset(), 0xC4A1u));
+    u8 i;
+
+    for (i = 0; i < count; i++)
+    {
+        if (i == 0)
+            outSpecies[i] = PickChampionLegendarySpecies(&rngState, outSpecies, i);
+        else if (i == 1)
+            outSpecies[i] = PickPseudoLegendarySpecies(&rngState, outSpecies, i);
+        else
+            outSpecies[i] = PickFullyEvolvedRandomSpecies(&rngState, outSpecies, i);
+    }
+}
+
+void GenerateTypedBossParty(enum Species *outSpecies, u8 count, u32 trainerKey, const struct Trainer *trainer, const u32 *monIndices)
+{
+    u32 otId = GetTrainerId(gSaveBlock2Ptr->playerTrainerId);
+    rng_value_t rngState = LocalRandomSeed(MixSpeciesRandomSeed(otId, trainerKey, GetNewGamePlusLevelOffset(), 0xB055u));
+    u8 themeType = GetTrainerPartyThemeType(trainer, monIndices, count);
+    bool32 allowLegends = IncludeLegendsInGeneralPool();
+    u8 i;
+
+    for (i = 0; i < count; i++)
+        outSpecies[i] = PickRandomSpeciesMatchingType(&rngState, themeType, allowLegends, outSpecies, i);
 }
 
 static bool32 IncludeLegendsInGeneralPool(void)

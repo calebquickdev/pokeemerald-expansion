@@ -34,6 +34,7 @@ enum
     SETTING_DIFFICULTY,
     SETTING_RANDOMIZE_SPECIES,
     SETTING_RANDOMIZE_LEGENDS,
+    SETTING_BOSS_TEAM_STYLE,
     SETTING_STARTER_RANDOM,
     SETTING_RANDOMIZE_TYPES,
     SETTING_RANDOMIZE_MOVES,
@@ -100,6 +101,12 @@ static const u8 *const sStarterRandomTexts[] =
     [STARTER_RANDOM_STARTERS_ONLY] = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}STARTERS"),
 };
 
+static const u8 *const sBossTeamStyleTexts[] =
+{
+    [BOSS_TEAM_STYLE_REGULAR] = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}REGULAR"),
+    [BOSS_TEAM_STYLE_TYPED]   = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}TYPED"),
+};
+
 static const u8 *const sSettingDescriptions[SETTING_COUNT] =
 {
     [SETTING_NUZLOCKE]          = COMPOUND_STRING(
@@ -115,6 +122,9 @@ static const u8 *const sSettingDescriptions[SETTING_COUNT] =
     [SETTING_RANDOMIZE_LEGENDS] = COMPOUND_STRING(
                                        "Allow Legendaries, Mythicals, and\n"
                                        "Ultra Beasts in the random pool."),
+    [SETTING_BOSS_TEAM_STYLE]   = COMPOUND_STRING(
+                                       "Gym Leaders and Elite Four use\n"
+                                       "regular random or typed teams."),
     [SETTING_STARTER_RANDOM]    = COMPOUND_STRING(
                                        "Starter pool when species random\n"
                                        "is on: All, No Legend, or Starters."),
@@ -133,6 +143,7 @@ static const struct ListMenuItem sSettingsListItems[SETTING_COUNT] =
     [SETTING_DIFFICULTY]        = {COMPOUND_STRING("DIFFICULTY"),        SETTING_DIFFICULTY},
     [SETTING_RANDOMIZE_SPECIES] = {COMPOUND_STRING("RANDOMIZE SPECIES"), SETTING_RANDOMIZE_SPECIES},
     [SETTING_RANDOMIZE_LEGENDS] = {COMPOUND_STRING("RANDOM LEGENDS"),    SETTING_RANDOMIZE_LEGENDS},
+    [SETTING_BOSS_TEAM_STYLE]   = {COMPOUND_STRING("BOSS TEAM STYLE"),   SETTING_BOSS_TEAM_STYLE},
     [SETTING_STARTER_RANDOM]    = {COMPOUND_STRING("STARTER RANDOM"),    SETTING_STARTER_RANDOM},
     [SETTING_RANDOMIZE_TYPES]   = {COMPOUND_STRING("RANDOMIZE TYPES"),   SETTING_RANDOMIZE_TYPES},
     [SETTING_RANDOMIZE_MOVES]   = {COMPOUND_STRING("RANDOMIZE MOVES"),   SETTING_RANDOMIZE_MOVES},
@@ -225,6 +236,7 @@ void CB2_InitNewGameSettingsMenu(void)
         gPendingNewGameSettings.nuzlockeEnabled = TRUE;
         gPendingNewGameSettings.randomizeSpecies = TRUE;
         gPendingNewGameSettings.randomizeIncludeLegends = FALSE;
+        gPendingNewGameSettings.bossTeamStyle = BOSS_TEAM_STYLE_REGULAR;
         gPendingNewGameSettings.starterRandomMode = STARTER_RANDOM_NON_LEGEND;
         gPendingNewGameSettings.randomizeTypes = FALSE;
         gPendingNewGameSettings.randomizeMoves = FALSE;
@@ -435,6 +447,22 @@ static void HandleValueChange(u8 settingId, bool8 rightPressed)
     case SETTING_LEVEL_CAP:
         gPendingNewGameSettings.levelCapOff ^= 1;
         break;
+    case SETTING_BOSS_TEAM_STYLE:
+        if (rightPressed)
+        {
+            if (gPendingNewGameSettings.bossTeamStyle < BOSS_TEAM_STYLE_COUNT - 1)
+                gPendingNewGameSettings.bossTeamStyle++;
+            else
+                gPendingNewGameSettings.bossTeamStyle = BOSS_TEAM_STYLE_REGULAR;
+        }
+        else
+        {
+            if (gPendingNewGameSettings.bossTeamStyle > BOSS_TEAM_STYLE_REGULAR)
+                gPendingNewGameSettings.bossTeamStyle--;
+            else
+                gPendingNewGameSettings.bossTeamStyle = BOSS_TEAM_STYLE_COUNT - 1;
+        }
+        break;
     case SETTING_STARTER_RANDOM:
         if (rightPressed)
         {
@@ -478,6 +506,7 @@ static const u8 *GetSettingValueText(u8 settingId)
     case SETTING_DIFFICULTY:        return sDifficultyTexts[gPendingNewGameSettings.difficulty];
     case SETTING_RANDOMIZE_SPECIES: return gPendingNewGameSettings.randomizeSpecies ? sText_On : sText_Off;
     case SETTING_RANDOMIZE_LEGENDS: return gPendingNewGameSettings.randomizeIncludeLegends ? sText_On : sText_Off;
+    case SETTING_BOSS_TEAM_STYLE:   return sBossTeamStyleTexts[gPendingNewGameSettings.bossTeamStyle];
     case SETTING_STARTER_RANDOM:    return sStarterRandomTexts[gPendingNewGameSettings.starterRandomMode];
     case SETTING_RANDOMIZE_TYPES:   return gPendingNewGameSettings.randomizeTypes ? sText_On : sText_Off;
     case SETTING_RANDOMIZE_MOVES:   return gPendingNewGameSettings.randomizeMoves ? sText_On : sText_Off;
@@ -558,6 +587,7 @@ void ApplyPendingNewGameSettings(void)
     gPendingNewGameSettings.randomizeSpecies ? FlagSet(FLAG_RANDOMIZE_MON)     : FlagClear(FLAG_RANDOMIZE_MON);
     gPendingNewGameSettings.randomizeIncludeLegends ? FlagSet(FLAG_RANDOMIZE_INCLUDE_LEGENDS) : FlagClear(FLAG_RANDOMIZE_INCLUDE_LEGENDS);
     VarSet(VAR_STARTER_RANDOM_MODE, gPendingNewGameSettings.starterRandomMode);
+    VarSet(VAR_BOSS_TEAM_STYLE, gPendingNewGameSettings.bossTeamStyle);
     gPendingNewGameSettings.randomizeTypes   ? FlagSet(FLAG_RANDOMIZE_TYPE)    : FlagClear(FLAG_RANDOMIZE_TYPE);
     gPendingNewGameSettings.randomizeMoves   ? FlagSet(FLAG_RANDOMIZE_MOVES)   : FlagClear(FLAG_RANDOMIZE_MOVES);
     gPendingNewGameSettings.levelCapOff      ? FlagSet(FLAG_LEVEL_CAP_OFF)     : FlagClear(FLAG_LEVEL_CAP_OFF);

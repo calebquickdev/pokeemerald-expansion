@@ -6242,6 +6242,7 @@ void ItemUseCB_RareCandy(u8 taskId, TaskFunc task)
     }
 }
 
+// Intentional: Candy Jar is reusable and is not removed from the bag on use.
 void ItemUseCB_CandyJar(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];

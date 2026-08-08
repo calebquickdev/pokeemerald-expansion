@@ -18,4 +18,11 @@ enum SpeciesRandomContext
     SPECIES_RAND_CTX_SCRIPTED_WILD,
 };
 
+enum BossTeamStyle
+{
+    BOSS_TEAM_STYLE_REGULAR,
+    BOSS_TEAM_STYLE_TYPED,
+    BOSS_TEAM_STYLE_COUNT,
+};
+
 #endif // GUARD_CONSTANTS_SPECIES_RANDOM_H

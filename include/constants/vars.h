@@ -267,7 +267,7 @@
 #define VAR_SCOTT_BF_CALL_STEP_COUNTER                   0x40F5
 #define VAR_RIVAL_RAYQUAZA_CALL_STEP_COUNTER             0x40F6
 #define VAR_STARTER_RANDOM_MODE                          0x40F7 // Starter species random pool mode (see StarterRandomMode)
-#define VAR_UNUSED_0x40F8                                0x40F8 // Unused Var
+#define VAR_BOSS_TEAM_STYLE                              0x40F8 // Gym Leader / Elite Four team style when species random is on (see BossTeamStyle)
 #define VAR_UNUSED_0x40F9                                0x40F9 // Unused Var
 #define VAR_UNUSED_0x40FA                                0x40FA // Unused Var
 #define VAR_UNUSED_0x40FB                                0x40FB // Unused Var

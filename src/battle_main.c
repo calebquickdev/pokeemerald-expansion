@@ -78,11 +78,14 @@
 #include "constants/battle_setup.h"
 #include "constants/items.h"
 #include "constants/moves.h"
+#include "constants/opponents.h"
 #include "constants/party_menu.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/species_random.h"
 #include "constants/trainer_slide.h"
 #include "constants/trainers.h"
+#include "constants/vars.h"
 #include "constants/weather.h"
 #include "cable_club.h"
 #include "start_menu.h"
@@ -2425,6 +2428,28 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             }
         }
 
+        enum Species bossRandomSpecies[PARTY_SIZE];
+        bool8 useBossRandomSpecies = FALSE;
+
+        if (FlagGet(FLAG_RANDOMIZE_MON))
+        {
+            bool8 isWallace = (trainer == GetTrainerStructFromId(TRAINER_WALLACE));
+            bool8 isBossLeaderOrE4 = (trainer->trainerClass == TRAINER_CLASS_LEADER
+                                   || trainer->trainerClass == TRAINER_CLASS_ELITE_FOUR);
+            u16 bossTeamStyle = VarGet(VAR_BOSS_TEAM_STYLE);
+
+            if (isWallace)
+            {
+                GenerateWallaceChampionParty(bossRandomSpecies, monsCount, (u32)trainer);
+                useBossRandomSpecies = TRUE;
+            }
+            else if (isBossLeaderOrE4 && bossTeamStyle == BOSS_TEAM_STYLE_TYPED)
+            {
+                GenerateTypedBossParty(bossRandomSpecies, monsCount, (u32)trainer, trainer, monIndices);
+                useBossRandomSpecies = TRUE;
+            }
+        }
+
         for (s32 i = 0; i < monsCount; i++)
         {
             u32 monIndex = monIndices[i];
@@ -2457,7 +2482,11 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             // New Game+: Determine species (randomized or original)
             u16 species;
-            if (to_replace[i] && isNGPlus)
+            if (useBossRandomSpecies)
+            {
+                species = bossRandomSpecies[i];
+            }
+            else if (to_replace[i] && isNGPlus)
             {
                 u32 trainerId = GetTrainerId(gSaveBlock2Ptr->playerTrainerId);
                 rng_value_t rngState = LocalRandomSeed(trainerId + monIndex + GetNewGamePlusLevelOffset());
@@ -2483,7 +2512,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             }
 
             // Apply New Game+ evolution to final form
-            if (isNGPlus)
+            if (isNGPlus && !useBossRandomSpecies)
                 species = GetFinalEvolution(species);
 
             // New Game+: Difficulty-based level adjustment + NG+ level offset
@@ -2497,7 +2526,14 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             else if (newLevel > MAX_LEVEL)
                 newLevel = MAX_LEVEL;
 
+            if (useBossRandomSpecies)
+                SetSpeciesRandomContext(SPECIES_RAND_CTX_SKIP);
+
             CreateMon(&party[i], species, newLevel, personalityValue, otId);
+
+            if (useBossRandomSpecies)
+                SetSpeciesRandomContext(SPECIES_RAND_CTX_NORMAL);
+
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 
             // New Game+: Apply hold item modifications
