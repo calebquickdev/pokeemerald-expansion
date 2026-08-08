@@ -13,7 +13,10 @@
 // never compounds randomization on top of itself.
 
 #include "global.h"
+#include "random.h"
 #include "constants/species_random.h"
+
+struct Trainer;
 
 // The data contract for "effective" mon data: everything a UI, relearner,
 // battle-setup, or summary-screen caller needs after randomization has been
