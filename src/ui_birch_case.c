@@ -24,6 +24,7 @@
 #include "new_game.h"
 #include "palette.h"
 #include "party_menu.h"
+#include "randomization.h"
 #include "scanline_effect.h"
 #include "script.h"
 #include "sound.h"
@@ -364,12 +365,10 @@ static void CursorCallback(struct Sprite *sprite)
     
 }
 
-// Generate a random species ID
+// Generate a random species ID for a starter slot (filtered pool + playthrough form).
 u16 PickRandomSpecies(u8 setIndex, u8 slotIndex)
 {
-    u32 trainerId = GetTrainerId(gSaveBlock2Ptr->playerTrainerId);
-    rng_value_t rngState = LocalRandomSeed(trainerId + setIndex * 100 + slotIndex + GetNewGamePlusLevelOffset());
-    return (LocalRandom(&rngState) % (NUM_SPECIES - 1)) + 1;
+    return GetProceduralRandomizedStarterSpecies(setIndex, slotIndex);
 }
 
 u16 GetRandomBaseSpecies(rng_value_t *rngState)
@@ -686,39 +685,11 @@ static void BirchCase_GiveMon() // Function that calls the GiveMon function pull
         for (u8 i = 0; i < MAX_MON_MOVES; i++)
             moves[i] = (enum Move)choice->moves[i];
     }
-    else if (wasRandomizeMon)
-    {
-        // Randomize moves when flag is set, deduplicating to avoid assertion in ResolveRandomMoves
-        FlagClear(FLAG_RANDOMIZE_MON);
-        u8 moveCount = 0;
-        for (u8 i = 0; i < MAX_MON_MOVES && moveCount < MAX_MON_MOVES; i++)
-        {
-            enum Move randomMove = GetRandomMove(choice->species, MOVE_NONE);
-            if (randomMove == MOVE_NONE)
-                randomMove = MOVE_TACKLE;
-
-            // Check for duplicates before adding
-            bool32 isDuplicate = FALSE;
-            for (u8 j = 0; j < moveCount; j++)
-            {
-                if (moves[j] == randomMove)
-                {
-                    isDuplicate = TRUE;
-                    break;
-                }
-            }
-
-            if (!isDuplicate)
-                moves[moveCount++] = randomMove;
-        }
-        // Fill remaining slots with MOVE_NONE
-        for (u8 i = moveCount; i < MAX_MON_MOVES; i++)
-            moves[i] = MOVE_NONE;
-        FlagSet(FLAG_RANDOMIZE_MON);
-    }
     else
     {
-        // Get default level-up moves for the species at its level (only moves learned up to choice->level)
+        // Level-up learnset for the (already randomized) starter species.
+        // FLAG_RANDOMIZE_MOVES remaps these at battle/UI time; do not invent
+        // random move IDs just because species random is on.
         const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset((enum Species)choice->species);
         u8 numMoves = 0;
         for (u8 i = 0; learnset[i].move != LEVEL_UP_MOVE_END && numMoves < MAX_MON_MOVES; i++)
@@ -726,7 +697,6 @@ static void BirchCase_GiveMon() // Function that calls the GiveMon function pull
             if (learnset[i].level <= choice->level)
                 moves[numMoves++] = (enum Move)learnset[i].move;
         }
-        // Ensure remaining slots are MOVE_NONE
         for (u8 i = numMoves; i < MAX_MON_MOVES; i++)
             moves[i] = MOVE_NONE;
     }

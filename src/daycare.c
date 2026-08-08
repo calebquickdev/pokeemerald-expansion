@@ -1,6 +1,8 @@
 #include "global.h"
 #include "achievements.h"
 #include "pokemon.h"
+#include "randomization.h"
+#include "constants/species_random.h"
 #include "battle.h"
 #include "daycare.h"
 #include "string_util.h"
@@ -1140,7 +1142,9 @@ static void SetInitialEggData(struct Pokemon *mon, enum Species species, struct 
     u8 language;
 
     personality = daycare->offspringPersonality;
+    SetSpeciesRandomContext(SPECIES_RAND_CTX_SKIP);
     CreateMonWithIVs(mon, species, EGG_HATCH_LEVEL, personality, OTID_STRUCT_PLAYER_ID, USE_RANDOM_IVS);
+    SetSpeciesRandomContext(SPECIES_RAND_CTX_NORMAL);
     GiveMonInitialMoveset(mon);
     metLevel = 0;
     ball = BALL_POKE;

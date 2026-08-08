@@ -18,6 +18,8 @@
 #include "pokeblock.h"
 #include "pokemon.h"
 #include "random.h"
+#include "randomization.h"
+#include "constants/species_random.h"
 #include "roamer.h"
 #include "safari_zone.h"
 #include "script.h"
@@ -553,7 +555,9 @@ static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 
     u16 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
 
     UpdateChainFishingStreak();
+    SetSpeciesRandomContext(SPECIES_RAND_CTX_FISHING);
     CreateWildMon(wildMonSpecies, level);
+    SetSpeciesRandomContext(SPECIES_RAND_CTX_NORMAL);
     return wildMonSpecies;
 }
 
@@ -947,7 +951,9 @@ void FishingWildEncounter(u8 rod)
         u16 level = ChooseWildMonLevel(&gWildFeebas, 0, WILD_AREA_FISHING);
 
         species = gWildFeebas.species;
+        SetSpeciesRandomContext(SPECIES_RAND_CTX_FISHING);
         CreateWildMon(species, level);
+        SetSpeciesRandomContext(SPECIES_RAND_CTX_NORMAL);
     }
     else
     {
@@ -1105,7 +1111,9 @@ static bool8 TryGetRandomWildMonIndexByType(const struct WildPokemon *wildMon, e
 
     for (validMonCount = 0, i = 0; i < numMon; i++)
     {
-        if (GetSpeciesType(wildMon[i].species, 0) == type || GetSpeciesType(wildMon[i].species, 1) == type)
+        enum Species remapped = GetRandomizedSpecies(wildMon[i].species);
+
+        if (GetSpeciesType(remapped, 0) == type || GetSpeciesType(remapped, 1) == type)
             validIndexes[validMonCount++] = i;
     }
 

@@ -1,7 +1,8 @@
 #ifndef GUARD_RANDOMIZATION_H
 #define GUARD_RANDOMIZATION_H
 
-// Single resolver layer for move/type randomization.
+// Single resolver layer for move/type randomization, plus the procedural
+// species remap used by FLAG_RANDOMIZE_MON.
 //
 // Every caller that needs to know a mon's "effective" type or move (summary
 // screen, relearner, battle setup, party menu, etc.) should go through this
@@ -12,6 +13,7 @@
 // never compounds randomization on top of itself.
 
 #include "global.h"
+#include "constants/species_random.h"
 
 // The data contract for "effective" mon data: everything a UI, relearner,
 // battle-setup, or summary-screen caller needs after randomization has been
@@ -56,5 +58,24 @@ void ResolveMonMoves(u16 species, const u16 *originalMoves, u16 *outMoves);
 // display code (summary screen) and battle setup should share, so the two
 // paths can never independently drift from each other.
 void ResolveMonData(u16 species, const u16 *originalMoves, struct ResolvedMonData *out);
+
+// --- Species randomization (FLAG_RANDOMIZE_MON) ---
+
+void SetSpeciesRandomContext(enum SpeciesRandomContext context);
+enum SpeciesRandomContext GetSpeciesRandomContext(void);
+
+// Procedural remap used by CreateMon / DexNav / ability lure. Deterministic for
+// (OT, MAPSEC, baseSourceSpecies) unless context is SKIP / STARTER / FISHING.
+enum Species GetProceduralRandomizedSpecies(enum Species species);
+
+// Starter slot remap (set/slot seed; respects starter random mode setting).
+enum Species GetProceduralRandomizedStarterSpecies(u8 setIndex, u8 slotIndex);
+
+// True if species may appear in any procrng destination pool.
+bool32 IsSpeciesAllowedInRandomPool(enum Species species, bool32 allowLegends);
+
+// On catch / gift persistence: revert non-persistent forms; Zacian/Zamazenta
+// keep rusted items; fusions collapse to base only.
+void NormalizePersistentRandomMon(struct Pokemon *mon);
 
 #endif // GUARD_RANDOMIZATION_H

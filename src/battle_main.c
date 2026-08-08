@@ -2510,12 +2510,13 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             if (isNGPlus)
                 SetTrainerMonEVsByHighestBaseStats(&party[i], species);
 
-            // Always store the trainer's true original moveset here. Move
-            // randomization (FLAG_RANDOMIZE_MOVES) is applied later, once,
-            // when the mon enters battle (see DoBattleIntro) via the shared
-            // resolver - resolving here too would double-randomize, since
-            // this data gets read back as "original" at that point.
-            CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);
+            // When species are randomized, use the remapped species' learnset.
+            // Otherwise keep the trainer table moves (FLAG_RANDOMIZE_MOVES still
+            // remaps those at battle intro via ResolveMonMoves).
+            if (FlagGet(FLAG_RANDOMIZE_MON))
+                GiveMonInitialMoveset(&party[i]);
+            else
+                CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);
 
             // IVs and EVs (only if not randomizing)
             if (!FlagGet(FLAG_RANDOMIZE_MON))
