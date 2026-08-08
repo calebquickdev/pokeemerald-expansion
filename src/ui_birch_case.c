@@ -475,44 +475,48 @@ static u8 GenerateGenderForSpecies(u16 species)
         return (Random() % 256) < genderRatio ? MON_FEMALE : MON_MALE;
 }
 
+static bool8 IsRandomizedThreeStarterMode(void)
+{
+    return FlagGet(FLAG_RANDOMIZE_MON);
+}
+
 void InitializeStarterChoices(void)
 {
     u8 setIndex, slotIndex;
 
-    if (FlagGet(FLAG_RANDOMIZE_MON))
+    if (IsRandomizedThreeStarterMode())
     {
-        // Fill sCurrentChoices with random species
-        for (setIndex = 0; setIndex < 3; setIndex++)
-        {
-            for (slotIndex = 0; slotIndex < 9; slotIndex++)
-            {
-                sCurrentChoices[setIndex][slotIndex] = sStarterChoices[setIndex][slotIndex]; // Copy defaults
-
-                // Replace species with random, if species is not SPECIES_NONE
-                if (sCurrentChoices[setIndex][slotIndex].species != SPECIES_NONE)
-                {
-                    sCurrentChoices[setIndex][slotIndex].species = PickRandomSpecies(setIndex, slotIndex);
-                }
-            }
-        }
-    }
-    else
-    {
-        // Use predefined choices as is
         for (setIndex = 0; setIndex < 3; setIndex++)
         {
             for (slotIndex = 0; slotIndex < 9; slotIndex++)
             {
                 sCurrentChoices[setIndex][slotIndex] = sStarterChoices[setIndex][slotIndex];
+                sCurrentChoices[setIndex][slotIndex].species = SPECIES_NONE;
             }
+        }
+
+        for (slotIndex = 0; slotIndex < 3; slotIndex++)
+        {
+            sCurrentChoices[0][slotIndex] = sStarterChoices[0][slotIndex];
+            sCurrentChoices[0][slotIndex].species = PickRandomSpecies(0, slotIndex);
+        }
+    }
+    else
+    {
+        for (setIndex = 0; setIndex < 3; setIndex++)
+        {
+            for (slotIndex = 0; slotIndex < 9; slotIndex++)
+                sCurrentChoices[setIndex][slotIndex] = sStarterChoices[setIndex][slotIndex];
         }
     }
 
-    // Generate stats for each starter mon
     for (setIndex = 0; setIndex < 3; setIndex++)
     {
         for (slotIndex = 0; slotIndex < 9; slotIndex++)
         {
+            if (sCurrentChoices[setIndex][slotIndex].species == SPECIES_NONE)
+                continue;
+
             GenerateIVs(sCurrentChoices[setIndex][slotIndex].ivs);
             sCurrentChoices[setIndex][slotIndex].nature = GenerateNature();
             sCurrentChoices[setIndex][slotIndex].abilityNum = GenerateAbility();
@@ -1129,6 +1133,9 @@ static void Task_BirchCaseMain(u8 taskId)
 
     if (JOY_NEW(B_BUTTON))
     {
+        if (IsRandomizedThreeStarterMode())
+            return;
+
         PlaySE(SE_SELECT);
         VarSet(VAR_0x8004, 1);
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
@@ -1138,6 +1145,9 @@ static void Task_BirchCaseMain(u8 taskId)
 
     if(JOY_NEW(DPAD_UP))
     {
+        if (IsRandomizedThreeStarterMode())
+            return;
+
         PlaySE(SE_SELECT);
         if(sBirchCaseDataPtr->handPosition <= BALL_TOP_FOURTH) // top row move up
         {
@@ -1164,6 +1174,9 @@ static void Task_BirchCaseMain(u8 taskId)
     }
     if(JOY_NEW(DPAD_DOWN))
     {
+        if (IsRandomizedThreeStarterMode())
+            return;
+
         PlaySE(SE_SELECT);
         if(sBirchCaseDataPtr->handPosition <= BALL_TOP_FOURTH) // top row move down
         {
@@ -1194,6 +1207,13 @@ static void Task_BirchCaseMain(u8 taskId)
     if(JOY_NEW(DPAD_RIGHT))
     {
         PlaySE(SE_SELECT);
+        if (IsRandomizedThreeStarterMode())
+        {
+            if (sBirchCaseDataPtr->handPosition < BALL_TOP_THIRD)
+                sBirchCaseDataPtr->handPosition++;
+            ChangePositionUpdateSpriteAnims(oldPosition, taskId);
+            return;
+        }
         if(sBirchCaseDataPtr->handPosition <= BALL_TOP_FOURTH) // top row move down
         {
             if(sBirchCaseDataPtr->handPosition == BALL_TOP_FOURTH) // top row move down
@@ -1221,6 +1241,13 @@ static void Task_BirchCaseMain(u8 taskId)
     if(JOY_NEW(DPAD_LEFT))
     {
         PlaySE(SE_SELECT);
+        if (IsRandomizedThreeStarterMode())
+        {
+            if (sBirchCaseDataPtr->handPosition > BALL_TOP_FIRST)
+                sBirchCaseDataPtr->handPosition--;
+            ChangePositionUpdateSpriteAnims(oldPosition, taskId);
+            return;
+        }
         if(sBirchCaseDataPtr->handPosition <= BALL_TOP_FOURTH) // top row move down
         {
             if(sBirchCaseDataPtr->handPosition == BALL_TOP_FIRST) // top row move down

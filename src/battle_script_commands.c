@@ -38,6 +38,7 @@
 #include "event_data.h"
 #include "pokemon_storage_system.h"
 #include "randomization.h"
+#include "nuzlocke.h"
 #include "task.h"
 #include "naming_screen.h"
 #include "battle_setup.h"
@@ -9988,15 +9989,17 @@ static void Cmd_handleballthrow(void)
         gBallToDisplay = gLastThrownBall = gLastUsedItem;
         u32 odds = ComputeCaptureOdds(gBattlerTarget, gBattlerAttacker);
 
-        if (gSaveBlock1Ptr->nuzlockeModeEnabled && FlagGet(FLAG_NUZLOCKE_CATCH_MODE))
+        if (!Nuzlocke_CanThrowBall())
         {
-            u16 route = GetCurrentMapId();
-            if (GET_NUZLOCKE_FLAG(route))
-            {
-                BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
-                MarkBattlerForControllerExec(gBattlerAttacker);
+            enum NuzlockeBallBlockReason blockReason = Nuzlocke_GetBallBlockReason();
+
+            BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
+            MarkBattlerForControllerExec(gBattlerAttacker);
+            if (blockReason == NUZLOCKE_BALL_BLOCK_SPECIES_CLAUSE)
+                gBattlescriptCurrInstr = BattleScript_Nuzlocke_SpeciesClauseCannotCatch;
+            else
                 gBattlescriptCurrInstr = BattleScript_Nuzlocke_CannotCatch;
-            }
+            return;
         }
 
         if (gTestRunnerEnabled)

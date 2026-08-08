@@ -104,7 +104,8 @@ static const u8 *const sSettingDescriptions[SETTING_COUNT] =
 {
     [SETTING_NUZLOCKE]          = COMPOUND_STRING(
                                        "Pokémon are lost when fainted.\n"
-                                       "Can only catch one Pokémon per route."),
+                                       "One catch per route; species clause.\n"
+                                       "Shinies and statics always catchable."),
     [SETTING_DIFFICULTY]        = COMPOUND_STRING(
                                        "Changes encountered Pokémon levels\n"
                                        "and Trainer AI complexity."),
@@ -220,7 +221,7 @@ void CB2_InitNewGameSettingsMenu(void)
     default:
     case 0:
         SetVBlankCallback(NULL);
-        gPendingNewGameSettings.difficulty = DIFFICULTY_NORMAL;
+        gPendingNewGameSettings.difficulty = DIFFICULTY_HARD;
         gPendingNewGameSettings.nuzlockeEnabled = TRUE;
         gPendingNewGameSettings.randomizeSpecies = TRUE;
         gPendingNewGameSettings.randomizeIncludeLegends = FALSE;

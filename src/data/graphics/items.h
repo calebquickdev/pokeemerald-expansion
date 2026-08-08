@@ -1862,6 +1862,9 @@ const u16 gItemIconPalette_CoinCase[] = INCGFX_U16("graphics/items/icon_palettes
 const u32 gItemIcon_PowderJar[] = INCGFX_U32("graphics/items/icons/powder_jar.png", ".4bpp.smol");
 const u16 gItemIconPalette_PowderJar[] = INCGFX_U16("graphics/items/icon_palettes/powder_jar.pal", ".gbapal");
 
+const u32 gItemIcon_CandyJar[] = INCGFX_U32("graphics/items/icons/candy_jar.png", ".4bpp.smol");
+const u16 gItemIconPalette_CandyJar[] = INCGFX_U16("graphics/items/icon_palettes/candy_jar.pal", ".gbapal");
+
 const u32 gItemIcon_WailmerPail[] = INCGFX_U32("graphics/items/icons/wailmer_pail.png", ".4bpp.smol");
 const u16 gItemIconPalette_WailmerPail[] = INCGFX_U16("graphics/items/icon_palettes/wailmer_pail.pal", ".gbapal");
 

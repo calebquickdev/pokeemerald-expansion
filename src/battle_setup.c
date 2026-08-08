@@ -38,6 +38,7 @@
 #include "battle_pyramid.h"
 #include "fldeff.h"
 #include "fldeff_misc.h"
+#include "nuzlocke.h"
 #include "field_control_avatar.h"
 #include "mirage_tower.h"
 #include "field_screen_effect.h"
@@ -488,7 +489,7 @@ void BattleSetup_StartScriptedWildBattle(void)
 {
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
-    gBattleTypeFlags = 0;
+    gBattleTypeFlags = BATTLE_TYPE_SCRIPTED_WILD;
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
@@ -500,7 +501,7 @@ void BattleSetup_StartScriptedDoubleWildBattle(void)
 {
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
-    gBattleTypeFlags = BATTLE_TYPE_DOUBLE;
+    gBattleTypeFlags = BATTLE_TYPE_DOUBLE | BATTLE_TYPE_SCRIPTED_WILD;
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
@@ -670,26 +671,7 @@ static void CB2_EndWildBattle(void)
     {
         // Handles nuzlocke mode setting pokemon being caught on this route
         if ((gSaveBlock1Ptr->nuzlockeModeEnabled && FlagGet(FLAG_NUZLOCKE_CATCH_MODE)))
-        {
-            u16 route = GetCurrentMapId();
-
-            // Note this branch runs for *any* wild battle that ended without a
-            // whiteout -- caught, KO'd, or fled -- so the flag has always meant
-            // "you've had your encounter here," not "you caught something here."
-            //
-            // BOOST_NUZLOCKE_SECOND_CHANCE reads exactly that
-            // distinction: an encounter the player didn't convert into a catch
-            // spends a one-time per-route free pass instead of locking the
-            // route, so you get one more shot at it. Catching still locks the
-            // route immediately, and the pass is only ever granted once, so
-            // this is a single retry rather than two catches.
-            if (gBattleOutcome != B_OUTCOME_CAUGHT
-             && AchievementBoost_HasNuzlockeSecondChance()
-             && !GET_NUZLOCKE_EXTRA_FLAG(route))
-                SET_NUZLOCKE_EXTRA_FLAG(route);
-            else
-                SET_NUZLOCKE_FLAG(route);
-        }
+            Nuzlocke_ApplyRouteLockAfterWild();
         else if (gSaveBlock1Ptr->autosaveModeEnabled) {
             gDoAutosaveAfterBattle = TRUE;
         }

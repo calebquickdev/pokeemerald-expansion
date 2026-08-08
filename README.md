@@ -28,7 +28,9 @@
 
 ## Optional Features
 - Nuzlocke Mode
-	- Can only catch first encountered Pokémon in a route, and no more after that
+	- Can only catch one Pokémon per route (species clause: duplicate evolution lines don't lock the route but can't be caught)
+	- Shinies can always be caught, even on locked routes or duplicate species
+	- Static encounters are always catchable and don't lock routes
 	- If a Pokémon faints, it is immediately removed from the party after battle
 	- Upon Whiteout, save file is wiped and game resets to the beginning.
     - Breeding Pokémon is disabled in this mode

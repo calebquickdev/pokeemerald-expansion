@@ -29,6 +29,7 @@
 #include "mail.h"
 #include "main.h"
 #include "menu.h"
+#include "nuzlocke.h"
 #include "menu_helpers.h"
 #include "metatile_behavior.h"
 #include "oras_dowse.h"
@@ -1159,9 +1160,15 @@ static u32 GetBallThrowableState(void)
 {
     if (gSaveBlock1Ptr->nuzlockeModeEnabled && FlagGet(FLAG_NUZLOCKE_CATCH_MODE))
     {
-        u16 route = GetCurrentMapId();
-        if (GET_NUZLOCKE_FLAG(route))
+        switch (Nuzlocke_GetBallBlockReason())
+        {
+        case NUZLOCKE_BALL_BLOCK_ROUTE:
             return BALL_THROW_UNABLE_NUZLOCKE;
+        case NUZLOCKE_BALL_BLOCK_SPECIES_CLAUSE:
+            return BALL_THROW_UNABLE_NUZLOCKE_SPECIES;
+        default:
+            break;
+        }
     }
     else if (IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
      && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT)))
@@ -1182,6 +1189,7 @@ bool32 CanThrowBall(void)
 }
 
 static const u8 sText_CantThrowPokeBall_Nuzlocke[] = _("You cannot catch any more Pokémon\nin this area!\p");
+static const u8 sText_CantThrowPokeBall_NuzlockeSpecies[] = _("You already caught a Pokémon from\nthis evolution line!\p");
 static const u8 sText_CantThrowPokeBall_TwoMons[] = _("Cannot throw a ball!\nThere are two Pokémon out there!\p");
 static const u8 sText_CantThrowPokeBall_SemiInvulnerable[] = _("Cannot throw a ball!\nThere's no Pokémon in sight!\p");
 static const u8 sText_CantThrowPokeBall_Disabled[] = _("POKé BALLS cannot be used\nright now!\p");
@@ -1202,6 +1210,12 @@ void ItemUseInBattle_PokeBall(u8 taskId)
             DisplayItemMessage(taskId, FONT_NORMAL, sText_CantThrowPokeBall_Nuzlocke, CloseItemMessage);
         else
             DisplayItemMessageInBattlePyramid(taskId, sText_CantThrowPokeBall_Nuzlocke, Task_CloseBattlePyramidBagMessage);
+        break;
+    case BALL_THROW_UNABLE_NUZLOCKE_SPECIES:
+        if (!InBattlePyramid_())
+            DisplayItemMessage(taskId, FONT_NORMAL, sText_CantThrowPokeBall_NuzlockeSpecies, CloseItemMessage);
+        else
+            DisplayItemMessageInBattlePyramid(taskId, sText_CantThrowPokeBall_NuzlockeSpecies, Task_CloseBattlePyramidBagMessage);
         break;
     case BALL_THROW_UNABLE_TWO_MONS:
         if (CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE)
@@ -1331,6 +1345,10 @@ bool32 CannotUseItemsInBattle(enum Item itemId, struct Pokemon *mon)
         {
         case BALL_THROW_UNABLE_NUZLOCKE:
             failStr = sText_CantThrowPokeBall_Nuzlocke;
+            cannotUse = TRUE;
+            break;
+        case BALL_THROW_UNABLE_NUZLOCKE_SPECIES:
+            failStr = sText_CantThrowPokeBall_NuzlockeSpecies;
             cannotUse = TRUE;
             break;
         case BALL_THROW_UNABLE_TWO_MONS:

@@ -1,6 +1,7 @@
 #include "global.h"
 #include "malloc.h"
 #include "battle.h"
+#include "battle_main.h"
 #include "pokemon.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
@@ -28,6 +29,7 @@
 #include "item.h"
 #include "item_icon.h"
 #include "item_use.h"
+#include "nuzlocke.h"
 #include "test_runner.h"
 #include "constants/battle_anim.h"
 #include "constants/rgb.h"
@@ -1771,27 +1773,22 @@ void TryAddPokeballIconToHealthbox(u8 healthboxSpriteId, bool8 noStatus)
     // Nuzlocke Mode indicator
     if (gSaveBlock1Ptr->nuzlockeModeEnabled && FlagGet(FLAG_NUZLOCKE_CATCH_MODE))
     {
-        bool8 isCaught = GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT);
-
-        // If already caught in this game, show pokeball
-        if (isCaught)
+        if (Nuzlocke_IsBattlerShiny(battler) || Nuzlocke_IsScriptedWildBattle())
         {
-            gfxId = HEALTHBOX_GFX_STATUS_BALL_CAUGHT;
+            gfxId = HEALTHBOX_GFX_NUZLOCKE_CAN_CATCH;
+        }
+        else if (Nuzlocke_IsEvolutionFamilyCaught(species))
+        {
+            gfxId = HEALTHBOX_GFX_NUZLOCKE_CANNOT_CATCH;
         }
         else
         {
-            // Check if already caught one pokemon in this zone
             u16 route = GetCurrentMapId();
+
             if (GET_NUZLOCKE_FLAG(route))
-            {
-                // Cannot catch - already caught one in this zone
                 gfxId = HEALTHBOX_GFX_NUZLOCKE_CANNOT_CATCH;
-            }
             else
-            {
-                // Can catch - haven't caught one yet in this zone
                 gfxId = HEALTHBOX_GFX_NUZLOCKE_CAN_CATCH;
-            }
         }
 
         if (noStatus)

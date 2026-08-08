@@ -220,6 +220,7 @@ Route101_EventScript_OpenStarterCase::
 	faceplayer
 	setflag FLAG_SYS_POKEMON_GET
 	setflag FLAG_RESCUED_BIRCH
+	goto_if_set FLAG_RANDOMIZE_MON, Route101_EventScript_OpenRandomizedStarterCase
 	message Route101_Text_GenSelect
 	waitmessage
 	multichoice 25, 6, STARTER_GEN_OPTIONS TRUE
@@ -230,6 +231,14 @@ Route101_EventScript_OpenStarterCase::
 	callnative StartNewPokeballCaseUI
 	waitstate
 	goto_if_eq VAR_0x8004, 1, Route101_EventScript_OpenStarterCase
+	goto Route101_EventScript_BirchsBag
+
+Route101_EventScript_OpenRandomizedStarterCase::
+	setvar VAR_RESULT, 0
+	fadescreen FADE_TO_BLACK
+	delay 30
+	callnative StartNewPokeballCaseUI
+	waitstate
 	goto Route101_EventScript_BirchsBag
 
 Route101_EventScript_StartBirchsBag::

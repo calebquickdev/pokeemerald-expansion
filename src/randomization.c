@@ -369,6 +369,27 @@ static enum Species PickUniformFromNatDexPool(rng_value_t *rngState, bool32 allo
     return SPECIES_NONE;
 }
 
+static enum Species PickUniformFromLegendaryLikePool(rng_value_t *rngState)
+{
+    u32 attempts;
+    u32 poolSize = NATIONAL_DEX_COUNT;
+
+    for (attempts = 0; attempts < poolSize * 2; attempts++)
+    {
+        enum NationalDexOrder dexNum = (LocalRandom32(rngState) % poolSize) + 1;
+        enum Species candidate = NationalPokedexNumToSpecies(dexNum);
+
+        if (!IsSpeciesAllowedInRandomPool(candidate, TRUE))
+            continue;
+        if (!IsLegendaryLikeSpecies(candidate))
+            continue;
+
+        return candidate;
+    }
+
+    return SPECIES_NONE;
+}
+
 static enum Species PickUniformFromFixedPool(rng_value_t *rngState, const enum Species *pool, u32 poolCount, bool32 allowLegends)
 {
     enum Species eligible[64];
@@ -401,6 +422,9 @@ static enum Species PickBaseSpeciesForContext(enum Species sourceSpecies, enum S
 
     if (context == SPECIES_RAND_CTX_FISHING)
         return PickUniformFromNatDexPool(rngState, allowLegends, TRUE);
+
+    if (context == SPECIES_RAND_CTX_SCRIPTED_WILD && IsLegendaryLikeSpecies(sourceSpecies))
+        return PickUniformFromLegendaryLikePool(rngState);
 
     return PickUniformFromNatDexPool(rngState, allowLegends, FALSE);
 }

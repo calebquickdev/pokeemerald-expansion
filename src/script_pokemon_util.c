@@ -23,6 +23,7 @@
 #include "random.h"
 #include "random_mon_generation.h"
 #include "script.h"
+#include "randomization.h"
 #include "sprite.h"
 #include "string_util.h"
 #include "tv.h"
@@ -142,6 +143,7 @@ bool8 DoesPartyHaveEnigmaBerry(void)
 void CreateScriptedWildMon(enum Species species, u16 level, enum Item item)
 {
     u8 heldItem[2];
+    enum SpeciesRandomContext prevContext;
 
     ZeroEnemyPartyMons();
     /* Apply New Game+ level offset */
@@ -150,7 +152,10 @@ void CreateScriptedWildMon(enum Species species, u16 level, enum Item item)
         GetSynchronizedGender(STATIC_WILDMON_ORIGIN, species),
         GetSynchronizedNature(STATIC_WILDMON_ORIGIN, species),
         RANDOM_UNOWN_LETTER);
+    prevContext = GetSpeciesRandomContext();
+    SetSpeciesRandomContext(SPECIES_RAND_CTX_SCRIPTED_WILD);
     CreateMonWithIVs(&gParties[B_TRAINER_OPPONENT_A][0], species, level, personality, OTID_STRUCT_PLAYER_ID, USE_RANDOM_IVS);
+    SetSpeciesRandomContext(prevContext);
     GiveMonInitialMoveset(&gParties[B_TRAINER_OPPONENT_A][0]);
     if (item)
     {
@@ -163,12 +168,16 @@ void CreateScriptedDoubleWildMon(enum Species species1, u16 level1, enum Item it
 {
     u8 heldItem1[2];
     u8 heldItem2[2];
+    enum SpeciesRandomContext prevContext;
 
     ZeroEnemyPartyMons();
 
     /* Apply New Game+ level offset to both wild mons */
     level1 = min(level1 + GetNewGamePlusLevelOffset(), MAX_LEVEL);
     level2 = min(level2 + GetNewGamePlusLevelOffset(), MAX_LEVEL);
+
+    prevContext = GetSpeciesRandomContext();
+    SetSpeciesRandomContext(SPECIES_RAND_CTX_SCRIPTED_WILD);
 
     u32 personality = GetMonPersonality(species1,
         GetSynchronizedGender(STATIC_WILDMON_ORIGIN, species1),
@@ -188,6 +197,7 @@ void CreateScriptedDoubleWildMon(enum Species species1, u16 level1, enum Item it
         GetSynchronizedNature(STATIC_WILDMON_ORIGIN, species2),
         RANDOM_UNOWN_LETTER);
     CreateMonWithIVs(&gParties[B_TRAINER_OPPONENT_A][1], species2, level2, personality, OTID_STRUCT_PLAYER_ID, USE_RANDOM_IVS);
+    SetSpeciesRandomContext(prevContext);
     GiveMonInitialMoveset(&gParties[B_TRAINER_OPPONENT_A][1]);
     if (item2)
     {
