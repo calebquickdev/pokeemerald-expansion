@@ -2311,6 +2311,7 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
 {
     enum FieldMove fieldMove = ScriptReadByte(ctx);
     bool32 doUnlockedCheck = ScriptReadByte(ctx);
+    bool32 allowLeadFallback = ScriptReadByte(ctx);
     enum Move move;
 
     Script_RequestEffects(SCREFF_V1);
@@ -2330,6 +2331,22 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
             gSpecialVar_Result = i;
             gSpecialVar_0x8004 = species;
             break;
+        }
+    }
+
+    if (allowLeadFallback && gSpecialVar_Result == PARTY_SIZE)
+    {
+        for (u32 i = 0; i < PARTY_SIZE; i++)
+        {
+            enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
+            if (!species)
+                break;
+            if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG))
+            {
+                gSpecialVar_Result = i;
+                gSpecialVar_0x8004 = species;
+                break;
+            }
         }
     }
 

@@ -18,6 +18,7 @@
 #include "constants/apricorn_tree.h"
 #include "constants/berry.h"
 #include "constants/maps.h"
+#include "constants/region_map_sections.h"
 #include "constants/pokemon.h"
 #include "constants/easy_chat.h"
 #include "constants/trainer_hill.h"
@@ -600,9 +601,9 @@ struct AchievementRunDataExt
     // sketch proposed indexing 128 bits by mapNum alone, but mapNum resets
     // per map GROUP (MAP_GROUPS_COUNT == 75), so two unrelated maps in
     // different groups routinely share a mapNum. SaveBlock1's
-    // nuzlockeCaughtFlags bitfield only gets away with raw-mapNum indexing
-    // because Nuzlocke route-locking is scoped to a single map group; a
-    // general "maps visited" tracker doesn't have that precondition. Each
+    // nuzlockeCaughtFlags indexes by regionMapSectionId (MAPSEC), which
+    // collapses multiple interior maps into one named area; a general "maps
+    // visited" tracker needs distinct (group, num) pairs instead. Each
     // entry is (mapGroup << 8) | (u8)mapNum, deduplicated by linear scan on
     // write -- same idiom as AchievementRunData.majorBattleSpecies. Capped
     // at 80 (the top achievement threshold): once full, additional distinct
@@ -1173,15 +1174,12 @@ struct ExternalEventFlags
 
 #define NUM_WILD_ENCOUNTER_MAPS 116
 
-// Size of the nuzlocke per-route bitfields in struct SaveBlock1. These are
-// indexed by GetCurrentMapId() -- a raw mapNum, NOT a wild-encounter header
-// index -- so they must cover the highest mapNum in the game, which is 122
-// (map group 35). They were previously sized NUM_WILD_ENCOUNTER_MAPS / 8 == 14
-// bytes (112 bits), which let SET_NUZLOCKE_FLAG write past the array and
-// corrupt whatever followed it in SaveBlock1. 16 bytes gives 128 bits, and the
-// macros below bounds-check on top of that.
-#define NUM_NUZLOCKE_ROUTE_FLAG_BYTES 16
+// Size of the nuzlocke per-area bitfields in struct SaveBlock1. These are
+// indexed by gMapHeader.regionMapSectionId (MAPSEC), so all maps in the same
+// named area share one lock. 32 bytes gives 256 bits, covering MAPSEC_COUNT.
+#define NUM_NUZLOCKE_ROUTE_FLAG_BYTES 32
 #define NUM_NUZLOCKE_ROUTE_FLAGS      (NUM_NUZLOCKE_ROUTE_FLAG_BYTES * 8)
+STATIC_ASSERT(NUM_NUZLOCKE_ROUTE_FLAGS >= MAPSEC_COUNT, NuzlockeRouteFlagsFitMapSecs);
 
 struct Bag
 {
@@ -1422,9 +1420,9 @@ struct MapPosition
 
 // Helper macros
 // The (route) < NUM_NUZLOCKE_ROUTE_FLAGS bounds check is not decoration: these
-// are indexed by raw mapNum, which is not guaranteed to stay under the array
-// size as maps are added. An unchecked SET_ writes into whatever follows the
-// array in SaveBlock1.
+// are indexed by regionMapSectionId (MAPSEC), which must stay under the array
+// size as map sections are added. An unchecked SET_ writes into whatever
+// follows the array in SaveBlock1.
 #define GET_NUZLOCKE_FLAG(route) ((route) < NUM_NUZLOCKE_ROUTE_FLAGS && (gSaveBlock1Ptr->nuzlockeCaughtFlags[(route) / 8] & (1 << ((route) % 8))))
 #define SET_NUZLOCKE_FLAG(route) do { if ((route) < NUM_NUZLOCKE_ROUTE_FLAGS) gSaveBlock1Ptr->nuzlockeCaughtFlags[(route) / 8] |= (1 << ((route) % 8)); } while (0)
 

@@ -1,6 +1,5 @@
 #include "global.h"
 #include "randomization.h"
-#include "battle.h"
 #include "caps.h"
 #include "data.h"
 #include "event_data.h"
@@ -112,6 +111,32 @@ void ResolveMonData(u16 species, const u16 *originalMoves, struct ResolvedMonDat
 {
     GetResolvedTypePair(species, &out->type1, &out->type2);
     ResolveMonMoves(species, originalMoves, out->moves);
+}
+
+void ApplyResolvedTypesAndMovesToBattleMon(struct BattlePokemon *mon)
+{
+    u8 type1, type2;
+    u16 originalMoves[MAX_MON_MOVES];
+    u16 resolvedMoves[MAX_MON_MOVES];
+    u32 moveIdx;
+
+    GetResolvedTypePair(mon->species, &type1, &type2);
+    mon->types[0] = type1;
+    mon->types[1] = type2;
+    mon->types[2] = TYPE_MYSTERY;
+
+    for (moveIdx = 0; moveIdx < MAX_MON_MOVES; moveIdx++)
+        originalMoves[moveIdx] = mon->moves[moveIdx];
+
+    ResolveMonMoves(mon->species, originalMoves, resolvedMoves);
+    for (moveIdx = 0; moveIdx < MAX_MON_MOVES; moveIdx++)
+    {
+        if (resolvedMoves[moveIdx] != originalMoves[moveIdx])
+        {
+            mon->moves[moveIdx] = resolvedMoves[moveIdx];
+            mon->pp[moveIdx] = GetMovePP(resolvedMoves[moveIdx]);
+        }
+    }
 }
 
 // --- Species randomization -------------------------------------------------

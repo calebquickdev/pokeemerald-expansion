@@ -1783,7 +1783,7 @@ void TryAddPokeballIconToHealthbox(u8 healthboxSpriteId, bool8 noStatus)
         }
         else
         {
-            u16 route = GetCurrentMapId();
+            u16 route = Nuzlocke_GetRouteKey();
 
             if (GET_NUZLOCKE_FLAG(route))
                 gfxId = HEALTHBOX_GFX_NUZLOCKE_CANNOT_CATCH;

@@ -16,6 +16,8 @@
 #include "random.h"
 #include "constants/species_random.h"
 
+struct BattlePokemon;
+
 struct Trainer;
 
 // The data contract for "effective" mon data: everything a UI, relearner,
@@ -61,6 +63,10 @@ void ResolveMonMoves(u16 species, const u16 *originalMoves, u16 *outMoves);
 // display code (summary screen) and battle setup should share, so the two
 // paths can never independently drift from each other.
 void ResolveMonData(u16 species, const u16 *originalMoves, struct ResolvedMonData *out);
+
+// Applies resolved types and moves to a battle mon from its current species and
+// stored moves. Only refreshes PP for slots whose move ID changed.
+void ApplyResolvedTypesAndMovesToBattleMon(struct BattlePokemon *mon);
 
 // --- Species randomization (FLAG_RANDOMIZE_MON) ---
 

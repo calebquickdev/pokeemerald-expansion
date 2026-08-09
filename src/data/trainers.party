@@ -4927,7 +4927,7 @@ Gender: Female
 Music: Female
 Items: Potion / Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Stealth Rock Player
 
 Glimmet @ Focus Sash
@@ -4979,7 +4979,7 @@ Gender: Male
 Music: Male
 Items: Super Potion / Super Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Makuhita @ Sitrus Berry
 Level: 16
@@ -5082,7 +5082,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Sun
 
 Torkoal @ Charcoal
@@ -5144,7 +5144,7 @@ Gender: Male
 Music: Male
 Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Diggersby @ Chople Berry
 Level: 29
@@ -5195,7 +5195,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer / Risky
+AI: Smart Trainer / Risky / Ace Pokemon
 Starting Status: Tailwind Opponent
 
 Altaria @ Yache Berry
@@ -5207,16 +5207,6 @@ IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Roost
 - Cotton Guard
 - Flamethrower
-
-Staraptor @ Staraptite
-Level: 34
-Ability: Intimidate
-Nature: Hardy
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Brave Bird
-- Close Combat
-- Dual Wingbeat
-- Steel Wing
 
 Gliscor @ Toxic Orb
 Level: 34
@@ -5248,6 +5238,15 @@ IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Flash Cannon
 - Thunderbolt
 
+Staraptor @ Staraptite
+Level: 34
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
+- Steel Wing
 
 === TRAINER_TATE_AND_LIZA_1 ===
 Name: TATE&LIZA
@@ -5257,7 +5256,7 @@ Gender: Male
 Music: Female
 Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Trick Room
 
 Tapu Lele @ Psychic Seed
@@ -15821,7 +15820,7 @@ Gender: Female
 Music: Female
 Items: Potion / Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Stealth Rock Player
 
 Glimmet @ Focus Sash
@@ -15872,7 +15871,7 @@ Gender: Female
 Music: Female
 Items: Potion / Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Stealth Rock Player
 
 Glimmora @ Focus Sash
@@ -15923,7 +15922,7 @@ Gender: Female
 Music: Female
 Items: Potion / Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Stealth Rock Player
 
 Glimmora @ Focus Sash
@@ -15974,7 +15973,7 @@ Gender: Female
 Music: Female
 Items: Potion / Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Stealth Rock Player
 
 Glimmora @ Focus Sash
@@ -16025,7 +16024,7 @@ Gender: Male
 Music: Male
 Items: Super Potion / Super Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Makuhita @ Sitrus Berry
 Level: 21
@@ -16075,7 +16074,7 @@ Gender: Male
 Music: Male
 Items: Super Potion / Super Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Hariyama @ Sitrus Berry
 Level: 26
@@ -16125,7 +16124,7 @@ Gender: Male
 Music: Male
 Items: Super Potion / Super Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Hariyama @ Sitrus Berry
 Level: 31
@@ -16175,7 +16174,7 @@ Gender: Male
 Music: Male
 Items: Super Potion / Super Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Hariyama @ Sitrus Berry
 Level: 36
@@ -16432,7 +16431,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Sun
 
 Torkoal @ Charcoal
@@ -16494,7 +16493,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Sun
 
 Torkoal @ Charcoal
@@ -16556,7 +16555,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Sun
 
 Torkoal @ Charcoal
@@ -16618,7 +16617,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Sun
 
 Torkoal @ Charcoal
@@ -16680,7 +16679,7 @@ Gender: Male
 Music: Male
 Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Diggersby @ Chople Berry
 Level: 34
@@ -16731,7 +16730,7 @@ Gender: Male
 Music: Male
 Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Diggersby @ Chople Berry
 Level: 39
@@ -16782,7 +16781,7 @@ Gender: Male
 Music: Male
 Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Diggersby @ Chople Berry
 Level: 44
@@ -16833,7 +16832,7 @@ Gender: Male
 Music: Male
 Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 
 Diggersby @ Chople Berry
 Level: 49
@@ -16884,7 +16883,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer / Risky
+AI: Smart Trainer / Risky / Ace Pokemon
 Starting Status: Tailwind Opponent
 
 Altaria @ Yache Berry
@@ -16896,16 +16895,6 @@ IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Roost
 - Cotton Guard
 - Flamethrower
-
-Staraptor @ Staraptite
-Level: 39
-Ability: Intimidate
-Nature: Hardy
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Brave Bird
-- Close Combat
-- Dual Wingbeat
-- Steel Wing
 
 Gliscor @ Toxic Orb
 Level: 39
@@ -16937,6 +16926,15 @@ IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Flash Cannon
 - Thunderbolt
 
+Staraptor @ Staraptite
+Level: 39
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
+- Steel Wing
 
 === TRAINER_WINONA_3 ===
 Name: WINONA
@@ -16946,7 +16944,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer / Risky
+AI: Smart Trainer / Risky / Ace Pokemon
 Starting Status: Tailwind Opponent
 
 Altaria @ Yache Berry
@@ -16958,16 +16956,6 @@ IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Roost
 - Cotton Guard
 - Flamethrower
-
-Staraptor @ Staraptite
-Level: 44
-Ability: Intimidate
-Nature: Hardy
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Brave Bird
-- Close Combat
-- Dual Wingbeat
-- Steel Wing
 
 Gliscor @ Toxic Orb
 Level: 44
@@ -16999,6 +16987,15 @@ IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Flash Cannon
 - Thunderbolt
 
+Staraptor @ Staraptite
+Level: 44
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
+- Steel Wing
 
 === TRAINER_WINONA_4 ===
 Name: WINONA
@@ -17008,7 +17005,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer / Risky
+AI: Smart Trainer / Risky / Ace Pokemon
 Starting Status: Tailwind Opponent
 
 Altaria @ Yache Berry
@@ -17020,16 +17017,6 @@ IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Roost
 - Cotton Guard
 - Flamethrower
-
-Staraptor @ Staraptite
-Level: 49
-Ability: Intimidate
-Nature: Hardy
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Brave Bird
-- Close Combat
-- Dual Wingbeat
-- Steel Wing
 
 Gliscor @ Toxic Orb
 Level: 49
@@ -17061,6 +17048,15 @@ IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Flash Cannon
 - Thunderbolt
 
+Staraptor @ Staraptite
+Level: 49
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
+- Steel Wing
 
 === TRAINER_WINONA_5 ===
 Name: WINONA
@@ -17070,7 +17066,7 @@ Gender: Female
 Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
-AI: Smart Trainer / Risky
+AI: Smart Trainer / Risky / Ace Pokemon
 Starting Status: Tailwind Opponent
 
 Altaria @ Yache Berry
@@ -17082,16 +17078,6 @@ IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Roost
 - Cotton Guard
 - Flamethrower
-
-Staraptor @ Staraptite
-Level: 54
-Ability: Intimidate
-Nature: Hardy
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-- Brave Bird
-- Close Combat
-- Dual Wingbeat
-- Steel Wing
 
 Gliscor @ Toxic Orb
 Level: 54
@@ -17123,6 +17109,15 @@ IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Flash Cannon
 - Thunderbolt
 
+Staraptor @ Staraptite
+Level: 54
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
+- Steel Wing
 
 === TRAINER_TATE_AND_LIZA_2 ===
 Name: TATE&LIZA
@@ -17132,7 +17127,7 @@ Gender: Male
 Music: Female
 Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Trick Room
 
 Tapu Lele @ Psychic Seed
@@ -17208,7 +17203,7 @@ Gender: Male
 Music: Female
 Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Trick Room
 
 Tapu Lele @ Psychic Seed
@@ -17284,7 +17279,7 @@ Gender: Male
 Music: Female
 Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Trick Room
 
 Tapu Lele @ Psychic Seed
@@ -17360,7 +17355,7 @@ Gender: Male
 Music: Female
 Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Smart Trainer
+AI: Smart Trainer / Ace Pokemon
 Starting Status: Trick Room
 
 Tapu Lele @ Psychic Seed

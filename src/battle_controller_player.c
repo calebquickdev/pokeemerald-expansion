@@ -424,7 +424,7 @@ void HandleInputChooseTarget(enum BattlerId battler)
         B_POSITION_OPPONENT_RIGHT,
         B_POSITION_OPPONENT_LEFT,
     };
-    enum Move move = GetMonData(GetBattlerMon(battler), MON_DATA_MOVE1 + gMoveSelectionCursor[battler]);
+    enum Move move = gBattleMons[battler].moves[gMoveSelectionCursor[battler]];
     enum MoveTarget moveTarget = GetBattlerMoveTargetType(battler, move);
 
     DoBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX, 15, 1);

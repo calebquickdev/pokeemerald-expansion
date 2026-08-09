@@ -2,7 +2,6 @@
 #include "nuzlocke.h"
 #include "achievements.h"
 #include "battle.h"
-#include "battle_main.h"
 #include "battle_script_commands.h"
 #include "constants/battle.h"
 #include "constants/flags.h"
@@ -105,6 +104,11 @@ static bool8 Nuzlocke_IsCatchModeActive(void)
     return gSaveBlock1Ptr->nuzlockeModeEnabled && FlagGet(FLAG_NUZLOCKE_CATCH_MODE);
 }
 
+u16 Nuzlocke_GetRouteKey(void)
+{
+    return gMapHeader.regionMapSectionId;
+}
+
 enum NuzlockeBallBlockReason Nuzlocke_GetBallBlockReason(void)
 {
     enum Species species;
@@ -119,7 +123,7 @@ enum NuzlockeBallBlockReason Nuzlocke_GetBallBlockReason(void)
     if (Nuzlocke_IsScriptedWildBattle())
         return NUZLOCKE_BALL_BLOCK_NONE;
 
-    route = GetCurrentMapId();
+    route = Nuzlocke_GetRouteKey();
     if (GET_NUZLOCKE_FLAG(route))
         return NUZLOCKE_BALL_BLOCK_ROUTE;
 
@@ -161,7 +165,7 @@ void Nuzlocke_ApplyRouteLockAfterWild(void)
     if (sEncounterFamilyWasCaught)
         return;
 
-    route = GetCurrentMapId();
+    route = Nuzlocke_GetRouteKey();
     if (gBattleOutcome != B_OUTCOME_CAUGHT
      && AchievementBoost_HasNuzlockeSecondChance()
      && !GET_NUZLOCKE_EXTRA_FLAG(route))

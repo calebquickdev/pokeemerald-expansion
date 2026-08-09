@@ -4272,35 +4272,7 @@ static void DoBattleIntro(void)
                 // the mon's true original moveset (trainer-party building no
                 // longer pre-randomizes it), so this is safe to call exactly
                 // once per battler without compounding randomization.
-                {
-                    u8 type1, type2;
-                    GetResolvedTypePair(gBattleMons[battler].species, &type1, &type2);
-                    gBattleMons[battler].types[0] = type1;
-                    gBattleMons[battler].types[1] = type2;
-                    gBattleMons[battler].types[2] = TYPE_MYSTERY;
-                }
-
-                {
-                    u16 originalMoves[MAX_MON_MOVES];
-                    u16 resolvedMoves[MAX_MON_MOVES];
-                    u32 moveIdx;
-
-                    for (moveIdx = 0; moveIdx < MAX_MON_MOVES; moveIdx++)
-                        originalMoves[moveIdx] = gBattleMons[battler].moves[moveIdx];
-
-                    ResolveMonMoves(gBattleMons[battler].species, originalMoves, resolvedMoves);
-                    for (moveIdx = 0; moveIdx < MAX_MON_MOVES; moveIdx++)
-                    {
-                        // Only touch PP for slots that actually changed - the
-                        // mon's real, possibly-already-used PP for its
-                        // unrandomized moves must survive entering battle.
-                        if (resolvedMoves[moveIdx] != originalMoves[moveIdx])
-                        {
-                            gBattleMons[battler].moves[moveIdx] = resolvedMoves[moveIdx];
-                            gBattleMons[battler].pp[moveIdx] = GetMovePP(resolvedMoves[moveIdx]);
-                        }
-                    }
-                }
+                ApplyResolvedTypesAndMovesToBattleMon(&gBattleMons[battler]);
             }
 
             // Draw sprite.

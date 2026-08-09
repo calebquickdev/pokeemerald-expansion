@@ -2,6 +2,7 @@
 EventScript_CutTree::
 	lockall
 	goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	checkfieldmove FIELD_MOVE_CUT, FALSE, TRUE
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, MOVE_CUT
@@ -48,7 +49,7 @@ Text_WantToCut:
 	.string "Would you like to CUT it?$"
 
 Text_MonUsedFieldMove:
-	.string "{PLAYER} used {STR_VAR_2}!$"
+	.string "{STR_VAR_1} used {STR_VAR_2}!$"
 
 Text_CantCut:
 	.string "This tree looks like it can be\n"
@@ -63,6 +64,7 @@ EventScript_UseRockSmash::
 EventScript_RockSmash::
 	lockall
 	goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	checkfieldmove FIELD_MOVE_ROCK_SMASH, FALSE, TRUE
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	buffermovename STR_VAR_2, MOVE_ROCK_SMASH
@@ -223,6 +225,7 @@ EventScript_StrengthBoulder::
 	lockall
 	goto_if_unset FLAG_BADGE04_GET, EventScript_CantStrength
 	goto_if_set FLAG_SYS_USE_STRENGTH, EventScript_CheckActivatedBoulder
+	checkfieldmove FIELD_MOVE_STRENGTH, FALSE, TRUE
 	setfieldeffectargument 0, VAR_RESULT
 	msgbox Text_WantToStrength, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, EventScript_CancelStrength
@@ -281,6 +284,7 @@ Text_StrengthActivated:
 EventScript_UseWaterfall::
 	lockall
 	goto_if_unset FLAG_BADGE08_GET, EventScript_CantWaterfall
+	checkfieldmove FIELD_MOVE_WATERFALL, FALSE, TRUE
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
@@ -316,6 +320,7 @@ Text_MonUsedWaterfall:
 EventScript_UseDive::
 	lockall
 	goto_if_unset FLAG_RECEIVED_HM_DIVE, EventScript_CantDive
+	checkfieldmove FIELD_MOVE_DIVE, FALSE, TRUE
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
@@ -340,6 +345,7 @@ EventScript_EndDive::
 
 EventScript_UseDiveUnderwater::
 	lockall
+	checkfieldmove FIELD_MOVE_DIVE, FALSE, TRUE
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	setfieldeffectargument 0, VAR_RESULT
 	setfieldeffectargument 1, 1
