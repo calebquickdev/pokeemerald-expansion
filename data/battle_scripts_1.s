@@ -3227,6 +3227,13 @@ BattleScript_OverworldWeatherStarts::
 	call BattleScript_ActivateWeatherAbilities
 	end3
 
+BattleScript_StartingWeather::
+	printfromtable gAbilityWeatherChangeStringId
+	waitmessage B_WAIT_TIME_LONG
+	playanimation_var BS_BATTLER_0, sB_ANIM_ARG1
+	call BattleScript_ActivateWeatherAbilities
+	end3
+
 BattleScript_OverworldTerrain::
 	printfromtable gTerrainStartsStringIds
 	waitmessage B_WAIT_TIME_LONG

@@ -105,6 +105,7 @@ static const u8 *const sBossTeamStyleTexts[] =
 {
     [BOSS_TEAM_STYLE_REGULAR] = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}REGULAR"),
     [BOSS_TEAM_STYLE_TYPED]   = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}TYPED"),
+    [BOSS_TEAM_STYLE_PRESET]  = COMPOUND_STRING("{COLOR GREEN}{SHADOW LIGHT_GREEN}PRESET"),
 };
 
 static const u8 *const sSettingDescriptions[SETTING_COUNT] =
@@ -123,8 +124,9 @@ static const u8 *const sSettingDescriptions[SETTING_COUNT] =
                                        "Allow Legendaries, Mythicals, and\n"
                                        "Ultra Beasts in the random pool."),
     [SETTING_BOSS_TEAM_STYLE]   = COMPOUND_STRING(
-                                       "Gym Leaders and Elite Four use\n"
-                                       "regular random or typed teams."),
+                                       "Gym / E4 / Champion teams when\n"
+                                       "species random is on: authored\n"
+                                       "presets, regular random, or typed."),
     [SETTING_STARTER_RANDOM]    = COMPOUND_STRING(
                                        "Starter pool when species random\n"
                                        "is on: All, No Legend, or Starters."),
@@ -236,7 +238,7 @@ void CB2_InitNewGameSettingsMenu(void)
         gPendingNewGameSettings.nuzlockeEnabled = TRUE;
         gPendingNewGameSettings.randomizeSpecies = TRUE;
         gPendingNewGameSettings.randomizeIncludeLegends = FALSE;
-        gPendingNewGameSettings.bossTeamStyle = BOSS_TEAM_STYLE_REGULAR;
+        gPendingNewGameSettings.bossTeamStyle = BOSS_TEAM_STYLE_PRESET;
         gPendingNewGameSettings.starterRandomMode = STARTER_RANDOM_NON_LEGEND;
         gPendingNewGameSettings.randomizeTypes = FALSE;
         gPendingNewGameSettings.randomizeMoves = FALSE;

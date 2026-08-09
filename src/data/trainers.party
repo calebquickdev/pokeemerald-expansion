@@ -4640,72 +4640,66 @@ Battle Type: Singles
 AI: Smart Trainer / Force Setup First Turn
 Mugshot: Purple
 
-Hydreigon @ Dragonium Z
+Grimmsnarl @ Light Clay
 Level: 59
-Ability: Levitate
-Nature: Timid
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 50 HP / 0 Atk / 0 Def / 250 SpA / 0 SpD / 200 Spe
-- Dark Pulse
-- Draco Meteor
-- Flash Cannon
-- Nasty Plot
-
-Bisharp @ Focus Sash
-Level: 60
-Ability: Pressure
-Nature: Impish
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 150 Def / 0 SpA / 150 SpD / 0 Spe
-- Swords Dance
-- Iron Head
-- Knock Off
-- Sucker Punch
-
-Grimmsnarl
-Level: 60
 Ability: Prankster
-Nature: Careful
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 250 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Reflect
 - Light Screen
 - Thunder Wave
 - Spirit Break
 
-Weavile
+Weavile @ Focus Sash
 Level: 59
 Ability: Pressure
-Nature: Jolly
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 0 HP / 200 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Knock Off
 - Ice Shard
-- Icicle Crash
+- Triple Axel
 - Low Kick
 
-Mandibuzz
+Bisharp
+Level: 60
+Ability: Defiant
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sucker Punch
+- Iron Head
+- Swords Dance
+- Knock Off
+
+Hydreigon
+Level: 60
+Ability: Levitate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dark Pulse
+- Draco Meteor
+- Fire Blast
+- U-turn
+
+Mandibuzz @ Rocky Helmet
 Level: 61
 Ability: Overcoat
-Nature: Impish
-Tera Type: Ghost
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 150 Def / 0 SpA / 150 SpD / 0 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Foul Play
 - Roost
-- Defog
-- U-Turn
+- Toxic
+- U-turn
 
 Tyranitar @ Tyranitarite
 Level: 61
 Ability: Sand Stream
-Nature: Sassy
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 80 Atk / 0 Def / 0 SpA / 0 SpD / 150 Spe
-- Stealth Rock
-- Rock Slide
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Crunch
-- Thunder Wave
+- Stone Edge
+- Fire Punch
+- Stealth Rock
+
 
 === TRAINER_PHOEBE ===
 Name: PHOEBE
@@ -4714,76 +4708,70 @@ Pic: Elite Four Phoebe
 Gender: Female
 Music: Elite Four
 Items: Full Restore / Full Restore
-Battle Type: Singles
+Battle Type: Doubles
 AI: Smart Trainer / Double Ace Pokemon
 Mugshot: Green
 
-Mimikyu
+Dusclops @ Eviolite
 Level: 61
+Ability: Frisk
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Trick Room
+- Will-O-Wisp
+- Night Shade
+- Protect
+
+Shedinja @ Heavy-Duty Boots
+Level: 61
+Ability: Wonder Guard
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Shadow Sneak
+- X-Scissor
+- Will-O-Wisp
+- Protect
+
+Mimikyu
+Level: 62
 Ability: Disguise
-Nature: Jolly
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 0 HP / 200 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
-- Swords Dance
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Play Rough
 - Shadow Claw
 - Shadow Sneak
+- Protect
 
 Dragapult
 Level: 62
-Ability: Infiltrator
-Nature: Timid
-Tera Type: Fairy
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 50 HP / 200 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
+Ability: Clear Body
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Shadow Ball
-- Flamethrower
-- Thunderbolt
-- U-Turn
-
-Sableye @ Sablenite
-Level: 61
-Ability: Prankster
-Nature: Careful
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 100 Def / 0 SpA / 100 SpD / 80 Spe
-- Will-O-Wisp
-- Recover
-- Taunt
-- Knock Off
+- Draco Meteor
+- U-turn
+- Protect
 
 Chandelure
 Level: 62
-Ability: Infiltrator
-Nature: Modest
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 0 HP / 200 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
+Ability: Flash Fire
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Shadow Ball
-- Overheat
+- Heat Wave
 - Energy Ball
-- Memento
+- Protect
 
-Dusknoir @ Leftovers
-Level: 62
-Ability: Pressure
-Nature: Impish
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 150 Def / 0 SpA / 150 SpD / 0 Spe
-- Will-O-Wisp
-- Earthquake
-- Pain Split
-- Shadow Punch
-
-Aegislash @ Ghostium Z
+Aegislash @ Leftovers
 Level: 63
 Ability: Stance Change
-Nature: Quiet
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 0 Def / 250 SpA / 0 SpD / 0 Spe
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Shadow Ball
-- Iron Head
-- Kings Shield
-- Shadow Sneak
+- Flash Cannon
+- King's Shield
+- Sacred Sword
+
 
 === TRAINER_GLACIA ===
 Name: GLACIA
@@ -4796,72 +4784,66 @@ Battle Type: Singles
 AI: Smart Trainer
 Mugshot: Pink
 
-Ninetales Alola @ Icium Z
+Ninetales-Alola @ Icium Z
 Level: 62
 Ability: Snow Warning
-Nature: Timid
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 250 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Aurora Veil
 - Moonblast
 - Freeze-Dry
-- Hypnosis
+- Encore
 
-Baxcalibur @ Dragonium Z
+Baxcalibur @ Loaded Dice
 Level: 63
 Ability: Thermal Exchange
-Nature: Adamant
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 0 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
-- Dragon Dance
-- Icicle Spear
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Glaive Rush
+- Icicle Spear
 - Earthquake
+- Dragon Dance
 
 Avalugg
 Level: 63
 Ability: Sturdy
-Nature: Impish
-Tera Type: Steel
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 150 Def / 0 SpA / 150 SpD / 0 Spe
-- Rapid Spin
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Body Press
 - Recover
 - Rock Slide
+- Rapid Spin
 
 Frosmoth
 Level: 62
 Ability: Ice Scales
-Nature: Modest
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 0 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Quiver Dance
 - Bug Buzz
 - Ice Beam
 - Giga Drain
 
-Mamoswine @ Leftovers
+Mamoswine @ Focus Sash
 Level: 63
 Ability: Thick Fat
-Nature: Jolly
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 0 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Icicle Crash
 - Earthquake
 - Ice Shard
 - Stone Edge
 
-Glaceon @ Focus Sash
+Cetitan @ Leftovers
 Level: 64
-Ability: Ice Body
-Nature: Modest
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 200 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Freeze-Dry
-- Shadow Ball
-- Wish
-- Yawn
+Ability: Slush Rush
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Ice Spinner
+- Earthquake
+- Belly Drum
+- Ice Shard
+
 
 === TRAINER_DRAKE ===
 Name: DRAKE
@@ -4874,72 +4856,68 @@ Battle Type: Singles
 AI: Smart Trainer / Ace Pokemon
 Mugshot: Blue
 
-Noivern @ Firium Z
+Cyclizar
+Level: 63
+Ability: Regenerator
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Shed Tail
+- Knock Off
+- U-turn
+- Dragon Claw
+
+Noivern
 Level: 63
 Ability: Infiltrator
-Nature: Timid
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 0 HP / 200 Atk / 0 Def / 0 SpA / 0 SpD / 250 Spe
-- Taunt
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Draco Meteor
+- Hurricane
 - Flamethrower
-- U-Turn
+- U-turn
 
-Haxorus @ Dragonium Z
+Haxorus @ Lum Berry
 Level: 63
 Ability: Mold Breaker
-Nature: Jolly
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 50 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
-- Dragon Dance
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Outrage
 - Earthquake
 - Poison Jab
+- Dragon Dance
 
 Dragalge
-Level: 63
+Level: 64
 Ability: Adaptability
-Nature: Modest
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 0 Def / 200 SpA / 0 SpD / 0 Spe
-- Toxic Spikes
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Sludge Wave
 - Draco Meteor
-- Scald
+- Toxic Spikes
+- Flip Turn
 
-Turtonator
+Salamence
 Level: 64
-Ability: Shell Armor
-Nature: Bold
-Tera Type: Grass
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 150 Def / 0 SpA / 150 SpD / 0 Spe
-- Shell Smash
-- Flamethrower
-- Dragon Pulse
-- Iron Defense
-
-Cyclizar
-Level: 64
-Ability: Regenerator
-Nature: Jolly
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 200 Spe
-- Shed Tail
-- Knock Off
-- Dragon Claw
-- U-Turn
-
-Druddigon @ Groundium Z
-Level: 65
-Ability: Rough Skin
-Nature: Impish
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-EVs: 250 HP / 0 Atk / 150 Def / 0 SpA / 150 SpD / 0 Spe
-- Stealth Rock
-- Dragon Tail
-- Glare
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dual Wingbeat
+- Outrage
 - Earthquake
+- Dragon Dance
+
+Duraludon
+Level: 65
+Ability: Light Metal
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Gigantamax: Yes
+Dynamax Level: 10
+- Draco Meteor
+- Flash Cannon
+- Thunderbolt
+- Stealth Rock
+
 
 === TRAINER_ROXANNE_1 ===
 Name: ROXANNE
@@ -4950,33 +4928,48 @@ Music: Female
 Items: Potion / Potion
 Battle Type: Singles
 AI: Smart Trainer
+Starting Status: Stealth Rock Player
 
-Tyrunt
-Level: 14
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 30 Atk / 0 Def / 0 SpA / 0SpD / 30 Spe
-- Tackle
-- Defense Curl
-- Rock Throw
-- Rock Tomb
-
-Minior
+Glimmet @ Focus Sash
 Level: 13
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 60 HP / 20 Atk / 60 Def / 20 SpA / 60SpD / 20 Spe
-- Tackle
-- Defense Curl
+Ability: Toxic Debris
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Rock Throw
-- Rock Tomb
+- Smack Down
+- Venoshock
+- Spikes
 
 Nosepass @ Oran Berry
-Level: 15
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 40 HP / 60 Atk / 80 Def / 20 SpA / 80SpD / 20 Spe
-- Block
-- Harden
-- Tackle
+Level: 13
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Body Press
+- Heavy Slam
+- Rest
+- Sand Tomb
+
+Aron @ Air Balloon
+Level: 14
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Rock Tomb
+- Metal Claw
+- Protect
+- Roar
+
+Larvitar @ Flame Orb
+Level: 15
+Ability: Guts
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rock Slide
+- Bulldoze
+- Pursuit
+- Stomp
+
 
 === TRAINER_BRAWLY_1 ===
 Name: BRAWLY
@@ -4988,32 +4981,46 @@ Items: Super Potion / Super Potion
 Battle Type: Singles
 AI: Smart Trainer
 
-Throh
-Level: 17
+Makuhita @ Sitrus Berry
+Level: 16
+Ability: Sheer Force
+Nature: Hardy
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-EVs: 30 HP / 0 Atk / 30 Def / 0 SpA / 30 SpD / 0 Spe
-- Focus Punch
-- Light Screen
-- Reflect
-- Bulk Up
-
-Sawk
-Level: 17
-IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-EVs: 20 HP / 20 Atk / 0 Def / 20 SpA / 0 SpD / 0 Spe
-- Karate Chop
-- Low Kick
-- Seismic Toss
-- Bulk Up
-
-Mienfoo @ Sitrus Berry
-Level: 19
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 0 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Arm Thrust
-- Vital Throw
-- Reversal
+- Body Slam
+- Belly Drum
+- Rock Tomb
+
+Scraggy @ Assault Vest
+Level: 16
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fake Out
+- Knock Off
+- Drain Punch
+- Focus Punch
+
+Pawmo @ Leftovers
+Level: 18
+Ability: Volt Absorb
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Nuzzle
+- Thunder Wave
+- Quick Attack
+- Arm Thrust
+
+Riolu @ Eviolite
+Level: 19
+Ability: Prankster
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Force Palm
+- Bullet Punch
 - Bulk Up
+- Quick Attack
+
 
 === TRAINER_WATTSON_1 ===
 Name: WATTSON
@@ -5024,50 +5031,48 @@ Music: Male
 Items: Super Potion / Super Potion
 Battle Type: Singles
 AI: Smart Trainer / Ace Pokemon
+Starting Status: Electric Terrain
 
-Stunfisk
+Manectric @ Air Balloon
 Level: 21
 Ability: Static
-Nature: Relaxed
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 60 HP / 0 Atk / 60 Def / 0 SpA / 30 SpD / 0 Spe
-- Earth Power
-- Thunder Wave
-- Stealth Rock
-- Yawn
-
-Morpeko
-Level: 21
-Ability: Hunger Switch
-Nature: Jolly
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 40 Atk / 0 Def / 0 SpA / 0 SpD / 40 Spe
-- Spark
-- Psychic Fangs
-- Fake Out
-- Parting Shot
-
-Kilowattrel
-Level: 22
-Ability: Competitive
-Nature: Timid
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 60 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Thunderbolt
-- Pluck
 - Volt Switch
-- Tailwind
-
-Manectric @ Electrium Z
-Level: 23
-Ability: Lightning Rod
-Nature: Modest
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 30 HP / 30 Atk / 20 Def / 30 SpA / 20 SpD / 60 Spe
-- Thunderbolt
-- Flamethrower
+- Ice Fang
 - Snarl
+
+Charjabug @ Electric Seed
+Level: 21
+Ability: Battery
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunder Wave
+- Wild Charge
+- Acrobatics
+- Bug Bite
+
+Rotom @ Focus Sash
+Level: 21
+Ability: Levitate
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hex
+- Discharge
+- Will-O-Wisp
+- Ally Switch
+
+Raichu-Alola @ Aloraichium Z
+Level: 22
+Ability: Surge Surfer
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Alluring Voice
+- Fake Out
 - Charge Beam
+- Psyshock
+
 
 === TRAINER_FLANNERY_1 ===
 Name: FLANNERY
@@ -5078,50 +5083,57 @@ Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
 AI: Smart Trainer
+Starting Status: Sun
 
-Scovillain @ Firium Z
-Level: 27
-Ability: Chlorophyll
-Nature: Timid
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 0 Atk / 0 Def / 40 SpA / 0 SpD / 40 Spe
-- Overheat
-- Energy Ball
-- Sunny Day
-- Stomping Tantrum
+Torkoal @ Charcoal
+Level: 26
+Ability: Shell Armor
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Lava Plume
+- Stealth Rock
+- Clear Smog
+- Body Press
 
-Arcanine
+Arcanine @ Shell Bell
 Level: 27
 Ability: Intimidate
-Nature: Adamant
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 50 HP / 30 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Flare Blitz
-- Extreme Speed
-- Close Combat
-- Will-O-Wisp
-
-Centiskorch
-Level: 28
-Ability: Flash Fire
-Nature: Impish
+Nature: Hardy
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
-EVs: 60 HP / 0 Atk / 30 Def / 0 SpA / 30 SpD / 0 Spe
-- Fire Lash
-- Leech Life
-- Knock Off
-- Coil
+- Extreme Speed
+- Will-O-Wisp
+- Flare Blitz
+- Morning Sun
 
-Turtonator @ White Herb
-Level: 29
+Turtonator @ Leftovers
+Level: 27
 Ability: Shell Armor
-Nature: Bold
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 30 HP / 20 Atk / 0 Def / 20 SpA / 0 SpD / 0 Spe
-- Shell Trap
-- Dragon Pulse
-- Body Press
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Incinerate
+- Dragon Tail
 - Iron Defense
+- Shell Trap
+
+Scovillain @ Life Orb
+Level: 28
+Ability: Chlorophyll
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Overheat
+- Energy Ball
+- Growth
+- Stomping Tantrum
+
+Marowak-Alola @ Thick Club
+Level: 29
+Ability: Cursed Body
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Shadow Bone
+- Flame Charge
+- Thunder Punch
+- Bonemerang
 
 
 === TRAINER_NORMAN_1 ===
@@ -5131,52 +5143,49 @@ Pic: Leader Norman
 Gender: Male
 Music: Male
 Items: Hyper Potion / Hyper Potion
-Battle Type: Singles
+Battle Type: Doubles
 AI: Smart Trainer
 
-Cinccino
+Diggersby @ Chople Berry
 Level: 29
-Ability: Skill Link
-Nature: Jolly
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 30 Atk / 0 Def / 0 SpA / 0 SpD / 10 Spe
-- Tail Slap
-- Rock Blast
-- Bullet Seed
-- Knock Off
+Ability: Huge Power
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gastro Acid
+- Stomping Tantrum
+- Focus Punch
+- Rock Slide
 
-Tauros
-Level: 30
-Ability: Anger Point
-Nature: Adamant
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 30 HP / 40 Atk / 0 Def / 0 SpA / 0 SpD / 30 Spe
-- Zen Headbutt
-- Double-Edge
-- Dig
-- Lash Out
-
-Slaking @ Normalium Z
-Level: 30
+Slaking @ Life Orb
+Level: 31
 Ability: Truant
-Nature: Brave
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 40 HP / 0 Atk / 30 Def / 0 SpA / 0 SpD / 0 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Giga Impact
 - Earthquake
 - Sucker Punch
 - Slack Off
 
+Cinccino @ Loaded Dice
+Level: 29
+Ability: Technician
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Slap
+- Rock Blast
+- Bullet Seed
+- Encore
+
 Kangaskhan @ Kangaskhanite
 Level: 31
 Ability: Scrappy
-Nature: Adamant
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 60 HP / 30 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Fake Out
 - Body Slam
 - Crunch
 - Power-Up Punch
-- Fake Out
+
 
 === TRAINER_WINONA_1 ===
 Name: WINONA
@@ -5187,61 +5196,58 @@ Music: Female
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
 AI: Smart Trainer / Risky
+Starting Status: Tailwind Opponent
 
-Staraptor
+Altaria @ Yache Berry
 Level: 35
-Ability: Intimidate
-Nature: Jolly
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 40 HP / 80 Atk / 0 Def / 0 SpA / 0 SpD / 120 Spe
-- Brave Bird
-- Double-Edge
-- Close Combat
-- U-Turn
-
-Gligar
-Level: 34
-Ability: Immunity
-Nature: Impish
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 80 HP / 0 Atk / 80 Def / 0 SpA / 80 SpD / 0 Spe
-- Earthquake
-- Aerial Ace
-- Knock Off
-- Roost
-
-Talonflame
-Level: 35
-Ability: Gale Wings
-Nature: Adamant
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 70 Atk / 30 Def / 0 SpA / 30 SpD / 140 Spe
-- Acrobatics
-- Flare Blitz
-- Swords Dance
-- Roost
-
-Altaria @ Flyinium Z
-Level: 36
 Ability: Cloud Nine
 Nature: Modest
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 60 HP / 0 Atk / 80 Def / 80 SpA / 80 SpD / 20 Spe
-- Fire Blast
-- Dragon Breath
-- Dragon Dance
-- Aerial Ace
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dragon Pulse
+- Roost
+- Cotton Guard
+- Flamethrower
 
-Pidgeot @ Pidgeotite
+Staraptor @ Staraptite
+Level: 34
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
+- Steel Wing
+
+Gliscor @ Toxic Orb
+Level: 34
+Ability: Poison Heal
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Swords Dance
+- Earthquake
+- Poison Jab
+- Crabhammer
+
+Hawlucha @ Power Herb
+Level: 35
+Ability: Unburden
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sky Attack
+- High Jump Kick
+- Acrobatics
+- Roost
+
+Thundurus-Therian @ Heavy-Duty Boots
 Level: 36
-Ability: Keen Eye
-Nature: Timid
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 60 HP / 0 Atk / 0 Def / 60 SpA / 0 SpD / 100 Spe
-- Hurricane
-- Heat Wave
-- Ominous Wind
-- Work Up
+Ability: Volt Absorb
+Nature: Modest
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Defog
+- Dark Pulse
+- Flash Cannon
+- Thunderbolt
+
 
 === TRAINER_TATE_AND_LIZA_1 ===
 Name: TATE&LIZA
@@ -5252,62 +5258,72 @@ Music: Female
 Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
 AI: Smart Trainer
+Starting Status: Trick Room
 
-Lunatone @ Focus Sash
-Level: 47
-Ability: Levitate
-Nature: Modest
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 200 HP / 0 Atk / 0 Def / 200 SpA / 0 SpD / 0 Spe
-- Psychic
-- Power Gem
-- Calm Mind
-- Moonlight
-
-Solrock @ Weakness Policy
-Level: 47
-Ability: Levitate
-Nature: Adamant
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 200 HP / 200 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Zen Headbutt
-- Rock Slide
-- Will-O-Wisp
-- Explosion
-
-Gothitelle
+Tapu Lele @ Psychic Seed
 Level: 46
+Ability: Psychic Surge
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dazzling Gleam
+- Psyshock
+- Shadow Ball
+- Calm Mind
+
+Hatterene @ Life Orb
+Level: 46
+Ability: Magic Bounce
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Expanding Force
+- Mystical Fire
+- Protect
+- Dazzling Gleam
+
+Gothitelle @ Leftovers
+Level: 47
 Ability: Shadow Tag
-Nature: Calm
-Tera Type: Fairy
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 100 HP / 0 Atk / 150 Def / 0 SpA / 150 SpD / 0 Spe
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Psychic
 - Thunderbolt
-- Calm Mind
 - Protect
+- Helping Hand
+
+Scream Tail @ Mental Herb
+Level: 46
+Ability: Protosynthesis
+Nature: Modest
+Tera Type: Fairy
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Perish Song
+- Disable
+- Protect
+- Encore
+
+Claydol @ Normal Gem
+Level: 46
+Ability: Levitate
+Nature: Brave
+Tera Type: Ground
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 0 Spe
+- Explosion
+- Stealth Rock
+- Gyro Ball
+- Earth Power
 
 Gallade @ Galladite
 Level: 48
 Ability: Justified
-Nature: Jolly
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 150 Atk / 0 Def / 0 SpA / 0 SpD / 120 Spe
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Psycho Cut
 - Close Combat
 - Shadow Sneak
-- Leaf Blade
+- Aqua Cutter
 
-Malamar @ Darkinium Z
-Level: 48
-Ability: Contrary
-Nature: Brave
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 150 HP / 150 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Superpower
-- Psycho Cut
-- Knock Off
-- Trick Room
 
 === TRAINER_JUAN_1 ===
 Name: JUAN
@@ -5318,73 +5334,74 @@ Music: Male
 Items: Hyper Potion / Hyper Potion
 Battle Type: Singles
 AI: Smart Trainer / Ace Pokemon
+Starting Status: Primordial Sea
 
-Slowking
+Toxapex @ Black Sludge
 Level: 55
 Ability: Regenerator
-Nature: Calm
-Tera Type: Grass
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 150 HP / 50 Atk / 150 Def / 50 SpA / 150 SpD / 0 Spe
-- Scald
-- Slack Off
-- Future Sight
-- Yawn
-
-Walrein
-Level: 55
-Ability: Thick Fat
-Nature: Bold
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 200 HP / 80 Atk / 150 Def / 80 SpA / 150 SpD / 80 Spe
-- Surf
-- Protect
+Nature: Modest
+Tera Type: Poison
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Toxic
-- Rest
+- Infestation
+- Baneful Bunker
+- Pain Split
 
-Kingdra @ Dragonium Z
-Level: 56
-Ability: Sniper
-Nature: Timid
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 0 Atk / 80 Def / 200 SpA / 80 SpD / 150 Spe
+Manaphy @ Leftovers
+Level: 55
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Glow
 - Surf
-- Dragon Pulse
-- Focus Energy
-- Agility
+- Shadow Ball
+- Baton Pass
 
-Basculegion @ Leftovers
-Level: 57
+Kingdra @ Choice Specs
+Level: 56
 Ability: Swift Swim
-Nature: Jolly
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 200 Atk / 0 Def / 0 SpA / 0 SpD / 150 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hydro Pump
+- Dragon Pulse
+- Ice Beam
+- Flip Turn
+
+Basculegion @ Choice Scarf
+Level: 57
+Ability: Adaptability
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Wave Crash
 - Aqua Jet
-- Crunch
-- Psychic Fangs
+- Last Respects
+- Flip Turn
 
-Milotic @ Focus Sash
-Level: 58
-Ability: Marvel Scale
-Nature: Bold
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 160 HP / 160 Atk / 160 Def / 160 SpA / 160 SpD / 160 Spe
-- Scald
-- Recover
-- Haze
-- Ice Beam
-
-Gyarados @ Gyaradosite
+Lapras @ Life Orb
 Level: 56
-Ability: Intimidate
-Nature: Adamant
-IVs: 20 HP / 20 Atk / 20 Def / 20 SpA / 20 SpD / 20 Spe
-EVs: 0 HP / 200 Atk / 80 Def / 0 SpA / 80 SpD / 150 Spe
-- Dragon Dance
-- Waterfall
-- Crunch
-- Earthquake
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+Gigantamax: Yes
+Dynamax Level: 10
+- Freeze-Dry
+- Hydro Pump
+- Ice Beam
+- Alluring Voice
+
+Greninja @ Greninjite
+Level: 58
+Ability: Protean
+Nature: Modest
+Tera Type: Water
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Hydro Pump
+- Water Shuriken
+- Sludge Wave
+- Dark Pulse
+
 
 === TRAINER_JERRY_1 ===
 Name: JERRY
@@ -6494,72 +6511,66 @@ Battle Type: Singles
 AI: Smart Trainer / Prediction / Double Ace Pokemon
 Mugshot: Yellow
 
-Arcanine @ Leftovers
+Milotic @ Leftovers
+Level: 65
+Ability: Marvel Scale
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Scald
+- Recover
+- Ice Beam
+- Haze
+
+Gyarados
 Level: 65
 Ability: Intimidate
-Nature: Adamant
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 0 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 250 Spe
-- Flare Blitz
-- Wild Charge
-- Extreme Speed
-- Will-O-Wisp
-
-Abomasnow @ Focus Sash
-Level: 65
-Ability: Snow Warning
-Nature: Modest
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 0 HP / 0 Atk / 0 Def / 250 SpA / 0 SpD / 250 Spe
-- Blizzard
-- Giga Drain
-- Leech Seed
-- Wood Hammer
-
-Obstagoon @ Flame Orb
-Level: 65
-Ability: Guts
-Nature: Adamant
-Tera Type: Ghost
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 250 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Facade
-- Knock Off
-- Close Combat
-- Taunt
-
-Annihilape @ Fightinium Z
-Level: 65
-Ability: Defiant
-Nature: Jolly
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 0 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 250 Spe
-- Rage Fist
-- Close Combat
-- U-Turn
-- Ice Punch
-
-Metagross @ Assault Vest
-Level: 65
-Ability: Clear Body
-Nature: Adamant
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 250 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Meteor Mash
-- Zen Headbutt
-- Pursuit
-- Bullet Punch
-
-Garchomp @ Garchompite
-Level: 65
-Ability: Rough Skin
-Nature: Jolly
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-EVs: 0 HP / 250 Atk / 0 Def / 0 SpA / 0 SpD / 250 Spe
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Waterfall
 - Earthquake
-- Dragon Claw
-- Swords Dance
-- Fire Fang
+- Ice Fang
+- Dragon Dance
+
+Swampert
+Level: 65
+Ability: Torrent
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Liquidation
+- Earthquake
+- Ice Punch
+- Flip Turn
+
+Kingdra @ Life Orb
+Level: 65
+Ability: Swift Swim
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hydro Pump
+- Draco Meteor
+- Ice Beam
+- Hurricane
+
+Dragonite @ Lum Berry
+Level: 65
+Ability: Multiscale
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dual Wingbeat
+- Earthquake
+- Extreme Speed
+- Dragon Dance
+
+Kyogre @ Blue Orb
+Level: 65
+Ability: Primordial Sea
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Origin Pulse
+- Ice Beam
+- Thunder
+- Calm Mind
+
 
 === TRAINER_ANDREW ===
 Name: ANDREW
@@ -15802,55 +15813,512 @@ EVs: 0 HP / 0 Atk / 0 Def / 250 SpA / 0 SpD / 250 Spe
 - Substitute
 - Leech Seed
 
+=== TRAINER_ROXANNE_2 ===
+Name: ROXANNE
+Class: Leader
+Pic: Leader Roxanne
+Gender: Female
+Music: Female
+Items: Potion / Potion
+Battle Type: Singles
+AI: Smart Trainer
+Starting Status: Stealth Rock Player
+
+Glimmet @ Focus Sash
+Level: 18
+Ability: Toxic Debris
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Throw
+- Smack Down
+- Venoshock
+- Spikes
+
+Nosepass @ Oran Berry
+Level: 18
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Body Press
+- Heavy Slam
+- Rest
+- Sand Tomb
+
+Aron @ Air Balloon
+Level: 19
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Tomb
+- Metal Claw
+- Protect
+- Roar
+
+Larvitar @ Flame Orb
+Level: 20
+Ability: Guts
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rock Slide
+- Bulldoze
+- Pursuit
+- Stomp
+
+=== TRAINER_ROXANNE_3 ===
+Name: ROXANNE
+Class: Leader
+Pic: Leader Roxanne
+Gender: Female
+Music: Female
+Items: Potion / Potion
+Battle Type: Singles
+AI: Smart Trainer
+Starting Status: Stealth Rock Player
+
+Glimmora @ Focus Sash
+Level: 23
+Ability: Toxic Debris
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Throw
+- Smack Down
+- Venoshock
+- Spikes
+
+Probopass @ Oran Berry
+Level: 23
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Body Press
+- Heavy Slam
+- Rest
+- Sand Tomb
+
+Lairon @ Air Balloon
+Level: 24
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Tomb
+- Metal Claw
+- Protect
+- Roar
+
+Pupitar @ Flame Orb
+Level: 25
+Ability: Guts
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rock Slide
+- Bulldoze
+- Pursuit
+- Stomp
+
+=== TRAINER_ROXANNE_4 ===
+Name: ROXANNE
+Class: Leader
+Pic: Leader Roxanne
+Gender: Female
+Music: Female
+Items: Potion / Potion
+Battle Type: Singles
+AI: Smart Trainer
+Starting Status: Stealth Rock Player
+
+Glimmora @ Focus Sash
+Level: 28
+Ability: Toxic Debris
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Throw
+- Smack Down
+- Venoshock
+- Spikes
+
+Probopass @ Oran Berry
+Level: 28
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Body Press
+- Heavy Slam
+- Rest
+- Sand Tomb
+
+Lairon @ Air Balloon
+Level: 29
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Tomb
+- Metal Claw
+- Protect
+- Roar
+
+Pupitar @ Flame Orb
+Level: 30
+Ability: Guts
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rock Slide
+- Bulldoze
+- Pursuit
+- Stomp
+
+=== TRAINER_ROXANNE_5 ===
+Name: ROXANNE
+Class: Leader
+Pic: Leader Roxanne
+Gender: Female
+Music: Female
+Items: Potion / Potion
+Battle Type: Singles
+AI: Smart Trainer
+Starting Status: Stealth Rock Player
+
+Glimmora @ Focus Sash
+Level: 33
+Ability: Toxic Debris
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Throw
+- Smack Down
+- Venoshock
+- Spikes
+
+Probopass @ Oran Berry
+Level: 33
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Body Press
+- Heavy Slam
+- Rest
+- Sand Tomb
+
+Lairon @ Air Balloon
+Level: 34
+Ability: Sturdy
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Rock Tomb
+- Metal Claw
+- Protect
+- Roar
+
+Pupitar @ Flame Orb
+Level: 35
+Ability: Guts
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Rock Slide
+- Bulldoze
+- Pursuit
+- Stomp
+
+=== TRAINER_BRAWLY_2 ===
+Name: BRAWLY
+Class: Leader
+Pic: Leader Brawly
+Gender: Male
+Music: Male
+Items: Super Potion / Super Potion
+Battle Type: Singles
+AI: Smart Trainer
+
+Makuhita @ Sitrus Berry
+Level: 21
+Ability: Sheer Force
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Arm Thrust
+- Body Slam
+- Belly Drum
+- Rock Tomb
+
+Scraggy @ Assault Vest
+Level: 21
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fake Out
+- Knock Off
+- Drain Punch
+- Focus Punch
+
+Pawmo @ Leftovers
+Level: 23
+Ability: Volt Absorb
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Nuzzle
+- Thunder Wave
+- Quick Attack
+- Arm Thrust
+
+Riolu @ Eviolite
+Level: 24
+Ability: Prankster
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Force Palm
+- Bullet Punch
+- Bulk Up
+- Quick Attack
+
+=== TRAINER_BRAWLY_3 ===
+Name: BRAWLY
+Class: Leader
+Pic: Leader Brawly
+Gender: Male
+Music: Male
+Items: Super Potion / Super Potion
+Battle Type: Singles
+AI: Smart Trainer
+
+Hariyama @ Sitrus Berry
+Level: 26
+Ability: Sheer Force
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Arm Thrust
+- Body Slam
+- Belly Drum
+- Rock Tomb
+
+Scrafty @ Assault Vest
+Level: 26
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fake Out
+- Knock Off
+- Drain Punch
+- Focus Punch
+
+Pawmot @ Leftovers
+Level: 28
+Ability: Volt Absorb
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Nuzzle
+- Thunder Wave
+- Quick Attack
+- Arm Thrust
+
+Lucario
+Level: 29
+Ability: Prankster
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Force Palm
+- Bullet Punch
+- Bulk Up
+- Quick Attack
+
+=== TRAINER_BRAWLY_4 ===
+Name: BRAWLY
+Class: Leader
+Pic: Leader Brawly
+Gender: Male
+Music: Male
+Items: Super Potion / Super Potion
+Battle Type: Singles
+AI: Smart Trainer
+
+Hariyama @ Sitrus Berry
+Level: 31
+Ability: Sheer Force
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Arm Thrust
+- Body Slam
+- Belly Drum
+- Rock Tomb
+
+Scrafty @ Assault Vest
+Level: 31
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fake Out
+- Knock Off
+- Drain Punch
+- Focus Punch
+
+Pawmot @ Leftovers
+Level: 33
+Ability: Volt Absorb
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Nuzzle
+- Thunder Wave
+- Quick Attack
+- Arm Thrust
+
+Lucario
+Level: 34
+Ability: Prankster
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Force Palm
+- Bullet Punch
+- Bulk Up
+- Quick Attack
+
+=== TRAINER_BRAWLY_5 ===
+Name: BRAWLY
+Class: Leader
+Pic: Leader Brawly
+Gender: Male
+Music: Male
+Items: Super Potion / Super Potion
+Battle Type: Singles
+AI: Smart Trainer
+
+Hariyama @ Sitrus Berry
+Level: 36
+Ability: Sheer Force
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Arm Thrust
+- Body Slam
+- Belly Drum
+- Rock Tomb
+
+Scrafty @ Assault Vest
+Level: 36
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Fake Out
+- Knock Off
+- Drain Punch
+- Focus Punch
+
+Pawmot @ Leftovers
+Level: 38
+Ability: Volt Absorb
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Nuzzle
+- Thunder Wave
+- Quick Attack
+- Arm Thrust
+
+Lucario
+Level: 39
+Ability: Prankster
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Force Palm
+- Bullet Punch
+- Bulk Up
+- Quick Attack
+
+=== TRAINER_WATTSON_2 ===
+Name: WATTSON
+Class: Leader
+Pic: Leader Wattson
+Gender: Male
+Music: Male
+Items: Super Potion / Super Potion
+Battle Type: Singles
+AI: Smart Trainer / Ace Pokemon
+Starting Status: Electric Terrain
+
+Manectric @ Air Balloon
+Level: 26
+Ability: Static
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Volt Switch
+- Ice Fang
+- Snarl
+
+Charjabug @ Electric Seed
+Level: 26
+Ability: Battery
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunder Wave
+- Wild Charge
+- Acrobatics
+- Bug Bite
+
+Rotom @ Focus Sash
+Level: 26
+Ability: Levitate
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hex
+- Discharge
+- Will-O-Wisp
+- Ally Switch
+
+Raichu-Alola @ Aloraichium Z
+Level: 27
+Ability: Surge Surfer
+Nature: Hardy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Alluring Voice
+- Fake Out
+- Charge Beam
+- Psyshock
+
 === TRAINER_WATTSON_3 ===
 Name: WATTSON
 Class: Leader
 Pic: Leader Wattson
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Super Potion / Super Potion
+Battle Type: Singles
+AI: Smart Trainer / Ace Pokemon
+Starting Status: Electric Terrain
 
-Pikachu
-Level: 39
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder
-- Slam
-- Rain Dance
-- Shock Wave
+Manectric @ Air Balloon
+Level: 31
+Ability: Static
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Volt Switch
+- Ice Fang
+- Snarl
 
-Flaaffy
-Level: 41
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder
-- Protect
+Vikavolt @ Electric Seed
+Level: 31
+Ability: Battery
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Thunder Wave
-- Light Screen
+- Wild Charge
+- Acrobatics
+- Bug Bite
 
-Electrode
-Level: 41
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rollout
-- Thunder
-- Explosion
-- Rain Dance
+Rotom @ Focus Sash
+Level: 31
+Ability: Levitate
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hex
+- Discharge
+- Will-O-Wisp
+- Ally Switch
 
-Magneton @ Sitrus Berry
-Level: 43
+Raichu-Alola @ Aloraichium Z
+Level: 32
+Ability: Surge Surfer
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Supersonic
-- Protect
-- Thunder
-- Rain Dance
+- Alluring Voice
+- Fake Out
+- Charge Beam
+- Psyshock
 
-Manectric @ Sitrus Berry
-Level: 45
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Bite
-- Thunder Wave
-- Thunder
-- Protect
 
 === TRAINER_WATTSON_4 ===
 Name: WATTSON
@@ -15858,49 +16326,51 @@ Class: Leader
 Pic: Leader Wattson
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Super Potion / Super Potion
+Battle Type: Singles
+AI: Smart Trainer / Ace Pokemon
+Starting Status: Electric Terrain
 
-Raichu
-Level: 44
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder
-- Slam
-- Rain Dance
-- Protect
+Manectric @ Air Balloon
+Level: 36
+Ability: Static
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Volt Switch
+- Ice Fang
+- Snarl
 
-Ampharos
-Level: 46
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder
-- Protect
+Vikavolt @ Electric Seed
+Level: 36
+Ability: Battery
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Thunder Wave
-- Light Screen
+- Wild Charge
+- Acrobatics
+- Bug Bite
 
-Electrode
-Level: 46
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rollout
-- Thunder
-- Explosion
-- Rain Dance
+Rotom @ Focus Sash
+Level: 36
+Ability: Levitate
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hex
+- Discharge
+- Will-O-Wisp
+- Ally Switch
 
-Magneton @ Sitrus Berry
-Level: 48
+Raichu-Alola @ Aloraichium Z
+Level: 37
+Ability: Surge Surfer
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Supersonic
-- Protect
-- Thunder
-- Rain Dance
+- Alluring Voice
+- Fake Out
+- Charge Beam
+- Psyshock
 
-Manectric @ Sitrus Berry
-Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Bite
-- Thunder Wave
-- Thunder
-- Protect
 
 === TRAINER_WATTSON_5 ===
 Name: WATTSON
@@ -15908,57 +16378,51 @@ Class: Leader
 Pic: Leader Wattson
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Super Potion / Super Potion
+Battle Type: Singles
+AI: Smart Trainer / Ace Pokemon
+Starting Status: Electric Terrain
 
-Electabuzz
-Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Swift
-- Focus Punch
-- Thunder Punch
-- Light Screen
+Manectric @ Air Balloon
+Level: 41
+Ability: Static
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Thunderbolt
+- Volt Switch
+- Ice Fang
+- Snarl
 
-Raichu
-Level: 51
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder
-- Slam
-- Rain Dance
-- Protect
-
-Ampharos
-Level: 51
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder
-- Protect
+Vikavolt @ Electric Seed
+Level: 41
+Ability: Battery
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Thunder Wave
-- Light Screen
+- Wild Charge
+- Acrobatics
+- Bug Bite
 
-Electrode
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rollout
-- Thunder
-- Explosion
-- Rain Dance
+Rotom @ Focus Sash
+Level: 41
+Ability: Levitate
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Hex
+- Discharge
+- Will-O-Wisp
+- Ally Switch
 
-Magneton @ Sitrus Berry
-Level: 53
+Raichu-Alola @ Aloraichium Z
+Level: 42
+Ability: Surge Surfer
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Supersonic
-- Protect
-- Thunder
-- Rain Dance
+- Alluring Voice
+- Fake Out
+- Charge Beam
+- Psyshock
 
-Manectric @ Sitrus Berry
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Bite
-- Thunder Wave
-- Thunder
-- Protect
 
 === TRAINER_FLANNERY_2 ===
 Name: FLANNERY
@@ -15966,41 +16430,61 @@ Class: Leader
 Pic: Leader Flannery
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer
+Starting Status: Sun
 
-Magcargo @ White Herb
-Level: 38
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Torkoal @ Charcoal
+Level: 31
+Ability: Shell Armor
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Lava Plume
+- Stealth Rock
+- Clear Smog
+- Body Press
+
+Arcanine @ Shell Bell
+Level: 32
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Extreme Speed
+- Will-O-Wisp
+- Flare Blitz
+- Morning Sun
+
+Turtonator @ Leftovers
+Level: 32
+Ability: Shell Armor
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Incinerate
+- Dragon Tail
+- Iron Defense
+- Shell Trap
+
+Scovillain @ Life Orb
+Level: 33
+Ability: Chlorophyll
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Overheat
-- Attract
-- Light Screen
-- Rock Slide
+- Energy Ball
+- Growth
+- Stomping Tantrum
 
-Ponyta
-Level: 36
+Marowak-Alola @ Thick Club
+Level: 34
+Ability: Cursed Body
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Flamethrower
-- Attract
-- Solar Beam
-- Bounce
+- Shadow Bone
+- Flame Charge
+- Thunder Punch
+- Bonemerang
 
-Camerupt @ White Herb
-Level: 38
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Overheat
-- Sunny Day
-- Earthquake
-- Attract
-
-Torkoal @ White Herb
-Level: 40
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Overheat
-- Sunny Day
-- Explosion
-- Attract
 
 === TRAINER_FLANNERY_3 ===
 Name: FLANNERY
@@ -16008,49 +16492,61 @@ Class: Leader
 Pic: Leader Flannery
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer
+Starting Status: Sun
 
-Growlithe
-Level: 41
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Helping Hand
-- Flamethrower
-- Roar
-- Sunny Day
+Torkoal @ Charcoal
+Level: 36
+Ability: Shell Armor
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Lava Plume
+- Stealth Rock
+- Clear Smog
+- Body Press
 
-Magcargo @ White Herb
-Level: 43
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Arcanine @ Shell Bell
+Level: 37
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Extreme Speed
+- Will-O-Wisp
+- Flare Blitz
+- Morning Sun
+
+Turtonator @ Leftovers
+Level: 37
+Ability: Shell Armor
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Incinerate
+- Dragon Tail
+- Iron Defense
+- Shell Trap
+
+Scovillain @ Life Orb
+Level: 38
+Ability: Chlorophyll
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Overheat
-- Attract
-- Light Screen
-- Rock Slide
+- Energy Ball
+- Growth
+- Stomping Tantrum
 
-Ponyta
-Level: 41
+Marowak-Alola @ Thick Club
+Level: 39
+Ability: Cursed Body
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Flamethrower
-- Attract
-- Solar Beam
-- Bounce
+- Shadow Bone
+- Flame Charge
+- Thunder Punch
+- Bonemerang
 
-Camerupt @ White Herb
-Level: 43
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Overheat
-- Sunny Day
-- Earthquake
-- Attract
-
-Torkoal @ White Herb
-Level: 45
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Overheat
-- Sunny Day
-- Explosion
-- Attract
 
 === TRAINER_FLANNERY_4 ===
 Name: FLANNERY
@@ -16058,57 +16554,61 @@ Class: Leader
 Pic: Leader Flannery
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer
+Starting Status: Sun
 
-Houndour
-Level: 46
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Roar
-- Solar Beam
-- Taunt
-- Sunny Day
+Torkoal @ Charcoal
+Level: 41
+Ability: Shell Armor
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Lava Plume
+- Stealth Rock
+- Clear Smog
+- Body Press
 
-Growlithe
-Level: 46
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Helping Hand
-- Flamethrower
-- Sunny Day
-- Roar
+Arcanine @ Shell Bell
+Level: 42
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Extreme Speed
+- Will-O-Wisp
+- Flare Blitz
+- Morning Sun
 
-Magcargo @ White Herb
-Level: 48
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Turtonator @ Leftovers
+Level: 42
+Ability: Shell Armor
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Incinerate
+- Dragon Tail
+- Iron Defense
+- Shell Trap
+
+Scovillain @ Life Orb
+Level: 43
+Ability: Chlorophyll
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Overheat
-- Attract
-- Light Screen
-- Rock Slide
+- Energy Ball
+- Growth
+- Stomping Tantrum
 
-Rapidash
-Level: 46
+Marowak-Alola @ Thick Club
+Level: 44
+Ability: Cursed Body
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Flamethrower
-- Attract
-- Solar Beam
-- Bounce
+- Shadow Bone
+- Flame Charge
+- Thunder Punch
+- Bonemerang
 
-Camerupt @ White Herb
-Level: 48
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Overheat
-- Sunny Day
-- Earthquake
-- Attract
-
-Torkoal @ White Herb
-Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Overheat
-- Sunny Day
-- Explosion
-- Attract
 
 === TRAINER_FLANNERY_5 ===
 Name: FLANNERY
@@ -16116,57 +16616,61 @@ Class: Leader
 Pic: Leader Flannery
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer
+Starting Status: Sun
 
-Arcanine
-Level: 51
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Helping Hand
-- Flamethrower
-- Sunny Day
-- Roar
+Torkoal @ Charcoal
+Level: 46
+Ability: Shell Armor
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Lava Plume
+- Stealth Rock
+- Clear Smog
+- Body Press
 
-Magcargo @ White Herb
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Arcanine @ Shell Bell
+Level: 47
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Extreme Speed
+- Will-O-Wisp
+- Flare Blitz
+- Morning Sun
+
+Turtonator @ Leftovers
+Level: 47
+Ability: Shell Armor
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Incinerate
+- Dragon Tail
+- Iron Defense
+- Shell Trap
+
+Scovillain @ Life Orb
+Level: 48
+Ability: Chlorophyll
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Overheat
-- Attract
-- Light Screen
-- Rock Slide
+- Energy Ball
+- Growth
+- Stomping Tantrum
 
-Houndoom
-Level: 51
+Marowak-Alola @ Thick Club
+Level: 49
+Ability: Cursed Body
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Roar
-- Solar Beam
-- Taunt
-- Sunny Day
+- Shadow Bone
+- Flame Charge
+- Thunder Punch
+- Bonemerang
 
-Rapidash
-Level: 51
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Flamethrower
-- Attract
-- Solar Beam
-- Bounce
-
-Camerupt @ White Herb
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Overheat
-- Sunny Day
-- Earthquake
-- Attract
-
-Torkoal @ White Herb
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Overheat
-- Sunny Day
-- Explosion
-- Attract
 
 === TRAINER_NORMAN_2 ===
 Name: NORMAN
@@ -16174,41 +16678,50 @@ Class: Leader
 Pic: Leader Norman
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
+Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Basic Trainer
+AI: Smart Trainer
 
-Chansey
-Level: 42
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Light Screen
-- Sing
-- Skill Swap
+Diggersby @ Chople Berry
+Level: 34
+Ability: Huge Power
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gastro Acid
+- Stomping Tantrum
 - Focus Punch
+- Rock Slide
 
-Slaking @ Sitrus Berry
-Level: 42
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Blizzard
-- Shadow Ball
-- Double Edge
-- Fire Blast
+Slaking @ Life Orb
+Level: 36
+Ability: Truant
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Giga Impact
+- Earthquake
+- Sucker Punch
+- Slack Off
 
-Spinda
-Level: 43
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Teeter Dance
-- Skill Swap
-- Facade
-- Hypnosis
+Cinccino @ Loaded Dice
+Level: 34
+Ability: Technician
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Slap
+- Rock Blast
+- Bullet Seed
+- Encore
 
-Slaking @ Sitrus Berry
-Level: 45
+Kangaskhan @ Kangaskhanite
+Level: 36
+Ability: Scrappy
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hyper Beam
-- Flamethrower
-- Thunderbolt
-- Shadow Ball
+- Fake Out
+- Body Slam
+- Crunch
+- Power-Up Punch
+
 
 === TRAINER_NORMAN_3 ===
 Name: NORMAN
@@ -16216,49 +16729,50 @@ Class: Leader
 Pic: Leader Norman
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
+Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Basic Trainer
+AI: Smart Trainer
 
-Slaking @ Sitrus Berry
-Level: 47
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Blizzard
-- Shadow Ball
-- Double Edge
-- Fire Blast
-
-Chansey
-Level: 47
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Light Screen
-- Sing
-- Skill Swap
+Diggersby @ Chople Berry
+Level: 39
+Ability: Huge Power
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gastro Acid
+- Stomping Tantrum
 - Focus Punch
+- Rock Slide
 
-Kangaskhan
-Level: 45
+Slaking @ Life Orb
+Level: 41
+Ability: Truant
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Giga Impact
+- Earthquake
+- Sucker Punch
+- Slack Off
+
+Cinccino @ Loaded Dice
+Level: 39
+Ability: Technician
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Slap
+- Rock Blast
+- Bullet Seed
+- Encore
+
+Kangaskhan @ Kangaskhanite
+Level: 41
+Ability: Scrappy
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Fake Out
-- Dizzy Punch
-- Endure
-- Reversal
+- Body Slam
+- Crunch
+- Power-Up Punch
 
-Spinda
-Level: 48
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Teeter Dance
-- Skill Swap
-- Facade
-- Hypnosis
-
-Slaking @ Sitrus Berry
-Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hyper Beam
-- Flamethrower
-- Thunderbolt
-- Shadow Ball
 
 === TRAINER_NORMAN_4 ===
 Name: NORMAN
@@ -16266,49 +16780,50 @@ Class: Leader
 Pic: Leader Norman
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
+Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Basic Trainer
+AI: Smart Trainer
 
-Slaking @ Sitrus Berry
-Level: 52
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Blizzard
-- Shadow Ball
-- Double Edge
-- Fire Blast
-
-Blissey
-Level: 52
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Light Screen
-- Sing
-- Skill Swap
+Diggersby @ Chople Berry
+Level: 44
+Ability: Huge Power
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gastro Acid
+- Stomping Tantrum
 - Focus Punch
+- Rock Slide
 
-Kangaskhan
-Level: 50
+Slaking @ Life Orb
+Level: 46
+Ability: Truant
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Giga Impact
+- Earthquake
+- Sucker Punch
+- Slack Off
+
+Cinccino @ Loaded Dice
+Level: 44
+Ability: Technician
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Slap
+- Rock Blast
+- Bullet Seed
+- Encore
+
+Kangaskhan @ Kangaskhanite
+Level: 46
+Ability: Scrappy
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Fake Out
-- Dizzy Punch
-- Endure
-- Reversal
+- Body Slam
+- Crunch
+- Power-Up Punch
 
-Spinda
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Teeter Dance
-- Skill Swap
-- Facade
-- Hypnosis
-
-Slaking @ Sitrus Berry
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hyper Beam
-- Flamethrower
-- Thunderbolt
-- Shadow Ball
 
 === TRAINER_NORMAN_5 ===
 Name: NORMAN
@@ -16316,57 +16831,50 @@ Class: Leader
 Pic: Leader Norman
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
+Items: Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Basic Trainer
+AI: Smart Trainer
 
-Slaking @ Sitrus Berry
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Blizzard
-- Shadow Ball
-- Double Edge
-- Fire Blast
-
-Blissey
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Protect
-- Sing
-- Skill Swap
+Diggersby @ Chople Berry
+Level: 49
+Ability: Huge Power
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Gastro Acid
+- Stomping Tantrum
 - Focus Punch
+- Rock Slide
 
-Kangaskhan
-Level: 55
+Slaking @ Life Orb
+Level: 51
+Ability: Truant
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Giga Impact
+- Earthquake
+- Sucker Punch
+- Slack Off
+
+Cinccino @ Loaded Dice
+Level: 49
+Ability: Technician
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Slap
+- Rock Blast
+- Bullet Seed
+- Encore
+
+Kangaskhan @ Kangaskhanite
+Level: 51
+Ability: Scrappy
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Fake Out
-- Dizzy Punch
-- Endure
-- Reversal
+- Body Slam
+- Crunch
+- Power-Up Punch
 
-Tauros
-Level: 57
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Take Down
-- Protect
-- Fire Blast
-- Earthquake
-
-Spinda
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Teeter Dance
-- Skill Swap
-- Facade
-- Hypnosis
-
-Slaking @ Sitrus Berry
-Level: 60
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hyper Beam
-- Flamethrower
-- Thunderbolt
-- Shadow Ball
 
 === TRAINER_WINONA_2 ===
 Name: WINONA
@@ -16374,49 +16882,61 @@ Class: Leader
 Pic: Leader Winona
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer / Risky
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer / Risky
+Starting Status: Tailwind Opponent
 
-Dratini @ Sitrus Berry
+Altaria @ Yache Berry
 Level: 40
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder Wave
-- Thunderbolt
-- Protect
-- Ice Beam
+Ability: Cloud Nine
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dragon Pulse
+- Roost
+- Cotton Guard
+- Flamethrower
 
-Tropius
-Level: 38
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sunny Day
-- Aerial Ace
-- Solar Beam
-- Earthquake
-
-Pelipper
-Level: 41
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Surf
-- Supersonic
-- Protect
-- Aerial Ace
-
-Skarmory
-Level: 43
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Whirlwind
-- Spikes
+Staraptor @ Staraptite
+Level: 39
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
 - Steel Wing
-- Aerial Ace
 
-Altaria @ Chesto Berry
-Level: 45
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Aerial Ace
-- Rest
-- Dragon Dance
+Gliscor @ Toxic Orb
+Level: 39
+Ability: Poison Heal
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Swords Dance
 - Earthquake
+- Poison Jab
+- Crabhammer
+
+Hawlucha @ Power Herb
+Level: 40
+Ability: Unburden
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sky Attack
+- High Jump Kick
+- Acrobatics
+- Roost
+
+Thundurus-Therian @ Heavy-Duty Boots
+Level: 41
+Ability: Volt Absorb
+Nature: Modest
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Defog
+- Dark Pulse
+- Flash Cannon
+- Thunderbolt
+
 
 === TRAINER_WINONA_3 ===
 Name: WINONA
@@ -16424,57 +16944,61 @@ Class: Leader
 Pic: Leader Winona
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer / Risky
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer / Risky
+Starting Status: Tailwind Opponent
 
-Hoothoot
-Level: 43
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Psychic
-- Reflect
-- Dream Eater
-
-Tropius
-Level: 43
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sunny Day
-- Aerial Ace
-- Solar Beam
-- Earthquake
-
-Dragonair @ Sitrus Berry
+Altaria @ Yache Berry
 Level: 45
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder Wave
-- Thunderbolt
-- Protect
-- Ice Beam
+Ability: Cloud Nine
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dragon Pulse
+- Roost
+- Cotton Guard
+- Flamethrower
 
-Pelipper
-Level: 46
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Surf
-- Supersonic
-- Protect
-- Aerial Ace
-
-Skarmory
-Level: 48
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Whirlwind
-- Spikes
+Staraptor @ Staraptite
+Level: 44
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
 - Steel Wing
-- Aerial Ace
 
-Altaria @ Chesto Berry
-Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Aerial Ace
-- Rest
-- Dragon Dance
+Gliscor @ Toxic Orb
+Level: 44
+Ability: Poison Heal
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Swords Dance
 - Earthquake
+- Poison Jab
+- Crabhammer
+
+Hawlucha @ Power Herb
+Level: 45
+Ability: Unburden
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sky Attack
+- High Jump Kick
+- Acrobatics
+- Roost
+
+Thundurus-Therian @ Heavy-Duty Boots
+Level: 46
+Ability: Volt Absorb
+Nature: Modest
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Defog
+- Dark Pulse
+- Flash Cannon
+- Thunderbolt
+
 
 === TRAINER_WINONA_4 ===
 Name: WINONA
@@ -16482,57 +17006,61 @@ Class: Leader
 Pic: Leader Winona
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer / Risky
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer / Risky
+Starting Status: Tailwind Opponent
 
-Noctowl
-Level: 48
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Psychic
-- Reflect
-- Dream Eater
-
-Tropius
-Level: 49
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sunny Day
-- Aerial Ace
-- Solar Beam
-- Earthquake
-
-Dragonair @ Sitrus Berry
+Altaria @ Yache Berry
 Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Thunder Wave
-- Thunderbolt
-- Protect
-- Ice Beam
+Ability: Cloud Nine
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dragon Pulse
+- Roost
+- Cotton Guard
+- Flamethrower
 
-Pelipper
-Level: 51
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Surf
-- Supersonic
-- Protect
-- Aerial Ace
-
-Skarmory
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Whirlwind
-- Spikes
+Staraptor @ Staraptite
+Level: 49
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
 - Steel Wing
-- Aerial Ace
 
-Altaria @ Chesto Berry
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Aerial Ace
-- Rest
-- Dragon Dance
+Gliscor @ Toxic Orb
+Level: 49
+Ability: Poison Heal
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Swords Dance
 - Earthquake
+- Poison Jab
+- Crabhammer
+
+Hawlucha @ Power Herb
+Level: 50
+Ability: Unburden
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sky Attack
+- High Jump Kick
+- Acrobatics
+- Roost
+
+Thundurus-Therian @ Heavy-Duty Boots
+Level: 51
+Ability: Volt Absorb
+Nature: Modest
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Defog
+- Dark Pulse
+- Flash Cannon
+- Thunderbolt
+
 
 === TRAINER_WINONA_5 ===
 Name: WINONA
@@ -16540,57 +17068,61 @@ Class: Leader
 Pic: Leader Winona
 Gender: Female
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer / Risky
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer / Risky
+Starting Status: Tailwind Opponent
 
-Noctowl
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Psychic
-- Reflect
-- Dream Eater
+Altaria @ Yache Berry
+Level: 55
+Ability: Cloud Nine
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dragon Pulse
+- Roost
+- Cotton Guard
+- Flamethrower
 
-Tropius
+Staraptor @ Staraptite
 Level: 54
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sunny Day
-- Aerial Ace
-- Solar Beam
-- Earthquake
-
-Pelipper
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Surf
-- Supersonic
-- Protect
-- Aerial Ace
-
-Dragonite @ Sitrus Berry
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hyper Beam
-- Thunderbolt
-- Earthquake
-- Ice Beam
-
-Skarmory
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Whirlwind
-- Spikes
+Ability: Intimidate
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Brave Bird
+- Close Combat
+- Dual Wingbeat
 - Steel Wing
-- Aerial Ace
 
-Altaria @ Chesto Berry
-Level: 60
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sky Attack
-- Rest
-- Dragon Dance
+Gliscor @ Toxic Orb
+Level: 54
+Ability: Poison Heal
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Swords Dance
 - Earthquake
+- Poison Jab
+- Crabhammer
+
+Hawlucha @ Power Herb
+Level: 55
+Ability: Unburden
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Sky Attack
+- High Jump Kick
+- Acrobatics
+- Roost
+
+Thundurus-Therian @ Heavy-Duty Boots
+Level: 56
+Ability: Volt Absorb
+Nature: Modest
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Defog
+- Dark Pulse
+- Flash Cannon
+- Thunderbolt
+
 
 === TRAINER_TATE_AND_LIZA_2 ===
 Name: TATE&LIZA
@@ -16598,49 +17130,75 @@ Class: Leader
 Pic: Leader Tate And Liza
 Gender: Male
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
+Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Basic Trainer
+AI: Smart Trainer
+Starting Status: Trick Room
 
-Slowpoke
-Level: 48
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Yawn
-- Psychic
+Tapu Lele @ Psychic Seed
+Level: 51
+Ability: Psychic Surge
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dazzling Gleam
+- Psyshock
+- Shadow Ball
 - Calm Mind
+
+Hatterene @ Life Orb
+Level: 51
+Ability: Magic Bounce
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Expanding Force
+- Mystical Fire
 - Protect
+- Dazzling Gleam
 
-Claydol
-Level: 49
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Ancient Power
+Gothitelle @ Leftovers
+Level: 52
+Ability: Shadow Tag
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Psychic
-- Light Screen
+- Thunderbolt
+- Protect
+- Helping Hand
 
-Xatu @ Chesto Berry
-Level: 49
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Rest
-- Confuse Ray
-- Calm Mind
+Scream Tail @ Mental Herb
+Level: 51
+Ability: Protosynthesis
+Nature: Modest
+Tera Type: Fairy
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Perish Song
+- Disable
+- Protect
+- Encore
 
-Lunatone @ Chesto Berry
-Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Psychic
-- Rest
-- Calm Mind
+Claydol @ Normal Gem
+Level: 51
+Ability: Levitate
+Nature: Brave
+Tera Type: Ground
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 0 Spe
+- Explosion
+- Stealth Rock
+- Gyro Ball
+- Earth Power
 
-Solrock @ Sitrus Berry
-Level: 50
+Gallade @ Galladite
+Level: 53
+Ability: Justified
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sunny Day
-- Solar Beam
-- Psychic
-- Flamethrower
+- Psycho Cut
+- Close Combat
+- Shadow Sneak
+- Aqua Cutter
+
 
 === TRAINER_TATE_AND_LIZA_3 ===
 Name: TATE&LIZA
@@ -16648,57 +17206,75 @@ Class: Leader
 Pic: Leader Tate And Liza
 Gender: Male
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
+Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Basic Trainer
+AI: Smart Trainer
+Starting Status: Trick Room
 
-Drowzee
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Dream Eater
-- Headbutt
-- Protect
-
-Slowpoke
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Yawn
-- Psychic
+Tapu Lele @ Psychic Seed
+Level: 56
+Ability: Psychic Surge
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dazzling Gleam
+- Psyshock
+- Shadow Ball
 - Calm Mind
-- Protect
 
-Claydol
-Level: 54
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
+Hatterene @ Life Orb
+Level: 56
+Ability: Magic Bounce
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Expanding Force
+- Mystical Fire
+- Protect
+- Dazzling Gleam
+
+Gothitelle @ Leftovers
+Level: 57
+Ability: Shadow Tag
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Thunderbolt
+- Protect
+- Helping Hand
+
+Scream Tail @ Mental Herb
+Level: 56
+Ability: Protosynthesis
+Nature: Modest
+Tera Type: Fairy
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Perish Song
+- Disable
+- Protect
+- Encore
+
+Claydol @ Normal Gem
+Level: 56
+Ability: Levitate
+Nature: Brave
+Tera Type: Ground
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 0 Spe
 - Explosion
-- Psychic
-- Light Screen
+- Stealth Rock
+- Gyro Ball
+- Earth Power
 
-Xatu @ Chesto Berry
-Level: 54
+Gallade @ Galladite
+Level: 58
+Ability: Justified
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Rest
-- Confuse Ray
-- Calm Mind
+- Psycho Cut
+- Close Combat
+- Shadow Sneak
+- Aqua Cutter
 
-Lunatone @ Chesto Berry
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Psychic
-- Rest
-- Calm Mind
-
-Solrock @ Sitrus Berry
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sunny Day
-- Solar Beam
-- Psychic
-- Flamethrower
 
 === TRAINER_TATE_AND_LIZA_4 ===
 Name: TATE&LIZA
@@ -16706,57 +17282,75 @@ Class: Leader
 Pic: Leader Tate And Liza
 Gender: Male
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
+Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Basic Trainer
+AI: Smart Trainer
+Starting Status: Trick Room
 
-Hypno
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Dream Eater
-- Headbutt
+Tapu Lele @ Psychic Seed
+Level: 61
+Ability: Psychic Surge
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dazzling Gleam
+- Psyshock
+- Shadow Ball
+- Calm Mind
+
+Hatterene @ Life Orb
+Level: 61
+Ability: Magic Bounce
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Expanding Force
+- Mystical Fire
 - Protect
+- Dazzling Gleam
 
-Claydol
-Level: 59
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
+Gothitelle @ Leftovers
+Level: 62
+Ability: Shadow Tag
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Thunderbolt
+- Protect
+- Helping Hand
+
+Scream Tail @ Mental Herb
+Level: 61
+Ability: Protosynthesis
+Nature: Modest
+Tera Type: Fairy
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Perish Song
+- Disable
+- Protect
+- Encore
+
+Claydol @ Normal Gem
+Level: 61
+Ability: Levitate
+Nature: Brave
+Tera Type: Ground
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 0 Spe
 - Explosion
-- Psychic
-- Light Screen
+- Stealth Rock
+- Gyro Ball
+- Earth Power
 
-Slowpoke
-Level: 58
+Gallade @ Galladite
+Level: 63
+Ability: Justified
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Yawn
-- Psychic
-- Calm Mind
-- Protect
+- Psycho Cut
+- Close Combat
+- Shadow Sneak
+- Aqua Cutter
 
-Xatu @ Chesto Berry
-Level: 59
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Rest
-- Confuse Ray
-- Calm Mind
-
-Lunatone @ Chesto Berry
-Level: 60
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Psychic
-- Rest
-- Calm Mind
-
-Solrock @ Sitrus Berry
-Level: 60
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sunny Day
-- Solar Beam
-- Psychic
-- Flamethrower
 
 === TRAINER_TATE_AND_LIZA_5 ===
 Name: TATE&LIZA
@@ -16764,57 +17358,75 @@ Class: Leader
 Pic: Leader Tate And Liza
 Gender: Male
 Music: Female
-Items: Full Restore / Full Restore / Full Restore
+Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
 Battle Type: Doubles
-AI: Basic Trainer
+AI: Smart Trainer
+Starting Status: Trick Room
 
-Hypno
-Level: 63
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Dream Eater
-- Headbutt
+Tapu Lele @ Psychic Seed
+Level: 66
+Ability: Psychic Surge
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Dazzling Gleam
+- Psyshock
+- Shadow Ball
+- Calm Mind
+
+Hatterene @ Life Orb
+Level: 66
+Ability: Magic Bounce
+Nature: Modest
+Tera Type: Psychic
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Expanding Force
+- Mystical Fire
 - Protect
+- Dazzling Gleam
 
-Claydol
-Level: 64
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
+Gothitelle @ Leftovers
+Level: 67
+Ability: Shadow Tag
+Nature: Modest
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Psychic
+- Thunderbolt
+- Protect
+- Helping Hand
+
+Scream Tail @ Mental Herb
+Level: 66
+Ability: Protosynthesis
+Nature: Modest
+Tera Type: Fairy
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Perish Song
+- Disable
+- Protect
+- Encore
+
+Claydol @ Normal Gem
+Level: 66
+Ability: Levitate
+Nature: Brave
+Tera Type: Ground
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 0 Spe
 - Explosion
-- Psychic
-- Light Screen
+- Stealth Rock
+- Gyro Ball
+- Earth Power
 
-Slowking
-Level: 63
+Gallade @ Galladite
+Level: 68
+Ability: Justified
+Nature: Hardy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Yawn
-- Psychic
-- Calm Mind
-- Protect
+- Psycho Cut
+- Close Combat
+- Shadow Sneak
+- Aqua Cutter
 
-Xatu @ Chesto Berry
-Level: 64
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Psychic
-- Rest
-- Confuse Ray
-- Calm Mind
-
-Lunatone @ Chesto Berry
-Level: 65
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Psychic
-- Rest
-- Calm Mind
-
-Solrock @ Sitrus Berry
-Level: 65
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Sunny Day
-- Solar Beam
-- Psychic
-- Flamethrower
 
 === TRAINER_JUAN_2 ===
 Name: JUAN
@@ -16822,49 +17434,77 @@ Class: Leader
 Pic: Leader Juan
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer / Ace Pokemon
+Starting Status: Primordial Sea
 
-Poliwag
-Level: 46
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Rain Dance
-- Protect
+Toxapex @ Black Sludge
+Level: 60
+Ability: Regenerator
+Nature: Modest
+Tera Type: Poison
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Toxic
+- Infestation
+- Baneful Bunker
+- Pain Split
+
+Manaphy @ Leftovers
+Level: 60
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Glow
+- Surf
+- Shadow Ball
+- Baton Pass
+
+Kingdra @ Choice Specs
+Level: 61
+Ability: Swift Swim
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Hydro Pump
-
-Whiscash
-Level: 46
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rain Dance
-- Water Pulse
-- Double Team
-- Fissure
-
-Walrein
-Level: 48
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Water Pulse
-- Body Slam
-- Protect
+- Dragon Pulse
 - Ice Beam
+- Flip Turn
 
-Crawdaunt @ Chesto Berry
-Level: 48
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rest
-- Crabhammer
-- Taunt
-- Double Team
+Basculegion @ Choice Scarf
+Level: 62
+Ability: Adaptability
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Aqua Jet
+- Last Respects
+- Flip Turn
 
-Kingdra @ Chesto Berry
-Level: 51
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Water Pulse
-- Double Team
+Lapras @ Life Orb
+Level: 61
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+Gigantamax: Yes
+Dynamax Level: 10
+- Freeze-Dry
+- Hydro Pump
 - Ice Beam
-- Rest
+- Alluring Voice
+
+Greninja @ Greninjite
+Level: 63
+Ability: Protean
+Nature: Modest
+Tera Type: Water
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Hydro Pump
+- Water Shuriken
+- Sludge Wave
+- Dark Pulse
+
 
 === TRAINER_JUAN_3 ===
 Name: JUAN
@@ -16872,49 +17512,77 @@ Class: Leader
 Pic: Leader Juan
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer / Ace Pokemon
+Starting Status: Primordial Sea
 
-Poliwhirl
-Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Rain Dance
-- Protect
+Toxapex @ Black Sludge
+Level: 65
+Ability: Regenerator
+Nature: Modest
+Tera Type: Poison
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Toxic
+- Infestation
+- Baneful Bunker
+- Pain Split
+
+Manaphy @ Leftovers
+Level: 65
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Glow
+- Surf
+- Shadow Ball
+- Baton Pass
+
+Kingdra @ Choice Specs
+Level: 66
+Ability: Swift Swim
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Hydro Pump
-
-Whiscash
-Level: 51
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rain Dance
-- Water Pulse
-- Double Team
-- Fissure
-
-Walrein
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Water Pulse
-- Body Slam
-- Protect
+- Dragon Pulse
 - Ice Beam
+- Flip Turn
 
-Crawdaunt @ Chesto Berry
-Level: 53
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rest
-- Guillotine
-- Taunt
-- Double Team
+Basculegion @ Choice Scarf
+Level: 67
+Ability: Adaptability
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Aqua Jet
+- Last Respects
+- Flip Turn
 
-Kingdra @ Chesto Berry
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Water Pulse
-- Double Team
+Lapras @ Life Orb
+Level: 66
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+Gigantamax: Yes
+Dynamax Level: 10
+- Freeze-Dry
+- Hydro Pump
 - Ice Beam
-- Rest
+- Alluring Voice
+
+Greninja @ Greninjite
+Level: 68
+Ability: Protean
+Nature: Modest
+Tera Type: Water
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Hydro Pump
+- Water Shuriken
+- Sludge Wave
+- Dark Pulse
+
 
 === TRAINER_JUAN_4 ===
 Name: JUAN
@@ -16922,57 +17590,77 @@ Class: Leader
 Pic: Leader Juan
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer / Ace Pokemon
+Starting Status: Primordial Sea
 
-Lapras
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Toxapex @ Black Sludge
+Level: 70
+Ability: Regenerator
+Nature: Modest
+Tera Type: Poison
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Toxic
+- Infestation
+- Baneful Bunker
+- Pain Split
+
+Manaphy @ Leftovers
+Level: 70
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Glow
+- Surf
+- Shadow Ball
+- Baton Pass
+
+Kingdra @ Choice Specs
+Level: 71
+Ability: Swift Swim
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Hydro Pump
-- Perish Song
+- Dragon Pulse
 - Ice Beam
-- Confuse Ray
+- Flip Turn
 
-Whiscash
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rain Dance
-- Water Pulse
-- Double Team
-- Fissure
+Basculegion @ Choice Scarf
+Level: 72
+Ability: Adaptability
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Aqua Jet
+- Last Respects
+- Flip Turn
 
-Poliwhirl
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Rain Dance
-- Protect
+Lapras @ Life Orb
+Level: 71
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+Gigantamax: Yes
+Dynamax Level: 10
+- Freeze-Dry
 - Hydro Pump
-
-Walrein
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Water Pulse
-- Body Slam
-- Protect
 - Ice Beam
+- Alluring Voice
 
-Crawdaunt @ Chesto Berry
-Level: 58
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rest
-- Guillotine
-- Taunt
-- Double Team
+Greninja @ Greninjite
+Level: 73
+Ability: Protean
+Nature: Modest
+Tera Type: Water
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Hydro Pump
+- Water Shuriken
+- Sludge Wave
+- Dark Pulse
 
-Kingdra @ Chesto Berry
-Level: 61
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Water Pulse
-- Double Team
-- Ice Beam
-- Rest
 
 === TRAINER_JUAN_5 ===
 Name: JUAN
@@ -16980,57 +17668,77 @@ Class: Leader
 Pic: Leader Juan
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore / Full Restore
-Battle Type: Doubles
-AI: Basic Trainer
+Items: Hyper Potion / Hyper Potion
+Battle Type: Singles
+AI: Smart Trainer / Ace Pokemon
+Starting Status: Primordial Sea
 
-Lapras
-Level: 61
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+Toxapex @ Black Sludge
+Level: 75
+Ability: Regenerator
+Nature: Modest
+Tera Type: Poison
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Toxic
+- Infestation
+- Baneful Bunker
+- Pain Split
+
+Manaphy @ Leftovers
+Level: 75
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Tail Glow
+- Surf
+- Shadow Ball
+- Baton Pass
+
+Kingdra @ Choice Specs
+Level: 76
+Ability: Swift Swim
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Hydro Pump
-- Perish Song
+- Dragon Pulse
 - Ice Beam
-- Confuse Ray
+- Flip Turn
 
-Whiscash
-Level: 63
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rain Dance
-- Water Pulse
-- Double Team
-- Fissure
+Basculegion @ Choice Scarf
+Level: 77
+Ability: Adaptability
+Nature: Hardy
+IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+- Wave Crash
+- Aqua Jet
+- Last Respects
+- Flip Turn
 
-Politoed
-Level: 61
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Hypnosis
-- Rain Dance
+Lapras @ Life Orb
+Level: 76
+Ability: Hydration
+Nature: Modest
+Tera Type: Water
+IVs: 25 HP / 0 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
+Gigantamax: Yes
+Dynamax Level: 10
+- Freeze-Dry
 - Hydro Pump
-- Perish Song
-
-Walrein
-Level: 63
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Water Pulse
-- Body Slam
-- Protect
-- Sheer Cold
-
-Crawdaunt @ Chesto Berry
-Level: 63
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rest
-- Guillotine
-- Taunt
-- Double Team
-
-Kingdra @ Chesto Berry
-Level: 66
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Water Pulse
-- Double Team
 - Ice Beam
-- Rest
+- Alluring Voice
+
+Greninja @ Greninjite
+Level: 78
+Ability: Protean
+Nature: Modest
+Tera Type: Water
+IVs: 31 HP / 0 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Hydro Pump
+- Water Shuriken
+- Sludge Wave
+- Dark Pulse
+
 
 === TRAINER_ANGELO ===
 Name: ANGELO

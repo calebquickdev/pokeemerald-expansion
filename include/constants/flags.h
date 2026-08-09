@@ -712,7 +712,7 @@
 #define FLAG_DEBUG                       0x28F // Toggles debug mode in the overworld
 #define FLAG_RANDOMIZE_INCLUDE_LEGENDS 0x290 // Include legendaries/mythicals/UBs in species random pool
 #define FLAG_UNUSED_0x291  0x291 // Unused Flag
-#define FLAG_UNUSED_0x292  0x292 // Unused Flag
+#define FLAG_DYNAMAX_BATTLE  0x292 // Dynamax enabled for current battle (cleared after battle)
 #define FLAG_UNUSED_0x293  0x293 // Unused Flag
 #define FLAG_UNUSED_0x294  0x294 // Unused Flag
 #define FLAG_UNUSED_0x295  0x295 // Unused Flag

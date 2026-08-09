@@ -823,6 +823,11 @@ enum FaintedActions
     F(STARTING_STATUS_STEALTH_ROCK_OPPONENT,          stealthRockOpponent,        (u32, 1)) /* Stealth Rock Opponent */                    \
     F(STARTING_STATUS_SHARP_STEEL_PLAYER,             sharpSteelPlayer,           (u32, 1)) /* Sharp Steel Player */                       \
     F(STARTING_STATUS_SHARP_STEEL_OPPONENT,           sharpSteelOpponent,         (u32, 1)) /* Sharp Steel Opponent */                     \
+    /* Weather */                                                                                                                          \
+    F(STARTING_STATUS_SUN,                            sun,                        (u32, 1)) /* Sun (Permanent until overwritten) */        \
+    F(STARTING_STATUS_SUN_TEMPORARY,                  sunTemporary,               (u32, 1)) /* Sun Temporary (5 turns) */                  \
+    F(STARTING_STATUS_PRIMORDIAL_SEA,                 primordialSea,              (u32, 1)) /* Primordial Sea (Permanent until overwritten) */ \
+    F(STARTING_STATUS_PRIMORDIAL_SEA_TEMPORARY,       primordialSeaTemporary,     (u32, 1)) /* Primordial Sea Temporary (unused; treated as permanent) */ \
 
 #define UNPACK_STARTING_STATUS_ENUMS(_enum, ...) _enum,
 

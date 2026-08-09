@@ -2742,6 +2742,44 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
             if (effect)
                 return TRUE;
         }
+        // Weather
+        else if (gStartingStatuses.sun || gStartingStatuses.sunTemporary)
+        {
+            bool32 permanent = gStartingStatuses.sun;
+            gStartingStatuses.sunTemporary = gStartingStatuses.sun = FALSE;
+            if (!(gBattleWeather & B_WEATHER_SUN) && !(gBattleWeather & B_WEATHER_PRIMAL_ANY))
+            {
+                gBattleWeather = B_WEATHER_SUN_NORMAL;
+                gBattleStruct->weatherDuration = permanent ? 0 : 5;
+                gBattleScripting.animArg1 = B_ANIM_SUN_CONTINUES;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STARTED_DROUGHT;
+                for (enum BattlerId i = 0; i < gBattlersCount; i++)
+                {
+                    gBattleMons[i].volatiles.weatherAbilityDone = FALSE;
+                    ResetParadoxWeatherStat(i);
+                }
+                BattleScriptPushCursorAndCallback(BattleScript_StartingWeather);
+                return TRUE;
+            }
+        }
+        else if (gStartingStatuses.primordialSea || gStartingStatuses.primordialSeaTemporary)
+        {
+            gStartingStatuses.primordialSeaTemporary = gStartingStatuses.primordialSea = FALSE;
+            if (!(gBattleWeather & B_WEATHER_RAIN_PRIMAL))
+            {
+                gBattleWeather = B_WEATHER_RAIN_PRIMAL;
+                gBattleStruct->weatherDuration = 0;
+                gBattleScripting.animArg1 = B_ANIM_RAIN_CONTINUES;
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_STARTED_PRIMORDIAL_SEA;
+                for (enum BattlerId i = 0; i < gBattlersCount; i++)
+                {
+                    gBattleMons[i].volatiles.weatherAbilityDone = FALSE;
+                    ResetParadoxWeatherStat(i);
+                }
+                BattleScriptPushCursorAndCallback(BattleScript_StartingWeather);
+                return TRUE;
+            }
+        }
         if (effect)
         {
             if (isTerrain)

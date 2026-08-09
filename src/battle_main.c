@@ -2430,15 +2430,23 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
         enum Species bossRandomSpecies[PARTY_SIZE];
         bool8 useBossRandomSpecies = FALSE;
+        bool8 keepBossPresets = FALSE;
 
         if (FlagGet(FLAG_RANDOMIZE_MON))
         {
             bool8 isWallace = (trainer == GetTrainerStructFromId(TRAINER_WALLACE));
             bool8 isBossLeaderOrE4 = (trainer->trainerClass == TRAINER_CLASS_LEADER
                                    || trainer->trainerClass == TRAINER_CLASS_ELITE_FOUR);
+            bool8 isChampion = (trainer->trainerClass == TRAINER_CLASS_CHAMPION);
             u16 bossTeamStyle = VarGet(VAR_BOSS_TEAM_STYLE);
 
-            if (isWallace)
+            if (bossTeamStyle == BOSS_TEAM_STYLE_PRESET
+                && (isBossLeaderOrE4 || isChampion || isWallace))
+            {
+                // Keep authored party species, moves, IVs/EVs, and items.
+                keepBossPresets = TRUE;
+            }
+            else if (isWallace)
             {
                 GenerateWallaceChampionParty(bossRandomSpecies, monsCount, (u32)trainer);
                 useBossRandomSpecies = TRUE;
@@ -2526,12 +2534,12 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             else if (newLevel > MAX_LEVEL)
                 newLevel = MAX_LEVEL;
 
-            if (useBossRandomSpecies)
+            if (useBossRandomSpecies || keepBossPresets)
                 SetSpeciesRandomContext(SPECIES_RAND_CTX_SKIP);
 
             CreateMon(&party[i], species, newLevel, personalityValue, otId);
 
-            if (useBossRandomSpecies)
+            if (useBossRandomSpecies || keepBossPresets)
                 SetSpeciesRandomContext(SPECIES_RAND_CTX_NORMAL);
 
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
@@ -2549,15 +2557,15 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 SetTrainerMonEVsByHighestBaseStats(&party[i], species);
 
             // When species are randomized, use the remapped species' learnset.
-            // Otherwise keep the trainer table moves (FLAG_RANDOMIZE_MOVES still
+            // Boss presets keep authored moves (FLAG_RANDOMIZE_MOVES still
             // remaps those at battle intro via ResolveMonMoves).
-            if (FlagGet(FLAG_RANDOMIZE_MON))
+            if (FlagGet(FLAG_RANDOMIZE_MON) && !keepBossPresets)
                 GiveMonInitialMoveset(&party[i]);
             else
                 CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);
 
-            // IVs and EVs (only if not randomizing)
-            if (!FlagGet(FLAG_RANDOMIZE_MON))
+            // IVs and EVs (skip when species-randomizing non-preset trainers)
+            if (!FlagGet(FLAG_RANDOMIZE_MON) || keepBossPresets)
             {
                 SetMonData(&party[i], MON_DATA_IVS, &(partyData[monIndex].iv));
                 if (partyData[monIndex].ev != NULL)

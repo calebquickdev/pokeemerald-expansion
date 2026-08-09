@@ -370,6 +370,8 @@ PetalburgCity_Gym_EventScript_GiveEnigmaBerry::
 
 PetalburgCity_Gym_EventScript_NormanBattle::
 	specialvar VAR_PREV_LEVEL_CAP, GetCurrentLevelCapSpecial
+	getpartysize
+	goto_if_lt VAR_RESULT, 2, PetalburgCity_Gym_EventScript_NormanNeedTwoMons
 	msgbox PetalburgCity_Gym_Text_NormanIntro, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanDefeat
 	message PetalburgCity_Gym_Text_ReceivedBalanceBadge
@@ -404,6 +406,11 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	case DIR_NORTH, PetalburgCity_Gym_EventScript_WallysDadArrivesNorth
 	case DIR_WEST, PetalburgCity_Gym_EventScript_WallysDadArrivesWest
 	case DIR_EAST, PetalburgCity_Gym_EventScript_WallysDadArrivesEast
+	end
+
+PetalburgCity_Gym_EventScript_NormanNeedTwoMons::
+	msgbox PetalburgCity_Gym_Text_NormanRematchNeedTwoMons, MSGBOX_DEFAULT
+	release
 	end
 
 PetalburgCity_Gym_EventScript_GiveFacade::

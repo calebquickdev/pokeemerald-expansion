@@ -40,10 +40,17 @@ EverGrandeCity_PhoebesRoom_EventScript_Phoebe::
 	lock
 	faceplayer
 	goto_if_set FLAG_DEFEATED_ELITE_4_PHOEBE, EverGrandeCity_PhoebesRoom_EventScript_PostBattleSpeech
+	getpartysize
+	goto_if_lt VAR_RESULT, 2, EverGrandeCity_PhoebesRoom_EventScript_NeedTwoMons
 	playbgm MUS_ENCOUNTER_ELITE_FOUR, FALSE
 	msgbox EverGrandeCity_PhoebesRoom_Text_IntroSpeech, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_PHOEBE, EverGrandeCity_PhoebesRoom_Text_Defeat
 	goto EverGrandeCity_PhoebesRoom_EventScript_Defeated
+	end
+
+EverGrandeCity_PhoebesRoom_EventScript_NeedTwoMons::
+	msgbox EverGrandeCity_PhoebesRoom_Text_NeedTwoMons, MSGBOX_DEFAULT
+	release
 	end
 
 EverGrandeCity_PhoebesRoom_EventScript_PostBattleSpeech::
@@ -81,4 +88,10 @@ EverGrandeCity_PhoebesRoom_Text_PostBattleSpeech:
 	.string "Yup, I'd like to see how far your bond\n"
 	.string "will carry you.\p"
 	.string "Go ahead, move on to the next room.$"
+
+EverGrandeCity_PhoebesRoom_Text_NeedTwoMons:
+	.string "Ahahaha!\p"
+	.string "You'll need at least two POKéMON\n"
+	.string "to challenge me in a DOUBLE BATTLE!\p"
+	.string "Come back when you're ready.$"
 

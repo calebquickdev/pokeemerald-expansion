@@ -1,0 +1,592 @@
+=== Roxanne (Singles) — Stealth Rock effect set at the beginning of the round ===
+
+Glimmet @ Focus Sash  
+Ability: Toxic Debris  
+Level: 13  
+- Rock Throw  
+- Smack Down  
+- Venoshock  
+- Spikes  
+
+Nosepass @ Oran Berry  
+Ability: Sturdy  
+Level: 13  
+- Body Press  
+- Heavy Slam  
+- Rest  
+- Sand Tomb  
+
+Aron @ Air Balloon  
+Ability: Sturdy  
+Level: 14  
+- Rock Tomb  
+- Metal Claw  
+- Protect  
+- Roar  
+
+Larvitar @ Flame Orb  
+Ability: Guts  
+Level: 15  
+- Rock Slide  
+- Bulldoze  
+- Pursuit  
+- Stomp  
+
+=== Brawly (Singles) ===
+
+Makuhita @ Sitrus Berry  
+Ability: Sheer Force  
+Level: 16  
+- Arm Thrust  
+- Body Slam  
+- Belly Drum  
+- Rock Tomb  
+
+Scraggy @ Assault Vest  
+Ability: Intimidate  
+Level: 16  
+- Fake Out  
+- Knock Off  
+- Drain Punch  
+- Focus Punch  
+
+Pawmo @ Leftovers  
+Ability: Volt Absorb  
+Level: 18  
+- Nuzzle  
+- Thunder Wave
+- Quick Attack
+- Arm Thrust
+
+Riolu @ Eviolite  
+Ability: Prankster  
+Level: 19  
+- Force Palm  
+- Bullet Punch  
+- Bulk Up  
+- Quick Attack  
+
+=== Wattson (Singles) — Electric Terrain at start ===
+
+Manectric @ Air Balloon  
+Ability: Static  
+Level: 21  
+- Thunderbolt  
+- Volt Switch  
+- Ice Fang  
+- Snarl  
+
+Charjabug @ Electric Seed  
+Ability: Battery  
+Level: 21  
+- Thunder Wave  
+- Wild Charge  
+- Acrobatics  
+- Bug Bite  
+
+Rotom @ Focus Sash  
+Ability: Levitate  
+Level: 21  
+IVs: 0 Atk  
+- Hex  
+- Discharge  
+- Will-O-Wisp  
+- Ally Switch  
+
+Raichu-Alola @ Aloraichium Z  
+Ability: Surge Surfer  
+Level: 22  
+- Alluring Voice  
+- Fake Out  
+- Charge Beam  
+- Psyshock  
+
+=== Flannery (Singles) — Permanent sun up to start the fight ===
+
+Torkoal @ Charcoal  
+Ability: Shell Armor  
+Level: 26  
+IVs: 0 Atk  
+- Lava Plume  
+- Stealth Rock  
+- Clear Smog  
+- Body Press  
+
+Arcanine @ Shell Bell  
+Ability: Intimidate  
+Level: 27  
+- Extreme Speed  
+- Will-O-Wisp  
+- Flare Blitz  
+- Morning Sun  
+
+Turtonator @ Leftovers  
+Ability: Shell Armor  
+Level: 27  
+- Incinerate  
+- Dragon Tail  
+- Iron Defense  
+- Shell Trap  
+
+Scovillain @ Life Orb  
+Ability: Chlorophyll  
+Level: 28  
+- Overheat  
+- Energy Ball  
+- Growth  
+- Stomping Tantrum  
+
+Marowak-Alola @ Thick Club  
+Ability: Cursed Body  
+Level: 29  
+- Shadow Bone  
+- Flame Charge  
+- Thunder Punch  
+- Bonemerang  
+
+=== Norman (Doubles) ===
+
+Diggersby @ Chople Berry  
+Ability: Huge Power  
+Level: 29  
+- Gastro Acid  
+- Stomping Tantrum  
+- Focus Punch  
+- Rock Slide  
+
+Slaking @ Life Orb  
+Ability: Truant  
+Level: 31  
+- Giga Impact  
+- Earthquake  
+- Sucker Punch  
+- Slack Off  
+
+Cinccino @ Loaded Dice  
+Ability: Technician  
+Level: 29  
+- Tail Slap  
+- Rock Blast  
+- Bullet Seed  
+- Encore  
+
+Kangaskhan @ Kangaskhanite  
+Ability: Scrappy  
+Level: 31  
+- Fake Out  
+- Body Slam  
+- Crunch  
+- Power-Up Punch  
+
+=== Winona (Singles) — Tailwind up at start ===
+
+Altaria @ Yache Berry  
+Ability: Cloud Nine  
+Level: 35  
+IVs: 0 Atk  
+- Dragon Pulse  
+- Roost  
+- Cotton Guard  
+- Flamethrower  
+
+Staraptor @ Staraptite  
+Ability: Intimidate  
+Level: 34  
+- Brave Bird  
+- Close Combat  
+- Dual Wingbeat  
+- Steel Wing  
+
+Gliscor @ Toxic Orb  
+Ability: Poison Heal  
+Level: 34  
+- Swords Dance  
+- Earthquake  
+- Poison Jab  
+- Crabhammer  
+
+Hawlucha @ Power Herb  
+Ability: Unburden  
+Level: 35  
+- Sky Attack  
+- High Jump Kick  
+- Acrobatics  
+- Roost  
+
+Thundurus-Therian @ Heavy-Duty Boots  
+Ability: Volt Absorb  
+Level: 36  
+IVs: 0 Atk  
+- Defog  
+- Dark Pulse  
+- Flash Cannon  
+- Thunderbolt  
+
+=== Tate & Liza (Doubles) — Pemanent Trick room up at start ===
+
+Tapu Lele @ Psychic Seed  
+Ability: Psychic Surge  
+Level: 46  
+Tera Type: Psychic  
+IVs: 0 Atk  
+- Dazzling Gleam  
+- Psyshock  
+- Shadow Ball  
+- Calm Mind  
+
+Hatterene @ Life Orb  
+Ability: Magic Bounce  
+Level: 46  
+Tera Type: Psychic  
+IVs: 0 Atk  
+- Expanding Force  
+- Mystical Fire  
+- Protect  
+- Dazzling Gleam  
+
+Gothitelle @ Leftovers  
+Ability: Shadow Tag  
+Level: 47  
+IVs: 0 Atk  
+- Psychic  
+- Thunderbolt  
+- Protect  
+- Helping Hand  
+
+Scream Tail @ Mental Herb  
+Ability: Protosynthesis  
+Level: 46  
+Tera Type: Fairy  
+IVs: 0 Atk  
+- Perish Song  
+- Disable  
+- Protect  
+- Encore  
+
+Claydol @ Normal Gem  
+Ability: Levitate  
+Level: 46  
+Tera Type: Ground  
+IVs: 0 Spe  
+- Explosion  
+- Stealth Rock  
+- Gyro Ball  
+- Earth Power  
+
+Gallade @ Galladite  
+Ability: Justified  
+Level: 48  
+- Psycho Cut  
+- Close Combat  
+- Shadow Sneak  
+- Aqua Cutter  
+
+=== Juan (Singles) — Primordial Sea up at start ===
+
+Toxapex @ Black Sludge  
+Ability: Regenerator  
+Level: 55  
+Tera Type: Poison  
+IVs: 0 Atk  
+- Toxic  
+- Infestation  
+- Baneful Bunker  
+- Pain Split  
+
+Manaphy @ Leftovers  
+Ability: Hydration  
+Level: 55  
+Tera Type: Water  
+IVs: 0 Atk  
+- Tail Glow  
+- Surf  
+- Shadow Ball  
+- Baton Pass  
+
+Kingdra @ Choice Specs  
+Ability: Swift Swim  
+Level: 56  
+- Hydro Pump  
+- Dragon Pulse  
+- Ice Beam  
+- Flip Turn  
+
+Basculegion @ Choice Scarf  
+Ability: Adaptability  
+Level: 57  
+- Wave Crash  
+- Aqua Jet  
+- Last Respects  
+- Flip Turn  
+
+Lapras @ Life Orb  
+Ability: Hydration  
+Level: 56  
+Tera Type: Water  
+Gigantamax: Yes
+IVs: 0 Atk  
+- Freeze-Dry  
+- Hydro Pump  
+- Ice Beam  
+- Alluring Voice  
+
+Greninja @ Greninjite  
+Ability: Protean  
+Level: 58  
+Tera Type: Water  
+IVs: 0 Atk  
+- Hydro Pump  
+- Water Shuriken  
+- Sludge Wave  
+- Dark Pulse  
+
+=== Sidney (Singles) — Prankster screens ===
+
+Grimmsnarl @ Light Clay
+Ability: Prankster
+Level: 59
+- Reflect
+- Light Screen
+- Thunder Wave
+- Spirit Break
+
+Weavile @ Focus Sash
+Ability: Pressure
+Level: 59
+- Knock Off
+- Ice Shard
+- Triple Axel
+- Low Kick
+
+Bisharp
+Ability: Defiant
+Level: 60
+- Sucker Punch
+- Iron Head
+- Swords Dance
+- Knock Off
+
+Hydreigon
+Ability: Levitate
+Level: 60
+- Dark Pulse
+- Draco Meteor
+- Fire Blast
+- U-turn
+
+Mandibuzz @ Rocky Helmet
+Ability: Overcoat
+Level: 61
+- Foul Play
+- Roost
+- Toxic
+- U-turn
+
+Tyranitar @ Tyranitarite
+Ability: Sand Stream
+Level: 61
+- Crunch
+- Stone Edge
+- Fire Punch
+- Stealth Rock
+
+=== Phoebe (Doubles) — Dusclops + Shedinja ===
+
+Dusclops @ Eviolite
+Ability: Frisk
+Level: 61
+- Trick Room
+- Will-O-Wisp
+- Night Shade
+- Protect
+
+Shedinja @ Heavy-Duty Boots
+Ability: Wonder Guard
+Level: 61
+- Shadow Sneak
+- X-Scissor
+- Will-O-Wisp
+- Protect
+
+Mimikyu
+Ability: Disguise
+Level: 62
+- Play Rough
+- Shadow Claw
+- Shadow Sneak
+- Protect
+
+Dragapult
+Ability: Clear Body
+Level: 62
+- Shadow Ball
+- Draco Meteor
+- U-turn
+- Protect
+
+Chandelure
+Ability: Flash Fire
+Level: 62
+- Shadow Ball
+- Heat Wave
+- Energy Ball
+- Protect
+
+Aegislash @ Leftovers
+Ability: Stance Change
+Level: 63
+- Shadow Ball
+- Flash Cannon
+- King's Shield
+- Sacred Sword
+
+=== Glacia (Singles) — Snow via Alolan Ninetales ===
+
+Ninetales-Alola @ Icium Z
+Ability: Snow Warning
+Level: 62
+- Aurora Veil
+- Moonblast
+- Freeze-Dry
+- Encore
+
+Baxcalibur @ Loaded Dice
+Ability: Thermal Exchange
+Level: 63
+- Glaive Rush
+- Icicle Spear
+- Earthquake
+- Dragon Dance
+
+Avalugg
+Ability: Sturdy
+Level: 63
+- Body Press
+- Recover
+- Rock Slide
+- Rapid Spin
+
+Frosmoth
+Ability: Ice Scales
+Level: 62
+- Quiver Dance
+- Bug Buzz
+- Ice Beam
+- Giga Drain
+
+Mamoswine @ Focus Sash
+Ability: Thick Fat
+Level: 63
+- Icicle Crash
+- Earthquake
+- Ice Shard
+- Stone Edge
+
+Cetitan @ Leftovers
+Ability: Slush Rush
+Level: 64
+- Ice Spinner
+- Earthquake
+- Belly Drum
+- Ice Shard
+
+=== Drake (Singles) — Dynamax battle ===
+
+Cyclizar
+Ability: Regenerator
+Level: 63
+- Shed Tail
+- Knock Off
+- U-turn
+- Dragon Claw
+
+Noivern
+Ability: Infiltrator
+Level: 63
+- Draco Meteor
+- Hurricane
+- Flamethrower
+- U-turn
+
+Haxorus @ Lum Berry
+Ability: Mold Breaker
+Level: 63
+- Outrage
+- Earthquake
+- Poison Jab
+- Dragon Dance
+
+Dragalge
+Ability: Adaptability
+Level: 64
+- Sludge Wave
+- Draco Meteor
+- Toxic Spikes
+- Flip Turn
+
+Salamence
+Ability: Intimidate
+Level: 64
+- Dual Wingbeat
+- Outrage
+- Earthquake
+- Dragon Dance
+
+Duraludon
+Ability: Light Metal
+Level: 65
+Gigantamax: Yes
+- Draco Meteor
+- Flash Cannon
+- Thunderbolt
+- Stealth Rock
+
+=== Wallace (Singles) — 1 legend + 1 pseudo + 4 FE ===
+
+Milotic @ Leftovers
+Ability: Marvel Scale
+Level: 65
+- Scald
+- Recover
+- Ice Beam
+- Haze
+
+Gyarados
+Ability: Intimidate
+Level: 65
+- Waterfall
+- Earthquake
+- Ice Fang
+- Dragon Dance
+
+Swampert
+Ability: Torrent
+Level: 65
+- Liquidation
+- Earthquake
+- Ice Punch
+- Flip Turn
+
+Kingdra @ Life Orb
+Ability: Swift Swim
+Level: 65
+- Hydro Pump
+- Draco Meteor
+- Ice Beam
+- Hurricane
+
+Dragonite @ Lum Berry
+Ability: Multiscale
+Level: 65
+- Dual Wingbeat
+- Earthquake
+- Extreme Speed
+- Dragon Dance
+
+Kyogre @ Blue Orb
+Ability: Primordial Sea
+Level: 65
+- Origin Pulse
+- Ice Beam
+- Thunder
+- Calm Mind

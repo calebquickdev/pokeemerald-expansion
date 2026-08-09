@@ -1353,6 +1353,7 @@ Common_EventScript_PlayerHandedOverTheItem::
 	.include "data/scripts/movement.inc"
 	.include "data/scripts/check_furniture.inc"
 	.include "data/scripts/mart_clerk.inc"
+	.include "data/scripts/specialty_mart.inc"
 	.include "data/text/record_mix.inc"
 	.include "data/text/pc.inc"
 	.include "data/text/pkmn_center_nurse.inc"

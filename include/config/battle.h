@@ -254,7 +254,7 @@
 // Other battle flags
 #define B_FLAG_INVERSE_BATTLE       0                     // If this flag is set, the battle's type effectiveness are inversed. For example, fire is super effective against water.
 #define B_FLAG_AI_VS_AI_BATTLE      FLAG_AI_BATTLES       // If this flag is set, the player's mons will be controlled by the ai next battles.
-#define B_FLAG_DYNAMAX_BATTLE       0                     // If this flag is set, the ability to Dynamax in battle is enabled for all trainers.
+#define B_FLAG_DYNAMAX_BATTLE       FLAG_DYNAMAX_BATTLE   // If this flag is set, the ability to Dynamax in battle is enabled for all trainers.
 #define B_FLAG_TERA_ORB_CHARGED     FLAG_TERA_ORB_CHARGED // If this flag is set, the Tera Orb is charged. It is automatically set upon healing and cleared upon Terastallizing once configured.
 #define B_FLAG_TERA_ORB_NO_COST     FLAG_TERA_ORB_NO_COST // If this flag is set, the Tera Orb does not use up its charge upon Terastallization. In S/V, this occurs after an event with Terapagos.
 #define B_FLAG_SLEEP_CLAUSE         0                     // If this flag is set, sleep clause is enabled; if the player / AI has already put a Pokémon on the opponent's side to sleep and it is still sleeping, another one can't be put to sleep. AI requires AI_FLAG_CHECK_BAD_MOVE to understand.

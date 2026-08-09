@@ -81,6 +81,7 @@ SootopolisCity_Gym_1F_Movement_FallThroughIce:
 
 SootopolisCity_Gym_1F_EventScript_Juan::
 	specialvar VAR_PREV_LEVEL_CAP, GetCurrentLevelCapSpecial
+	setflag FLAG_DYNAMAX_BATTLE
 	trainerbattle_single TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanIntro, SootopolisCity_Gym_1F_Text_JuanDefeat, SootopolisCity_Gym_1F_EventScript_JuanDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, SootopolisCity_Gym_1F_EventScript_JuanRematch
@@ -98,6 +99,7 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated::
 	setflag FLAG_DEFEATED_SOOTOPOLIS_GYM
 	setflag FLAG_BADGE08_GET
 	call Common_EventScript_CheckLevelCapIncrease
+	call SootopolisCity_Gym_1F_EventScript_GiveDynamaxBand
 	setflag FLAG_HIDE_SOOTOPOLIS_CITY_RESIDENTS
 	setflag FLAG_HIDE_SOOTOPOLIS_CITY_STEVEN
 	setflag FLAG_HIDE_SOOTOPOLIS_CITY_WALLACE
@@ -116,6 +118,12 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated::
 	setflag FLAG_ENABLE_JUAN_MATCH_CALL
 	release
 	end
+
+SootopolisCity_Gym_1F_EventScript_GiveDynamaxBand::
+	giveitem ITEM_DYNAMAX_BAND
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
+	msgbox SootopolisCity_Gym_1F_Text_ExplainDynamaxBand, MSGBOX_DEFAULT
+	return
 
 SootopolisCity_Gym_1F_EventScript_GiveWaterPulse::
 	giveitem ITEM_TM_WATER_PULSE
@@ -138,6 +146,7 @@ SootopolisCity_Gym_1F_EventScript_GoGetFortreeBadge::
 	end
 
 SootopolisCity_Gym_1F_EventScript_JuanRematch::
+	setflag FLAG_DYNAMAX_BATTLE
 	trainerbattle_rematch_double TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanPreRematch, SootopolisCity_Gym_1F_Text_JuanRematchDefeat, SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
 	end
@@ -254,6 +263,12 @@ SootopolisCity_Gym_1F_Text_ExplainWaterPulse:
 	.string "In use, it will occasionally confuse\n"
 	.string "the target with ultrasonic waves.\p"
 	.string "… … … … … …$"
+
+SootopolisCity_Gym_1F_Text_ExplainDynamaxBand:
+	.string "That DYNAMAX BAND will let you\n"
+	.string "DYNAMAX your POKéMON in special\l"
+	.string "battles where the power is allowed.\p"
+	.string "Use it wisely when the time comes.$"
 
 SootopolisCity_Gym_1F_Text_RegisteredJuan:
 	.string "Registered GYM LEADER JUAN\n"
