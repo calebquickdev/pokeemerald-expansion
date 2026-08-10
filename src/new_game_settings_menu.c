@@ -2,6 +2,7 @@
 #include "new_game_settings_menu.h"
 #include "bg.h"
 #include "event_data.h"
+#include "save.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
 #include "list_menu.h"
@@ -24,8 +25,11 @@
 #include "constants/vars.h"
 
 // A one-time, scrollable ruleset menu shown right before the Professor Birch intro
-// when a New Game is started. Values chosen here are held in EWRAM (not save data)
-// until ApplyPendingNewGameSettings() commits them - see new_game.c for why.
+// when a New Game is started. Choices live in EWRAM while editing. On Confirm they
+// are written into the current save (and flushed when a save file already exists)
+// so a soft reset before NewGameInitData can reload them via
+// LoadPendingNewGameSettingsFromSave(). NewGameInitData still calls
+// ApplyPendingNewGameSettings() again after ClearSav1.
 struct NewGameSettings gPendingNewGameSettings;
 
 enum
@@ -226,6 +230,36 @@ static void VBlankCB(void)
     TransferPlttBuffer();
 }
 
+static void InitPendingNewGameSettingsDefaults(void)
+{
+    gPendingNewGameSettings.difficulty = DIFFICULTY_HARD;
+    gPendingNewGameSettings.nuzlockeEnabled = TRUE;
+    gPendingNewGameSettings.randomizeSpecies = TRUE;
+    gPendingNewGameSettings.randomizeIncludeLegends = FALSE;
+    gPendingNewGameSettings.bossTeamStyle = BOSS_TEAM_STYLE_PRESET;
+    gPendingNewGameSettings.starterRandomMode = STARTER_RANDOM_NON_LEGEND;
+    gPendingNewGameSettings.randomizeTypes = FALSE;
+    gPendingNewGameSettings.randomizeMoves = FALSE;
+    gPendingNewGameSettings.allowStatEditor = FALSE;
+    gPendingNewGameSettings.debugMode = FALSE;
+    gPendingNewGameSettings.levelCapOff = FALSE;
+}
+
+static void LoadPendingNewGameSettingsFromSave(void)
+{
+    gPendingNewGameSettings.difficulty = gSaveBlock1Ptr->difficulty;
+    gPendingNewGameSettings.nuzlockeEnabled = gSaveBlock1Ptr->nuzlockeModeEnabled;
+    gPendingNewGameSettings.randomizeSpecies = FlagGet(FLAG_RANDOMIZE_MON);
+    gPendingNewGameSettings.randomizeIncludeLegends = FlagGet(FLAG_RANDOMIZE_INCLUDE_LEGENDS);
+    gPendingNewGameSettings.randomizeTypes = FlagGet(FLAG_RANDOMIZE_TYPE);
+    gPendingNewGameSettings.randomizeMoves = FlagGet(FLAG_RANDOMIZE_MOVES);
+    gPendingNewGameSettings.bossTeamStyle = VarGet(VAR_BOSS_TEAM_STYLE);
+    gPendingNewGameSettings.starterRandomMode = VarGet(VAR_STARTER_RANDOM_MODE);
+    gPendingNewGameSettings.allowStatEditor = FlagGet(FLAG_ALLOW_STAT_EDITOR);
+    gPendingNewGameSettings.debugMode = FlagGet(FLAG_DEBUG);
+    gPendingNewGameSettings.levelCapOff = FlagGet(FLAG_LEVEL_CAP_OFF);
+}
+
 void CB2_InitNewGameSettingsMenu(void)
 {
     u8 taskId;
@@ -234,17 +268,10 @@ void CB2_InitNewGameSettingsMenu(void)
     default:
     case 0:
         SetVBlankCallback(NULL);
-        gPendingNewGameSettings.difficulty = DIFFICULTY_HARD;
-        gPendingNewGameSettings.nuzlockeEnabled = TRUE;
-        gPendingNewGameSettings.randomizeSpecies = TRUE;
-        gPendingNewGameSettings.randomizeIncludeLegends = FALSE;
-        gPendingNewGameSettings.bossTeamStyle = BOSS_TEAM_STYLE_PRESET;
-        gPendingNewGameSettings.starterRandomMode = STARTER_RANDOM_NON_LEGEND;
-        gPendingNewGameSettings.randomizeTypes = FALSE;
-        gPendingNewGameSettings.randomizeMoves = FALSE;
-        gPendingNewGameSettings.allowStatEditor = FALSE;
-        gPendingNewGameSettings.debugMode = FALSE;
-        gPendingNewGameSettings.levelCapOff = FALSE;
+        if (gSaveFileStatus == SAVE_STATUS_OK)
+            LoadPendingNewGameSettingsFromSave();
+        else
+            InitPendingNewGameSettingsDefaults();
         sSettingsScroll.scrollOffset = 0;
         sSettingsScroll.selectedRow = 0;
         gMain.state++;
@@ -386,6 +413,12 @@ static void Task_SettingsMenuConfirm(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        // Persist choices before Birch so soft reset mid-intro still reseeds the
+        // menu from the confirmed ruleset instead of the previous run's flags.
+        ApplyPendingNewGameSettings();
+        if (gSaveFileStatus == SAVE_STATUS_OK)
+            TrySavingData(SAVE_NORMAL);
+
         DestroyListMenuTask(gTasks[taskId].tListTaskId, NULL, NULL);
         RemoveScrollIndicatorArrowPair(gTasks[taskId].tScrollArrowTaskId);
         DestroyTask(taskId);

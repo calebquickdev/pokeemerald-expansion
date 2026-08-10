@@ -233,18 +233,17 @@ void NewGameInitData(void)
         roamerLocationBackup = Alloc(sizeof(sRoamerLocation));
         memcpy(roamerLocationBackup, sRoamerLocation, sizeof(sRoamerLocation));
 
-        /* Backup only option-related flag bytes (minimize restoring unrelated flags) */
-        flagsBackup = Alloc(4);
-        ((u8 *)flagsBackup)[0] = gSaveBlock1Ptr->flags[FLAG_AI_BATTLES / 8];
-        ((u8 *)flagsBackup)[1] = gSaveBlock1Ptr->flags[FLAG_AUTO_SCROLL_TEXT / 8];
-        ((u8 *)flagsBackup)[2] = gSaveBlock1Ptr->flags[FLAG_RANDOMIZE_TYPE / 8];
-        ((u8 *)flagsBackup)[3] = gSaveBlock1Ptr->flags[FLAG_RANDOMIZE_INCLUDE_LEGENDS / 8];
+        /* Backup non-challenge option flags */
+        flagsBackup = Alloc(3);
+        ((u8 *)flagsBackup)[0] = FlagGet(FLAG_AI_BATTLES);
+        ((u8 *)flagsBackup)[1] = FlagGet(FLAG_AUTO_SCROLL_TEXT);
+        ((u8 *)flagsBackup)[2] = FlagGet(FLAG_AI_WILD_BATTLES);
 
         /* Backup SaveBlock2 options (packed bitfields occupy 2 bytes at offset 0x14) */
         optionsBackup = Alloc(sizeof(u16));
         memcpy(optionsBackup, (u8 *)gSaveBlock2Ptr + 0x14, sizeof(u16));
-        /* Backup a few SaveBlock1 player settings stored in SaveBlock1 */
-        playerSettingsBackup = Alloc(6);
+        /* Backup SaveBlock1 player settings and challenge ruleset flags */
+        playerSettingsBackup = Alloc(13);
         ((u8 *)playerSettingsBackup)[0] = gSaveBlock1Ptr->nuzlockeModeEnabled;
         ((u8 *)playerSettingsBackup)[1] = gSaveBlock1Ptr->autosaveModeEnabled;
         ((u8 *)playerSettingsBackup)[2] = gSaveBlock1Ptr->difficulty;
@@ -256,6 +255,13 @@ void NewGameInitData(void)
         ((u8 *)playerSettingsBackup)[3] = gSaveBlock1Ptr->achievementsBlocked;
         ((u8 *)playerSettingsBackup)[4] = VarGet(VAR_STARTER_RANDOM_MODE);
         ((u8 *)playerSettingsBackup)[5] = VarGet(VAR_BOSS_TEAM_STYLE);
+        ((u8 *)playerSettingsBackup)[6] = FlagGet(FLAG_RANDOMIZE_MON);
+        ((u8 *)playerSettingsBackup)[7] = FlagGet(FLAG_RANDOMIZE_TYPE);
+        ((u8 *)playerSettingsBackup)[8] = FlagGet(FLAG_RANDOMIZE_MOVES);
+        ((u8 *)playerSettingsBackup)[9] = FlagGet(FLAG_RANDOMIZE_INCLUDE_LEGENDS);
+        ((u8 *)playerSettingsBackup)[10] = FlagGet(FLAG_LEVEL_CAP_OFF);
+        ((u8 *)playerSettingsBackup)[11] = FlagGet(FLAG_ALLOW_STAT_EDITOR);
+        ((u8 *)playerSettingsBackup)[12] = FlagGet(FLAG_DEBUG);
 
         gIsNewGamePlus = FALSE; // consume flag
     }
@@ -398,19 +404,13 @@ void NewGameInitData(void)
             if (dexSeenBackup != NULL)
                 memcpy(gSaveBlock1Ptr->dexSeen, dexSeenBackup, sizeof(gSaveBlock1Ptr->dexSeen));
 
-            /* Restore option-related flags from backup (only these specific settings) */
+            /* Restore non-challenge option flags from backup */
             if (flagsBackup != NULL)
             {
                 u8 *fb = (u8 *)flagsBackup;
-                (fb[0] & (1 << (FLAG_AI_BATTLES % 8))) ? FlagSet(FLAG_AI_BATTLES) : FlagClear(FLAG_AI_BATTLES);
-                (fb[1] & (1 << (FLAG_AUTO_SCROLL_TEXT % 8))) ? FlagSet(FLAG_AUTO_SCROLL_TEXT) : FlagClear(FLAG_AUTO_SCROLL_TEXT);
-                (fb[1] & (1 << (FLAG_RANDOMIZE_MON % 8))) ? FlagSet(FLAG_RANDOMIZE_MON) : FlagClear(FLAG_RANDOMIZE_MON);
-                (fb[2] & (1 << (FLAG_RANDOMIZE_TYPE % 8))) ? FlagSet(FLAG_RANDOMIZE_TYPE) : FlagClear(FLAG_RANDOMIZE_TYPE);
-                (fb[2] & (1 << (FLAG_RANDOMIZE_MOVES % 8))) ? FlagSet(FLAG_RANDOMIZE_MOVES) : FlagClear(FLAG_RANDOMIZE_MOVES);
-                (fb[2] & (1 << (FLAG_LEVEL_CAP_OFF % 8))) ? FlagSet(FLAG_LEVEL_CAP_OFF) : FlagClear(FLAG_LEVEL_CAP_OFF);
-                (fb[2] & (1 << (FLAG_AI_WILD_BATTLES % 8))) ? FlagSet(FLAG_AI_WILD_BATTLES) : FlagClear(FLAG_AI_WILD_BATTLES);
-                (fb[2] & (1 << (FLAG_ALLOW_STAT_EDITOR % 8))) ? FlagSet(FLAG_ALLOW_STAT_EDITOR) : FlagClear(FLAG_ALLOW_STAT_EDITOR);
-                (fb[3] & (1 << (FLAG_RANDOMIZE_INCLUDE_LEGENDS % 8))) ? FlagSet(FLAG_RANDOMIZE_INCLUDE_LEGENDS) : FlagClear(FLAG_RANDOMIZE_INCLUDE_LEGENDS);
+                fb[0] ? FlagSet(FLAG_AI_BATTLES) : FlagClear(FLAG_AI_BATTLES);
+                fb[1] ? FlagSet(FLAG_AUTO_SCROLL_TEXT) : FlagClear(FLAG_AUTO_SCROLL_TEXT);
+                fb[2] ? FlagSet(FLAG_AI_WILD_BATTLES) : FlagClear(FLAG_AI_WILD_BATTLES);
             }
 
             if (optionsBackup != NULL)
@@ -418,12 +418,20 @@ void NewGameInitData(void)
 
             if (playerSettingsBackup != NULL)
             {
-                gSaveBlock1Ptr->nuzlockeModeEnabled = ((u8 *)playerSettingsBackup)[0];
-                gSaveBlock1Ptr->autosaveModeEnabled = ((u8 *)playerSettingsBackup)[1];
-                gSaveBlock1Ptr->difficulty = ((u8 *)playerSettingsBackup)[2];
-                gSaveBlock1Ptr->achievementsBlocked = ((u8 *)playerSettingsBackup)[3];
-                VarSet(VAR_STARTER_RANDOM_MODE, ((u8 *)playerSettingsBackup)[4]);
-                VarSet(VAR_BOSS_TEAM_STYLE, ((u8 *)playerSettingsBackup)[5]);
+                u8 *ps = (u8 *)playerSettingsBackup;
+                gSaveBlock1Ptr->nuzlockeModeEnabled = ps[0];
+                gSaveBlock1Ptr->autosaveModeEnabled = ps[1];
+                gSaveBlock1Ptr->difficulty = ps[2];
+                gSaveBlock1Ptr->achievementsBlocked = ps[3];
+                VarSet(VAR_STARTER_RANDOM_MODE, ps[4]);
+                VarSet(VAR_BOSS_TEAM_STYLE, ps[5]);
+                ps[6] ? FlagSet(FLAG_RANDOMIZE_MON) : FlagClear(FLAG_RANDOMIZE_MON);
+                ps[7] ? FlagSet(FLAG_RANDOMIZE_TYPE) : FlagClear(FLAG_RANDOMIZE_TYPE);
+                ps[8] ? FlagSet(FLAG_RANDOMIZE_MOVES) : FlagClear(FLAG_RANDOMIZE_MOVES);
+                ps[9] ? FlagSet(FLAG_RANDOMIZE_INCLUDE_LEGENDS) : FlagClear(FLAG_RANDOMIZE_INCLUDE_LEGENDS);
+                ps[10] ? FlagSet(FLAG_LEVEL_CAP_OFF) : FlagClear(FLAG_LEVEL_CAP_OFF);
+                ps[11] ? FlagSet(FLAG_ALLOW_STAT_EDITOR) : FlagClear(FLAG_ALLOW_STAT_EDITOR);
+                ps[12] ? FlagSet(FLAG_DEBUG) : FlagClear(FLAG_DEBUG);
             }
 
             if (roamersBackup != NULL)
