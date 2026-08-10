@@ -48,6 +48,15 @@
 
 #define LAST_TVSHOW_IDX (TV_SHOWS_COUNT - 1)
 
+// Vanilla layout: slots 0..NUM_NORMAL-1 are normal shows, NUM_NORMAL..LAST-1 are
+// record-mix shows, and LAST is a scratch builder slot. Perfect Emerald truncates
+// TV_SHOWS_COUNT to NUM_NORMAL_TVSHOW_SLOTS for SaveBlock1 space, which removes
+// both the mix region and the scratch slot. Call sites that assume those regions
+// exist must check HAS_TV_RECORD_MIX_SLOTS (same condition covers scratch).
+#define HAS_TV_RECORD_MIX_SLOTS (TV_SHOWS_COUNT > NUM_NORMAL_TVSHOW_SLOTS)
+// Slots that can hold an airable/saved show (excludes scratch when present).
+#define NUM_TV_AIRABLE_SLOTS (HAS_TV_RECORD_MIX_SLOTS ? LAST_TVSHOW_IDX : TV_SHOWS_COUNT)
+
 #define rbernoulli(num, den) BernoulliTrial(0xFFFF * (num) / (den))
 
 enum {
@@ -776,14 +785,26 @@ u8 GetRandomActiveShowIdx(void)
     u8 i;
     u8 j;
     u8 selIdx;
+    u8 numSlots;
     TVShow *show;
 
+    numSlots = NUM_TV_AIRABLE_SLOTS;
+    if (numSlots == 0)
+        return 0xFF;
+
+#if HAS_TV_RECORD_MIX_SLOTS
     // Include all normal TV shows, and up through any present Record Mix shows
+    // (exclude the last scratch slot).
     for (i = NUM_NORMAL_TVSHOW_SLOTS; i < LAST_TVSHOW_IDX; i++)
     {
         if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_OFF_AIR)
             break;
     }
+#else
+    // Truncated layout: every slot is a normal/airable show.
+    i = numSlots;
+#endif
+
     j = Random() % i;
     selIdx = j;
     do
@@ -801,7 +822,7 @@ u8 GetRandomActiveShowIdx(void)
         }
 
         if (j == 0)
-            j = ARRAY_COUNT(gSaveBlock1Ptr->tvShows) - 2;
+            j = i - 1;
         else
             j--;
 
@@ -887,7 +908,7 @@ static u8 FindFirstActiveTVShowThatIsNotAMassOutbreak(void)
 {
     u8 i;
 
-    for (i = 0; i < ARRAY_COUNT(gSaveBlock1Ptr->tvShows) - 1; i++)
+    for (i = 0; i < NUM_TV_AIRABLE_SLOTS; i++)
     {
         if (gSaveBlock1Ptr->tvShows[i].common.kind != TVSHOW_OFF_AIR
          && gSaveBlock1Ptr->tvShows[i].common.kind != TVSHOW_MASS_OUTBREAK
@@ -1178,7 +1199,13 @@ void TryPutPokemonTodayOnAir(void)
 // either triggered or deleted at the end of the day by ResolveWorldOfMastersShow
 static void InitWorldOfMastersShowAttempt(void)
 {
-    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    TVShow *show;
+
+    // Truncated TV layout has no dedicated scratch slot (LAST aliases a normal slot).
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     if (show->common.kind != TVSHOW_WORLD_OF_MASTERS)
     {
         DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
@@ -1249,6 +1276,9 @@ static void InterviewAfter_ContestLiveUpdates(void)
 {
     TVShow *show;
     TVShow *show2;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
 
     show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     if (show->contestLiveUpdates.kind == TVSHOW_CONTEST_LIVE_UPDATES)
@@ -1378,6 +1408,9 @@ void ContestLiveUpdates_Init(u8 round1Placing)
 {
     TVShow *show;
 
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
     DeleteTVShowInArrayByIdx(gSaveBlock1Ptr->tvShows, LAST_TVSHOW_IDX);
     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
     if (sCurTVShowSlot != -1)
@@ -1390,7 +1423,12 @@ void ContestLiveUpdates_Init(u8 round1Placing)
 
 void ContestLiveUpdates_SetRound2Placing(u8 round2Placing)
 {
-    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    TVShow *show;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
     if (sCurTVShowSlot != -1)
         show->contestLiveUpdates.round2Placing = round2Placing;
@@ -1398,7 +1436,12 @@ void ContestLiveUpdates_SetRound2Placing(u8 round2Placing)
 
 void ContestLiveUpdates_SetWinnerAppealFlag(u8 flag)
 {
-    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    TVShow *show;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
     if (sCurTVShowSlot != -1)
         show->contestLiveUpdates.winnerAppealFlag = flag;
@@ -1406,7 +1449,12 @@ void ContestLiveUpdates_SetWinnerAppealFlag(u8 flag)
 
 void ContestLiveUpdates_SetWinnerMoveUsed(enum Move move)
 {
-    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    TVShow *show;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
     if (sCurTVShowSlot != -1)
         show->contestLiveUpdates.move = move;
@@ -1414,7 +1462,12 @@ void ContestLiveUpdates_SetWinnerMoveUsed(enum Move move)
 
 void ContestLiveUpdates_SetLoserData(u8 flag, u8 loser)
 {
-    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    TVShow *show;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
     if (sCurTVShowSlot != -1)
     {
@@ -1436,6 +1489,9 @@ static void InterviewAfter_BravoTrainerPokemonProfile(void)
 {
     TVShow *show;
     TVShow *show2;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
 
     show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     if (show->bravoTrainer.kind == TVSHOW_BRAVO_TRAINER_POKEMON_PROFILE)
@@ -1463,7 +1519,12 @@ static void InterviewAfter_BravoTrainerPokemonProfile(void)
 
 void BravoTrainerPokemonProfile_BeforeInterview1(enum Move move)
 {
-    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    TVShow *show;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     InterviewBefore_BravoTrainerPkmnProfile();
     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
     if (sCurTVShowSlot != -1)
@@ -1476,7 +1537,12 @@ void BravoTrainerPokemonProfile_BeforeInterview1(enum Move move)
 
 void BravoTrainerPokemonProfile_BeforeInterview2(u8 contestStandingPlace)
 {
-    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    TVShow *show;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     sCurTVShowSlot = FindFirstEmptyNormalTVShowSlot(gSaveBlock1Ptr->tvShows);
     if (sCurTVShowSlot != -1)
     {
@@ -1807,7 +1873,12 @@ void SetPokemonAnglerSpecies(enum Species species)
 // Either way the temporary version of the show in the last slot is deleted.
 static void ResolveWorldOfMastersShow(u16 days)
 {
-    TVShow *show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
+    TVShow *show;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
+    show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     if (show->worldOfMasters.kind == TVSHOW_WORLD_OF_MASTERS)
     {
         if (show->worldOfMasters.numPokeCaught >= 20)
@@ -1821,6 +1892,9 @@ static void TryPutWorldOfMastersOnAir(void)
 {
     TVShow *show;
     TVShow *show2;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
 
     show = &gSaveBlock1Ptr->tvShows[LAST_TVSHOW_IDX];
     if (!rbernoulli(1, 1))
@@ -3816,6 +3890,11 @@ static void DeleteExcessMixedShows(void)
 {
     s8 i;
     s8 numEmptyMixSlots = 0;
+
+    // Without a record-mix region, the loop below would write past tvShows[].
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
+
     for (i = NUM_NORMAL_TVSHOW_SLOTS; i < LAST_TVSHOW_IDX; i++)
     {
         if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_OFF_AIR)

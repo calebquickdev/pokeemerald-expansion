@@ -70,9 +70,13 @@
 //
 #define TVGROUP_OUTBREAK_END                        60
 
-// The first 5 elements of gSaveBlock1Ptr->tvShows are reserved
-// for TV shows from TVGROUP_NORMAL. The remainder are for TV
-// shows from TVGROUP_RECORD_MIX.
+// The first NUM_NORMAL_TVSHOW_SLOTS elements of gSaveBlock1Ptr->tvShows are
+// reserved for TVGROUP_NORMAL. When TV_SHOWS_COUNT is larger, the remainder
+// (except the last scratch slot) is for TVGROUP_RECORD_MIX.
+//
+// Perfect Emerald truncates to NUM_NORMAL_TVSHOW_SLOTS to reclaim SaveBlock1
+// space (~720 bytes). tv.c must not assume a record-mix region or scratch slot
+// exist when TV_SHOWS_COUNT == NUM_NORMAL_TVSHOW_SLOTS (see HAS_TV_RECORD_MIX_SLOTS).
 #define NUM_NORMAL_TVSHOW_SLOTS 5
 #define TV_SHOWS_COUNT NUM_NORMAL_TVSHOW_SLOTS // ORIGINALLY (NUM_NORMAL_TVSHOW_SLOTS + 20)
 
