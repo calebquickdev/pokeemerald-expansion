@@ -702,6 +702,25 @@ static s32 GetCurrentSelectedMoveResolved(void)
     return sMoveRelearnerStruct->resolvedMovesToLearn[idx];
 }
 
+// List cursor callbacks receive menuItems[].id (the original move). Map that
+// row to its resolved counterpart using the list's live scroll/selection so
+// description panels stay in lockstep with the displayed move name. Prefer
+// the list's own offsets over sMoveRelearnerScrollState, which is only synced
+// after ListMenu_ProcessInput returns.
+s32 MoveRelearnerGetDisplayMove(s32 itemIndex, const struct ListMenu *list)
+{
+    s32 idx;
+
+    if (itemIndex == LIST_CANCEL || list == NULL)
+        return LIST_CANCEL;
+
+    idx = list->scrollOffset + list->selectedRow;
+    if (idx < 0 || idx >= sMoveRelearnerStruct->numMenuChoices - 1)
+        return LIST_CANCEL;
+
+    return sMoveRelearnerStruct->resolvedMovesToLearn[idx];
+}
+
 static void ShowTeachMoveText(void)
 {
     StringExpandPlaceholders(gStringVar4, gText_TeachWhichMoveToPkmn);

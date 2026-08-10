@@ -845,10 +845,16 @@ static void MoveRelearnerMenuLoadContestMoveDescription(u32 chosenMove)
 
 static void MoveRelearnerCursorCallback(s32 itemIndex, bool8 onInit, struct ListMenu *list)
 {
+    s32 displayMove;
+
     if (onInit != TRUE)
         PlaySE(SE_SELECT);
-    MoveRelearnerLoadBattleMoveDescription(itemIndex);
-    MoveRelearnerMenuLoadContestMoveDescription(itemIndex);
+
+    // itemIndex is the original move stored in menuItems[].id; description /
+    // hearts / category must use the randomization-resolved counterpart.
+    displayMove = MoveRelearnerGetDisplayMove(itemIndex, list);
+    MoveRelearnerLoadBattleMoveDescription(displayMove);
+    MoveRelearnerMenuLoadContestMoveDescription(displayMove);
 }
 
 void MoveRelearnerPrintMessage(u8 *str)
