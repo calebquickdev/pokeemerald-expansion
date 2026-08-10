@@ -318,6 +318,7 @@ static bool32 IsAllowedCatchableForm(enum Species species, const u16 *formTable)
     {
     case SPECIES_DARMANITAN_ZEN:
     case SPECIES_DARMANITAN_GALAR_ZEN:
+    case SPECIES_ETERNATUS_ETERNAMAX:
         return FALSE;
     case SPECIES_DARMANITAN_GALAR:
         return TRUE;
@@ -998,7 +999,8 @@ void NormalizePersistentRandomMon(struct Pokemon *mon)
      || species == SPECIES_CALYREX_SHADOW
      || species == SPECIES_NECROZMA_DUSK_MANE
      || species == SPECIES_NECROZMA_DAWN_WINGS
-     || species == SPECIES_NECROZMA_ULTRA)
+     || species == SPECIES_NECROZMA_ULTRA
+     || species == SPECIES_ETERNATUS_ETERNAMAX)
     {
         baseSpecies = GET_BASE_SPECIES_ID(species);
         if (baseSpecies != species)

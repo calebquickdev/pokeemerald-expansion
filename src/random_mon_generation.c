@@ -197,6 +197,7 @@ static bool32 IsRandomSpeciesFormAllowed(enum Species species, const u16 *formTa
     {
     case SPECIES_DARMANITAN_ZEN:
     case SPECIES_DARMANITAN_GALAR_ZEN:
+    case SPECIES_ETERNATUS_ETERNAMAX:
         return FALSE;
     case SPECIES_DARMANITAN_GALAR:
         return TRUE;
