@@ -41,7 +41,7 @@
 	- Every starter choice, wild encounter, and trainer battle can be randomized
 	- You can also randomize moves and types (separately)
 - Autosave Mode
-	- Game will save automatically after healing your party, exiting a wild encounter, exiting a trainer battle, or after story events
+	- Game will save automatically after healing your party, or after a gym leader battle
 - Auto-skip dialogue
     - When enabled, message boxes automatically continue without player input
 

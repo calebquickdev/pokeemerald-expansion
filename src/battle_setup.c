@@ -672,9 +672,6 @@ static void CB2_EndWildBattle(void)
         // Handles nuzlocke mode setting pokemon being caught on this route
         if ((gSaveBlock1Ptr->nuzlockeModeEnabled && FlagGet(FLAG_NUZLOCKE_CATCH_MODE)))
             Nuzlocke_ApplyRouteLockAfterWild();
-        else if (gSaveBlock1Ptr->autosaveModeEnabled) {
-            gDoAutosaveAfterBattle = TRUE;
-        }
         SetMainCallback2(CB2_ReturnToField);
         DowngradeBadPoison();
         gFieldCallback = FieldCB_ReturnToFieldNoScriptCheckMusic;
@@ -1453,10 +1450,8 @@ static void CB2_EndTrainerBattle(void)
 
     HandleBattleVariantEndParty();
 
-    if (gSaveBlock1Ptr->autosaveModeEnabled)
-    {
+    if (gSaveBlock1Ptr->autosaveModeEnabled && Achievement_IsGymBattle())
         gDoAutosaveAfterBattle = TRUE;
-    }
 
     gIsDebugBattle = FALSE;
     if (FollowerNPCIsBattlePartner())

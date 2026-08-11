@@ -2137,8 +2137,6 @@ void CB2_ReturnToField(void)
     if (gSaveBlock1Ptr->nuzlockeModeEnabled)
         RemoveFaintedMonsFromParty();
 
-    if (gSaveBlock1Ptr->autosaveModeEnabled)
-        gDoAutosave = TRUE;
     if (IsOverworldLinkActive() == TRUE)
     {
         SetMainCallback2(CB2_ReturnToFieldLink);
