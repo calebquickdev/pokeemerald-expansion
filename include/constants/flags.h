@@ -711,7 +711,7 @@
 #define FLAG_SPACE_CENTER_LEVEL_CAP      0x28E // Toggle for defeating Maxie in the Space Center
 #define FLAG_DEBUG                       0x28F // Toggles debug mode in the overworld
 #define FLAG_RANDOMIZE_INCLUDE_LEGENDS 0x290 // Include legendaries/mythicals/UBs in species random pool
-#define FLAG_UNUSED_0x291  0x291 // Unused Flag
+#define FLAG_RANDOMIZE_ITEMS           0x291 // Remap overworld item balls / hidden items from curated pool
 #define FLAG_DYNAMAX_BATTLE  0x292 // Dynamax enabled for current battle (cleared after battle)
 #define FLAG_UNUSED_0x293  0x293 // Unused Flag
 #define FLAG_UNUSED_0x294  0x294 // Unused Flag

@@ -8,6 +8,7 @@ struct NewGameSettings
     bool8 randomizeSpecies;
     bool8 randomizeTypes;
     bool8 randomizeMoves;
+    bool8 randomizeItems;
     bool8 randomizeIncludeLegends;
     u8 bossTeamStyle;       // BossTeamStyle
     u8 starterRandomMode;   // StarterRandomMode

@@ -59,7 +59,10 @@ static void Achievement_CheckBoostMilestones(void);
 
 static bool8 Achievement_AnyRandomizerFlagSet(void)
 {
-    return FlagGet(FLAG_RANDOMIZE_MON) || FlagGet(FLAG_RANDOMIZE_TYPE) || FlagGet(FLAG_RANDOMIZE_MOVES);
+    return FlagGet(FLAG_RANDOMIZE_MON)
+        || FlagGet(FLAG_RANDOMIZE_TYPE)
+        || FlagGet(FLAG_RANDOMIZE_MOVES)
+        || FlagGet(FLAG_RANDOMIZE_ITEMS);
 }
 
 // Achievement_ChallengeConfigSignature (a bitmask twin of
@@ -384,7 +387,7 @@ void Achievement_OnFirstPlaythroughComplete(void)
     if (gSaveBlock1Ptr->nuzlockeModeEnabled)
         gAchievementProfile.nuzlockesCompleted++;
 
-    if (FlagGet(FLAG_RANDOMIZE_MON) || FlagGet(FLAG_RANDOMIZE_TYPE) || FlagGet(FLAG_RANDOMIZE_MOVES))
+    if (FlagGet(FLAG_RANDOMIZE_MON) || FlagGet(FLAG_RANDOMIZE_TYPE) || FlagGet(FLAG_RANDOMIZE_MOVES) || FlagGet(FLAG_RANDOMIZE_ITEMS))
         gAchievementProfile.randomizedRunsCompleted++;
 
     // Category J: multi-run milestones derived from the counters
@@ -2980,7 +2983,7 @@ void Achievement_CheckChallengeCompletionMilestones(void)
     // requirement.
     if (!runData->levelCapEverExceeded
      && (gSaveBlock1Ptr->difficulty == DIFFICULTY_HARD
-      || FlagGet(FLAG_RANDOMIZE_MON) || FlagGet(FLAG_RANDOMIZE_TYPE) || FlagGet(FLAG_RANDOMIZE_MOVES)))
+      || FlagGet(FLAG_RANDOMIZE_MON) || FlagGet(FLAG_RANDOMIZE_TYPE) || FlagGet(FLAG_RANDOMIZE_MOVES) || FlagGet(FLAG_RANDOMIZE_ITEMS)))
         Achievement_TryComplete(ACHIEVEMENT_CHALLENGE_PERFECTLY_CAPPED);
 
     if (runData->highestPartySizeThisRun != 0 && runData->highestPartySizeThisRun <= 3)

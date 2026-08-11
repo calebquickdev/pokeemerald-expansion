@@ -243,7 +243,7 @@ void NewGameInitData(void)
         optionsBackup = Alloc(sizeof(u16));
         memcpy(optionsBackup, (u8 *)gSaveBlock2Ptr + 0x14, sizeof(u16));
         /* Backup SaveBlock1 player settings and challenge ruleset flags */
-        playerSettingsBackup = Alloc(13);
+        playerSettingsBackup = Alloc(14);
         ((u8 *)playerSettingsBackup)[0] = gSaveBlock1Ptr->nuzlockeModeEnabled;
         ((u8 *)playerSettingsBackup)[1] = gSaveBlock1Ptr->autosaveModeEnabled;
         ((u8 *)playerSettingsBackup)[2] = gSaveBlock1Ptr->difficulty;
@@ -262,6 +262,7 @@ void NewGameInitData(void)
         ((u8 *)playerSettingsBackup)[10] = FlagGet(FLAG_LEVEL_CAP_OFF);
         ((u8 *)playerSettingsBackup)[11] = FlagGet(FLAG_ALLOW_STAT_EDITOR);
         ((u8 *)playerSettingsBackup)[12] = FlagGet(FLAG_DEBUG);
+        ((u8 *)playerSettingsBackup)[13] = FlagGet(FLAG_RANDOMIZE_ITEMS);
 
         gIsNewGamePlus = FALSE; // consume flag
     }
@@ -432,6 +433,7 @@ void NewGameInitData(void)
                 ps[10] ? FlagSet(FLAG_LEVEL_CAP_OFF) : FlagClear(FLAG_LEVEL_CAP_OFF);
                 ps[11] ? FlagSet(FLAG_ALLOW_STAT_EDITOR) : FlagClear(FLAG_ALLOW_STAT_EDITOR);
                 ps[12] ? FlagSet(FLAG_DEBUG) : FlagClear(FLAG_DEBUG);
+                ps[13] ? FlagSet(FLAG_RANDOMIZE_ITEMS) : FlagClear(FLAG_RANDOMIZE_ITEMS);
             }
 
             if (roamersBackup != NULL)

@@ -68,6 +68,15 @@ void ResolveMonData(u16 species, const u16 *originalMoves, struct ResolvedMonDat
 // stored moves. Only refreshes PP for slots whose move ID changed.
 void ApplyResolvedTypesAndMovesToBattleMon(struct BattlePokemon *mon);
 
+// --- Overworld item randomization (FLAG_RANDOMIZE_ITEMS) ---
+
+// Remaps overworld find-item IDs (item balls / hidden items). Key items and HMs
+// pass through unchanged. Deterministic for (OT, MAPSEC, source item, NG+).
+u16 GetProceduralRandomizedOverworldItem(u16 itemId);
+
+// Script native: remaps VAR_0x8000 in place for Std_FindItem.
+void Script_RemapFindItem(void);
+
 // --- Species randomization (FLAG_RANDOMIZE_MON) ---
 
 void SetSpeciesRandomContext(enum SpeciesRandomContext context);

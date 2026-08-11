@@ -42,6 +42,7 @@ enum
     SETTING_STARTER_RANDOM,
     SETTING_RANDOMIZE_TYPES,
     SETTING_RANDOMIZE_MOVES,
+    SETTING_RANDOMIZE_ITEMS,
     SETTING_STAT_EDITOR,
     SETTING_DEBUG,
     SETTING_LEVEL_CAP,
@@ -136,6 +137,10 @@ static const u8 *const sSettingDescriptions[SETTING_COUNT] =
                                        "is on: All, No Legend, or Starters."),
     [SETTING_RANDOMIZE_TYPES]   = COMPOUND_STRING("Pokémon types are randomized."),
     [SETTING_RANDOMIZE_MOVES]   = COMPOUND_STRING("Pokémon movesets are randomized."),
+    [SETTING_RANDOMIZE_ITEMS]   = COMPOUND_STRING(
+                                       "Overworld item balls and hidden\n"
+                                       "items are remapped. Key items\n"
+                                       "and HMs stay unchanged."),
     [SETTING_STAT_EDITOR]       = COMPOUND_STRING("Change IV/EV values of your Pokémon."),
     [SETTING_LEVEL_CAP]         = COMPOUND_STRING("Prevents over-levelling your Pokémon."),
     [SETTING_DEBUG]             = COMPOUND_STRING(
@@ -153,6 +158,7 @@ static const struct ListMenuItem sSettingsListItems[SETTING_COUNT] =
     [SETTING_STARTER_RANDOM]    = {COMPOUND_STRING("STARTER RANDOM"),    SETTING_STARTER_RANDOM},
     [SETTING_RANDOMIZE_TYPES]   = {COMPOUND_STRING("RANDOMIZE TYPES"),   SETTING_RANDOMIZE_TYPES},
     [SETTING_RANDOMIZE_MOVES]   = {COMPOUND_STRING("RANDOMIZE MOVES"),   SETTING_RANDOMIZE_MOVES},
+    [SETTING_RANDOMIZE_ITEMS]   = {COMPOUND_STRING("RANDOMIZE ITEMS"),   SETTING_RANDOMIZE_ITEMS},
     [SETTING_STAT_EDITOR]       = {COMPOUND_STRING("STAT EDITOR"),       SETTING_STAT_EDITOR},
     [SETTING_LEVEL_CAP]         = {COMPOUND_STRING("LEVEL CAP"),         SETTING_LEVEL_CAP},
     [SETTING_DEBUG]             = {COMPOUND_STRING("DEBUG MODE"),        SETTING_DEBUG},
@@ -240,6 +246,7 @@ static void InitPendingNewGameSettingsDefaults(void)
     gPendingNewGameSettings.starterRandomMode = STARTER_RANDOM_NON_LEGEND;
     gPendingNewGameSettings.randomizeTypes = FALSE;
     gPendingNewGameSettings.randomizeMoves = FALSE;
+    gPendingNewGameSettings.randomizeItems = FALSE;
     gPendingNewGameSettings.allowStatEditor = FALSE;
     gPendingNewGameSettings.debugMode = FALSE;
     gPendingNewGameSettings.levelCapOff = FALSE;
@@ -253,6 +260,7 @@ static void LoadPendingNewGameSettingsFromSave(void)
     gPendingNewGameSettings.randomizeIncludeLegends = FlagGet(FLAG_RANDOMIZE_INCLUDE_LEGENDS);
     gPendingNewGameSettings.randomizeTypes = FlagGet(FLAG_RANDOMIZE_TYPE);
     gPendingNewGameSettings.randomizeMoves = FlagGet(FLAG_RANDOMIZE_MOVES);
+    gPendingNewGameSettings.randomizeItems = FlagGet(FLAG_RANDOMIZE_ITEMS);
     gPendingNewGameSettings.bossTeamStyle = VarGet(VAR_BOSS_TEAM_STYLE);
     gPendingNewGameSettings.starterRandomMode = VarGet(VAR_STARTER_RANDOM_MODE);
     gPendingNewGameSettings.allowStatEditor = FlagGet(FLAG_ALLOW_STAT_EDITOR);
@@ -473,6 +481,9 @@ static void HandleValueChange(u8 settingId, bool8 rightPressed)
     case SETTING_RANDOMIZE_MOVES:
         gPendingNewGameSettings.randomizeMoves ^= 1;
         break;
+    case SETTING_RANDOMIZE_ITEMS:
+        gPendingNewGameSettings.randomizeItems ^= 1;
+        break;
     case SETTING_STAT_EDITOR:
         gPendingNewGameSettings.allowStatEditor ^= 1;
         break;
@@ -545,6 +556,7 @@ static const u8 *GetSettingValueText(u8 settingId)
     case SETTING_STARTER_RANDOM:    return sStarterRandomTexts[gPendingNewGameSettings.starterRandomMode];
     case SETTING_RANDOMIZE_TYPES:   return gPendingNewGameSettings.randomizeTypes ? sText_On : sText_Off;
     case SETTING_RANDOMIZE_MOVES:   return gPendingNewGameSettings.randomizeMoves ? sText_On : sText_Off;
+    case SETTING_RANDOMIZE_ITEMS:   return gPendingNewGameSettings.randomizeItems ? sText_On : sText_Off;
     case SETTING_STAT_EDITOR:       return gPendingNewGameSettings.allowStatEditor ? sText_On : sText_Off;
     case SETTING_DEBUG:             return gPendingNewGameSettings.debugMode ? sText_On : sText_Off;
     case SETTING_LEVEL_CAP:         return gPendingNewGameSettings.levelCapOff ? sText_Off : sText_On;
@@ -625,6 +637,7 @@ void ApplyPendingNewGameSettings(void)
     VarSet(VAR_BOSS_TEAM_STYLE, gPendingNewGameSettings.bossTeamStyle);
     gPendingNewGameSettings.randomizeTypes   ? FlagSet(FLAG_RANDOMIZE_TYPE)    : FlagClear(FLAG_RANDOMIZE_TYPE);
     gPendingNewGameSettings.randomizeMoves   ? FlagSet(FLAG_RANDOMIZE_MOVES)   : FlagClear(FLAG_RANDOMIZE_MOVES);
+    gPendingNewGameSettings.randomizeItems   ? FlagSet(FLAG_RANDOMIZE_ITEMS)   : FlagClear(FLAG_RANDOMIZE_ITEMS);
     gPendingNewGameSettings.levelCapOff      ? FlagSet(FLAG_LEVEL_CAP_OFF)     : FlagClear(FLAG_LEVEL_CAP_OFF);
     gPendingNewGameSettings.allowStatEditor  ? FlagSet(FLAG_ALLOW_STAT_EDITOR) : FlagClear(FLAG_ALLOW_STAT_EDITOR);
     gPendingNewGameSettings.debugMode        ? FlagSet(FLAG_DEBUG)             : FlagClear(FLAG_DEBUG);

@@ -107,6 +107,7 @@ Std_FindItem::
 	lock
 	faceplayer
 	waitse
+	callnative Script_RemapFindItem
 	copyvar VAR_0x8006, ITEMID
 	copyvar VAR_0x8004, ITEMID
 	copyvar VAR_0x8005, AMOUNT

@@ -1,9 +1,11 @@
 #include "global.h"
 #include "randomization.h"
 #include "battle.h"
+#include "battle_pyramid.h"
 #include "caps.h"
 #include "data.h"
 #include "event_data.h"
+#include "item.h"
 #include "move.h"
 #include "new_game.h"
 #include "pokemon.h"
@@ -18,6 +20,7 @@
 #include "constants/region_map_sections.h"
 #include "constants/species.h"
 #include "constants/vars.h"
+#include "data/procedural_items.h"
 
 // This module is the single place that decides WHETHER a mon's type or move
 // is randomized and HOW the pieces (dual types, per-slot movesets) combine.
@@ -1009,4 +1012,112 @@ void NormalizePersistentRandomMon(struct Pokemon *mon)
             CalculateMonStats(mon);
         }
     }
+}
+
+// --- Overworld item randomization (FLAG_RANDOMIZE_ITEMS) ---
+
+enum ProceduralItemTier
+{
+    PROCEDURAL_ITEM_TIER_COMMON,
+    PROCEDURAL_ITEM_TIER_UNCOMMON,
+    PROCEDURAL_ITEM_TIER_RARE,
+    PROCEDURAL_ITEM_TIER_JACKPOT,
+};
+
+#define PROCEDURAL_ITEM_WEIGHT_COMMON    55
+#define PROCEDURAL_ITEM_WEIGHT_UNCOMMON  25
+#define PROCEDURAL_ITEM_WEIGHT_RARE      15
+#define PROCEDURAL_ITEM_WEIGHT_JACKPOT    5
+
+static bool32 IsProtectedOverworldItem(u16 itemId)
+{
+    enum Pocket pocket;
+
+    if (itemId == ITEM_NONE || itemId >= ITEMS_COUNT)
+        return TRUE;
+
+    pocket = GetItemPocket(itemId);
+    if (pocket == POCKET_KEY_ITEMS)
+        return TRUE;
+
+    // HMs (and any free TM/HM) must never be remapped or used as pool fodder.
+    if (pocket == POCKET_TM_HM && GetItemPrice(itemId) == 0)
+        return TRUE;
+
+    return FALSE;
+}
+
+static enum ProceduralItemTier PickProceduralItemTier(rng_value_t *rngState)
+{
+    u32 roll = LocalRandom32(rngState) % 100;
+
+    if (roll < PROCEDURAL_ITEM_WEIGHT_COMMON)
+        return PROCEDURAL_ITEM_TIER_COMMON;
+    roll -= PROCEDURAL_ITEM_WEIGHT_COMMON;
+    if (roll < PROCEDURAL_ITEM_WEIGHT_UNCOMMON)
+        return PROCEDURAL_ITEM_TIER_UNCOMMON;
+    roll -= PROCEDURAL_ITEM_WEIGHT_UNCOMMON;
+    if (roll < PROCEDURAL_ITEM_WEIGHT_RARE)
+        return PROCEDURAL_ITEM_TIER_RARE;
+    return PROCEDURAL_ITEM_TIER_JACKPOT;
+}
+
+static u16 PickFromProceduralItemPool(const u16 *pool, u32 count, rng_value_t *rngState)
+{
+    if (count == 0)
+        return ITEM_NONE;
+    return pool[LocalRandom32(rngState) % count];
+}
+
+u16 GetProceduralRandomizedOverworldItem(u16 itemId)
+{
+    u32 otId;
+    u32 ngPlusOffset;
+    u32 zoneKey;
+    rng_value_t rngState;
+    enum ProceduralItemTier tier;
+    u16 remapped;
+
+    if (itemId == ITEM_NONE || !FlagGet(FLAG_RANDOMIZE_ITEMS))
+        return itemId;
+
+    if (IsProtectedOverworldItem(itemId))
+        return itemId;
+
+    // Battle Pyramid already rolls its own item tables.
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
+        return itemId;
+
+    otId = GetTrainerId(gSaveBlock2Ptr->playerTrainerId);
+    ngPlusOffset = GetNewGamePlusLevelOffset();
+    zoneKey = gMapHeader.regionMapSectionId;
+    rngState = LocalRandomSeed(MixSpeciesRandomSeed(otId, zoneKey, itemId, ngPlusOffset ^ 0x17EDu));
+
+    tier = PickProceduralItemTier(&rngState);
+    switch (tier)
+    {
+    case PROCEDURAL_ITEM_TIER_COMMON:
+        remapped = PickFromProceduralItemPool(sProceduralItemsCommon, ARRAY_COUNT(sProceduralItemsCommon), &rngState);
+        break;
+    case PROCEDURAL_ITEM_TIER_UNCOMMON:
+        remapped = PickFromProceduralItemPool(sProceduralItemsUncommon, ARRAY_COUNT(sProceduralItemsUncommon), &rngState);
+        break;
+    case PROCEDURAL_ITEM_TIER_RARE:
+        remapped = PickFromProceduralItemPool(sProceduralItemsRare, ARRAY_COUNT(sProceduralItemsRare), &rngState);
+        break;
+    case PROCEDURAL_ITEM_TIER_JACKPOT:
+    default:
+        remapped = PickFromProceduralItemPool(sProceduralItemsJackpot, ARRAY_COUNT(sProceduralItemsJackpot), &rngState);
+        break;
+    }
+
+    if (remapped == ITEM_NONE || IsProtectedOverworldItem(remapped))
+        return itemId;
+
+    return remapped;
+}
+
+void Script_RemapFindItem(void)
+{
+    gSpecialVar_0x8000 = GetProceduralRandomizedOverworldItem(gSpecialVar_0x8000);
 }
