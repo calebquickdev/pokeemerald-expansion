@@ -75,8 +75,11 @@
 // (except the last scratch slot) is for TVGROUP_RECORD_MIX.
 //
 // Perfect Emerald truncates to NUM_NORMAL_TVSHOW_SLOTS to reclaim SaveBlock1
-// space (~720 bytes). tv.c must not assume a record-mix region or scratch slot
-// exist when TV_SHOWS_COUNT == NUM_NORMAL_TVSHOW_SLOTS (see HAS_TV_RECORD_MIX_SLOTS).
+// space (~720 bytes). When TV_SHOWS_COUNT == NUM_NORMAL_TVSHOW_SLOTS there is
+// no record-mix region and no scratch slot; all TV_SHOWS_COUNT slots are
+// airable normal shows. tv.c defines HAS_TV_RECORD_MIX_SLOTS and
+// NUM_TV_AIRABLE_SLOTS — use those for bounds; never use LAST_TVSHOW_IDX to
+// mean "all airable shows" when truncated (it would skip the last real slot).
 #define NUM_NORMAL_TVSHOW_SLOTS 5
 #define TV_SHOWS_COUNT NUM_NORMAL_TVSHOW_SLOTS // ORIGINALLY (NUM_NORMAL_TVSHOW_SLOTS + 20)
 

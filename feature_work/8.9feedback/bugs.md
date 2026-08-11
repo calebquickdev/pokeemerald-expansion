@@ -15,7 +15,26 @@ Statuses:
   2. Observe the battle effects after Swagger resolves.
 - **Expected Outcome**
   Target’s Attack rises by 2 stages and the target becomes confused.
-- **Status:** Known bugs
+- **Investigation (not decisive)**
+  Confusion is not on Swagger’s `additionalEffects`; it is applied only via `CheckSpecificMoveCondition` → `st->moveScript = BattleScript_SwaggerConfusion` → `seteffectprimary(..., MOVE_EFFECT_CONFUSION)`. Attack still rises when `CanBeConfused` is false (Safeguard / Misty Terrain / already confused), with no confusion fail text — matches “+2 Atk, no confusion.”
+  Our `BattleScript_SwaggerConfusion` uses `BS_TARGET`; current pokeemerald-expansion uses `BS_SCRIPTING` (same pattern as Toxic Thread). `gBattleScripting.battler` is set to the defender on the Attack raise; `gBattlerTarget` is not updated in the stat-change loop. That divergence is a strong lead but not proven as the sole cause. Unit test `test/battle/move_effect/swagger.c` still expects confusion.
+  Also note: `B_OVERWORLD_FOG = GEN_LATEST` turns overworld fog into Misty Terrain, which silently blocks Swagger confusion while still allowing the Attack boost.
+- **Git history**
+  Path landed in expansion import `653e686a` (stat-change rewrite). No later local commits touch Swagger/confusion application.
+- **Status:** Known bugs — needs in-battle repro (Confuse Ray / Dynamic Punch / fog vs clear weather / Substitute) before a fix
+
+### Petalburg Gym → Pokémon Center crash (after beating a trainer)
+- **Steps to reproduce**
+  1. Be past Mauville (`FLAG_SYS_TV_START` set; Norman’s gym is after Wattson).
+  2. Beat a trainer in Petalburg Gym, leave the gym, walk toward / into the Petalburg Pokémon Center.
+  3. Game crashes / black-screens on the indoor warp.
+- **Expected Outcome**
+  Outdoor → Pokémon Center warp loads normally.
+- **Root cause (high confidence — same as Mauville indoor crash)**
+  After Mauville, every indoor map load runs `UpdateTVScreensOnMap` → `GetRandomActiveShowIdx`. Truncated `TV_SHOWS_COUNT` (SaveBlock1) made that path OOB. Petalburg PC is the same class of warp; not gym-script specific.
+- **Git history**
+  Truncation present since import `653e686a`. Hardened in `f69d6d14` (same fix as Mauville).
+- **Status:** Known bugs — treat as duplicate of Mauville indoor TV crash (patched in `f69d6d14`; root harden in `tv.c` gates mix/scratch paths and fixes airable slot-4 scans)
 
 ### Roxanne sends out Nosepass last instead of Larvitar
 - **Steps to reproduce**
@@ -39,9 +58,9 @@ Statuses:
 - **Root cause**
   `TV_SHOWS_COUNT` was truncated to 5 for SaveBlock1 space, but `tv.c` still assumed vanilla record-mix + scratch slots. After Mauville arms TV, every indoor load runs `UpdateTVScreensOnMap` → `GetRandomActiveShowIdx`; related writers (e.g. `DeleteExcessMixedShows`) could OOB.
 - **Fix**
-  Keep truncated arrays (restore costs ~768 bytes; SB1 only has ~108 free). Harden `tv.c` for no mix/scratch region: safe show scan, gate OOB mix compaction, no-op scratch-slot builders.
+  Keep truncated arrays (restore costs ~768 bytes; SB1 only has ~108 free). Harden `tv.c` for no mix/scratch region: safe show scan, gate OOB mix compaction, no-op scratch-slot builders; gate mix helpers at entry; use `NUM_TV_AIRABLE_SLOTS` for all airable loops (includes slot 4 when truncated).
 - **Status:** Known bugs - Patched  
-  *(Local uncommitted changes in `src/tv.c` / `include/constants/tv.h`)*
+  *(Commit `f69d6d14` initial fix; follow-up root harden in `tv.c` — also covers Petalburg PC / any post-Mauville indoor warp)*
 
 ### Cannot catch fishing encounters in Dewford (Nuzlocke route lock)
 - **Steps to reproduce**

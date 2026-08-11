@@ -1728,7 +1728,7 @@ static void TryStartRandomMassOutbreak(void)
 
     if (FlagGet(FLAG_SYS_GAME_CLEAR))
     {
-        for (i = 0; i < LAST_TVSHOW_IDX; i++)
+        for (i = 0; i < NUM_TV_AIRABLE_SLOTS; i++)
         {
             if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_MASS_OUTBREAK)
                 return;
@@ -1797,7 +1797,7 @@ static void UpdateTimeBeforeMassOutbreak(u16 days)
 
     if (gSaveBlock1Ptr->outbreakPokemonSpecies == SPECIES_NONE)
     {
-        for (i = 0; i < LAST_TVSHOW_IDX; i++)
+        for (i = 0; i < NUM_TV_AIRABLE_SLOTS; i++)
         {
             if (gSaveBlock1Ptr->tvShows[i].massOutbreak.kind == TVSHOW_MASS_OUTBREAK && gSaveBlock1Ptr->tvShows[i].massOutbreak.active == TRUE)
             {
@@ -2902,6 +2902,9 @@ static bool8 IsRecordMixShowAlreadySpawned(u8 kind, bool8 delete)
     TVShow *shows;
     u8 i;
 
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return FALSE;
+
     shows = gSaveBlock1Ptr->tvShows;
     playerId = GetPlayerIDAsU32();
     for (i = NUM_NORMAL_TVSHOW_SLOTS; i < LAST_TVSHOW_IDX; i++)
@@ -3136,6 +3139,7 @@ static void CompactTVShowArray(TVShow *shows)
         }
     }
 
+#if HAS_TV_RECORD_MIX_SLOTS
     // Compact Record Mix TV shows
     for (i = NUM_NORMAL_TVSHOW_SLOTS; i < LAST_TVSHOW_IDX; i++)
     {
@@ -3152,6 +3156,7 @@ static void CompactTVShowArray(TVShow *shows)
             }
         }
     }
+#endif
 }
 
 static enum Species GetRandomDifferentSpeciesAndNameSeenByPlayer(u8 varIdx, enum Species excludedSpecies)
@@ -3214,6 +3219,9 @@ static s8 FindFirstEmptyNormalTVShowSlot(TVShow *shows)
 static s8 FindFirstEmptyRecordMixTVShowSlot(TVShow *shows)
 {
     s8 i;
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return -1;
 
     for (i = NUM_NORMAL_TVSHOW_SLOTS; i < LAST_TVSHOW_IDX; i++)
     {
@@ -3535,6 +3543,7 @@ void ReceiveTvShowsData(void *src, u32 size, u8 playersLinkId)
                 TranslateJapaneseEmeraldShows((*rmBuffer)[i]);
         }
 
+#if HAS_TV_RECORD_MIX_SLOTS
         // Position player's TV shows in argument list depending on link id
         switch (playersLinkId)
         {
@@ -3552,8 +3561,8 @@ void ReceiveTvShowsData(void *src, u32 size, u8 playersLinkId)
             break;
         }
 
-        CompactTVShowArray(gSaveBlock1Ptr->tvShows);
         DeleteExcessMixedShows();
+#endif
         CompactTVShowArray(gSaveBlock1Ptr->tvShows);
         DeactivateShowsWithUnseenSpecies();
         DeactivateGameCompleteShowsIfNotUnlocked();
@@ -3566,6 +3575,9 @@ static void SetMixedTVShows(TVShow player1[TV_SHOWS_COUNT], TVShow player2[TV_SH
     u8 i;
     u8 j;
     TVShow **tvShows[MAX_LINK_PLAYERS];
+
+    if (!HAS_TV_RECORD_MIX_SLOTS)
+        return;
 
     tvShows[0] = &player1;
     tvShows[1] = &player2;
@@ -3694,7 +3706,7 @@ static s8 FindInactiveShowInArray(TVShow *tvShows)
 {
     u8 i;
 
-    for (i = 0; i < LAST_TVSHOW_IDX; i++)
+    for (i = 0; i < NUM_TV_AIRABLE_SLOTS; i++)
     {
         // Second check is to make sure its a valid show (not too high, not TVSHOW_OFF_AIR)
         if (tvShows[i].common.active == FALSE && (u8)(tvShows[i].common.kind - 1) < TVGROUP_OUTBREAK_END)
@@ -3709,7 +3721,7 @@ static void DeactivateShowsWithUnseenSpecies(void)
     enum Species species;
     u16 facilityAndMode;
 
-    for (i = 0; i < LAST_TVSHOW_IDX; i++)
+    for (i = 0; i < NUM_TV_AIRABLE_SLOTS; i++)
     {
         switch (gSaveBlock1Ptr->tvShows[i].common.kind)
         {
@@ -3864,7 +3876,7 @@ static void DeactivateGameCompleteShowsIfNotUnlocked(void)
 
     if (FlagGet(FLAG_SYS_GAME_CLEAR) != TRUE)
     {
-        for (i = 0; i < LAST_TVSHOW_IDX; i++)
+        for (i = 0; i < NUM_TV_AIRABLE_SLOTS; i++)
         {
             if (gSaveBlock1Ptr->tvShows[i].common.kind == TVSHOW_BRAVO_TRAINER_BATTLE_TOWER_PROFILE)
                 gSaveBlock1Ptr->tvShows[i].common.active = FALSE;
@@ -4041,7 +4053,7 @@ static void UNUSED TranslateShowNames(TVShow *show, u32 language)
     TVShow **shows;
 
     shows = AllocZeroed(sizeof(TVShow *) * 11);
-    for (i = 0; i < LAST_TVSHOW_IDX; i++)
+    for (i = 0; i < NUM_TV_AIRABLE_SLOTS; i++)
     {
         switch (show[i].common.kind)
         {
@@ -4105,7 +4117,7 @@ void SanitizeTVShowsForRuby(TVShow *shows)
     TVShow *curShow;
 
     SanitizeTVShowLocationsForRuby(shows);
-    for (curShow = shows; curShow < shows + LAST_TVSHOW_IDX; curShow++)
+    for (curShow = shows; curShow < shows + NUM_TV_AIRABLE_SLOTS; curShow++)
     {
         if (curShow->bravoTrainerTower.kind == TVSHOW_BRAVO_TRAINER_BATTLE_TOWER_PROFILE)
         {
@@ -4120,7 +4132,7 @@ static void TranslateRubyShows(TVShow *shows)
 {
     TVShow *curShow;
 
-    for (curShow = shows; curShow < shows + LAST_TVSHOW_IDX; curShow++)
+    for (curShow = shows; curShow < shows + NUM_TV_AIRABLE_SLOTS; curShow++)
     {
         if (curShow->bravoTrainerTower.kind == TVSHOW_BRAVO_TRAINER_BATTLE_TOWER_PROFILE)
         {
@@ -4141,7 +4153,7 @@ static void TranslateJapaneseEmeraldShows(TVShow *shows)
 {
     TVShow *curShow;
 
-    for (curShow = shows; curShow < shows + LAST_TVSHOW_IDX; curShow++)
+    for (curShow = shows; curShow < shows + NUM_TV_AIRABLE_SLOTS; curShow++)
     {
         switch (curShow->common.kind)
         {
@@ -4250,7 +4262,7 @@ void SanitizeTVShowLocationsForRuby(TVShow *shows)
 {
     int i;
 
-    for (i = 0; i < LAST_TVSHOW_IDX; i++)
+    for (i = 0; i < NUM_TV_AIRABLE_SLOTS; i++)
     {
         switch (shows[i].common.kind)
         {
