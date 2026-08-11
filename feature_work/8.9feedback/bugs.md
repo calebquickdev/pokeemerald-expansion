@@ -48,6 +48,19 @@ Statuses:
 
 ## Known bugs - Patched
 
+### Route 120 rain/puddles: “Out of sprite slots” fatal crash
+- **Steps to reproduce**
+  1. Leave Fortree after Winona and run east onto Route 120 into the rain zone.
+  2. Run through puddle tiles (especially with a follower and several NPCs on-screen).
+  3. Game hard-crashes: `src/sprite.c: Out of sprite slots` (stack included `FldEff_Splash`).
+- **Expected Outcome**
+  Overworld runs without exhausting the 64-sprite pool on busy routes; no fatal assert.
+- **Root cause**
+  Route 120 combines rain (~10 sprites), always-on object shadows (`OW_OBJECT_VANILLA_SHADOWS` FALSE → 2 sprites per object), follower, and puddle splashes. Puddle splash (`FldEff_Splash`) calls `CreateSpriteAtEnd`, which fatal-asserts when the pool is full.
+- **Fix**
+  Set `OW_OBJECT_VANILLA_SHADOWS` to `TRUE` in `include/config/overworld.h` so shadows are vanilla (jump-only), halving per-object sprite use and freeing headroom for rain/FX.
+- **Status:** Known bugs - Patched
+
 ### Mauville indoor warp black-screen crash (PC / bike shop / Electric Gym)
 - **Steps to reproduce**
   1. Travel to Mauville City (sets `FLAG_SYS_TV_START`).
