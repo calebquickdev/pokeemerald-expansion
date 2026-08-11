@@ -64,15 +64,18 @@ Statuses:
 - **Status:** Known bugs - Patched  
   *(Commit `f353c5b4` — re-apply resolved moves on switch-in)*
 
-### Field Cut animation shows the wrong party Pokémon
+### Field HM animation shows the wrong party Pokémon
 - **Steps to reproduce**
-  1. Have a party where one mon knows Cut (e.g. Bisharp) but is not the lead (e.g. Scrafty is lead), or rely on HM lead fallback.
-  2. Use Cut on a tree in the overworld.
-  3. Watch the field-move animation / “X used Cut!” text.
+  1. Have a party where one mon knows an HM (e.g. Surf / Cut / Rock Smash) but is not the lead.
+  2. Use that field move from the overworld prompt (not necessarily via the party menu).
+  3. Watch the field-move animation / “X used …!” text.
 - **Expected Outcome**
-  The Pokémon that actually performs the field move is the one shown in the animation and named in the text. (Lead fallback when no HM user is present is intentional so an HM slave is not required.)
-- **Status:** Known bugs - Patched  
-  *(Commit `f353c5b4` — HM lead fallback + field-move script nick/text fix)*
+  The Pokémon that knows the move is shown and named. If nobody knows it, lead fallback is intentional so an HM slave is not required.
+- **Root cause**
+  Overworld prompts (especially Surf / Waterfall / Dive in `field_control_avatar.c`) always used `GetFirstNonFaintedPartyIndex()` (the lead). Cut/Rock Smash had a partial script-side fix; Surf never selected the HM user. Dive also overwrote the show-mon party index with a species id after `checkfieldmove`.
+- **Fix**
+  Shared `GetPartyIndexForFieldMove` (knows move, else lead fallback) used by `checkfieldmove` and water-interaction setup; Surf script aligned; Dive species overwrite removed.
+- **Status:** Known bugs - Patched
 
 ### Soft reset / New Game does not keep prior challenge settings (starters look vanilla)
 - **Steps to reproduce**

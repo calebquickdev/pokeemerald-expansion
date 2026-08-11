@@ -34,4 +34,8 @@ static inline u32 FieldMove_GetPartyMsgID(enum FieldMove fieldMove)
     return gFieldMoveInfo[fieldMove].partyMsgID;
 }
 
+// Party slot for field-move animation/text: first mon that knows the move,
+// or the lead when allowLeadFallback and nobody knows it. Returns PARTY_SIZE if none.
+u8 GetPartyIndexForFieldMove(enum FieldMove fieldMove, bool32 allowLeadFallback);
+
 #endif //GUARD_FIELD_MOVE_H

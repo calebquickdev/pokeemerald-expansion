@@ -269,8 +269,8 @@ Text_WantToStrength:
 	.string "Would you like to use STRENGTH?$"
 
 Text_MonUsedStrength:
-	.string "{PLAYER} used STRENGTH!\p"
-	.string "{PLAYER}'s STRENGTH made it\n"
+	.string "{STR_VAR_1} used STRENGTH!\p"
+	.string "{STR_VAR_1}'s STRENGTH made it\n"
 	.string "possible to move boulders around!$"
 
 Text_CantStrength:
@@ -315,7 +315,7 @@ Text_WantToWaterfall:
 	.string "Would you like to use WATERFALL?$"
 
 Text_MonUsedWaterfall:
-	.string "{PLAYER} used WATERFALL.$"
+	.string "{STR_VAR_1} used WATERFALL.$"
 
 EventScript_UseDive::
 	lockall
@@ -328,8 +328,6 @@ EventScript_UseDive::
 	goto_if_eq VAR_RESULT, NO, EventScript_EndDive
 	msgbox Text_MonUsedDive, MSGBOX_DEFAULT
 	hidefollowernpc
-	setfieldeffectargument 0, VAR_0x8004
-	setfieldeffectargument 1, 1
 	dofieldeffect FLDEFF_USE_DIVE
 	goto EventScript_EndDive
 	end
@@ -407,7 +405,7 @@ Text_WantToDive:
 	.string "Would you like to use DIVE?$"
 
 Text_MonUsedDive:
-	.string "{PLAYER} used DIVE.$"
+	.string "{STR_VAR_1} used DIVE.$"
 
 Text_CantSurface:
 	.string "Light is filtering down from above.\n"

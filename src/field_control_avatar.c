@@ -674,7 +674,7 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
      && CheckFollowerNPCFlag(FOLLOWER_NPC_FLAG_CAN_SURF)
      )
     {
-        gSpecialVar_Result = GetFirstNonFaintedPartyIndex();
+        gSpecialVar_Result = GetPartyIndexForFieldMove(FIELD_MOVE_SURF, TRUE);
         return EventScript_UseSurf;
     }
 
@@ -684,7 +684,7 @@ static const u8 *GetInteractedWaterScript(struct MapPosition *unused1, u8 metati
     {
         if (IsFieldMoveUnlocked(FIELD_MOVE_WATERFALL) && IsPlayerSurfingNorth() == TRUE)
         {
-            gSpecialVar_Result = GetFirstNonFaintedPartyIndex();
+            gSpecialVar_Result = GetPartyIndexForFieldMove(FIELD_MOVE_WATERFALL, TRUE);
             return EventScript_UseWaterfall;
         }
         else
@@ -700,7 +700,7 @@ static bool32 TrySetupDiveDownScript(void)
 
     if (IsFieldMoveUnlocked(FIELD_MOVE_DIVE) && TrySetDiveWarp() == 2)
     {
-        gSpecialVar_Result = GetFirstNonFaintedPartyIndex();
+        gSpecialVar_Result = GetPartyIndexForFieldMove(FIELD_MOVE_DIVE, TRUE);
         ScriptContext_SetupScript(EventScript_UseDive);
         return TRUE;
     }
@@ -714,7 +714,7 @@ static bool32 TrySetupDiveEmergeScript(void)
 
     if (IsFieldMoveUnlocked(FIELD_MOVE_DIVE) && gMapHeader.mapType == MAP_TYPE_UNDERWATER && TrySetDiveWarp() == 1)
     {
-        gSpecialVar_Result = GetFirstNonFaintedPartyIndex();
+        gSpecialVar_Result = GetPartyIndexForFieldMove(FIELD_MOVE_DIVE, TRUE);
         ScriptContext_SetupScript(EventScript_UseDiveUnderwater);
         return TRUE;
     }

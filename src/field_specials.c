@@ -1645,9 +1645,8 @@ u8 GetLeadMonIndex(void)
     return 0;
 }
 
-// Used to pick which party mon is shown performing a field move (e.g. Surf) when
-// it's triggered automatically (not via party menu selection), so the mon doesn't
-// need to know the move itself (e.g. a following NPC granting Surf).
+// Used as the lead fallback when a field move is used from an overworld prompt
+// and no party mon knows the move (so an HM slave is not required).
 u8 GetFirstNonFaintedPartyIndex(void)
 {
     u8 i;

@@ -1,12 +1,33 @@
 #include "global.h"
 #include "event_data.h"
 #include "field_move.h"
+#include "field_specials.h"
 #include "fldeff.h"
 #include "fldeff_misc.h"
 #include "party_menu.h"
 #include "constants/field_move.h"
 #include "constants/moves.h"
 #include "constants/party_menu.h"
+
+u8 GetPartyIndexForFieldMove(enum FieldMove fieldMove, bool32 allowLeadFallback)
+{
+    enum Move move = FieldMove_GetMoveId(fieldMove);
+
+    for (u32 i = 0; i < PARTY_SIZE; i++)
+    {
+        enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES);
+        if (!species)
+            break;
+        if (!GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_IS_EGG)
+         && MonKnowsMove(&gParties[B_TRAINER_PLAYER][i], move) == TRUE)
+            return i;
+    }
+
+    if (allowLeadFallback)
+        return GetFirstNonFaintedPartyIndex();
+
+    return PARTY_SIZE;
+}
 
 static bool32 IsFieldMoveUnlocked_Cut(void)
 {
