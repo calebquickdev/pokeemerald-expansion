@@ -16,9 +16,27 @@ SINGLE_BATTLE_TEST("Swagger increases the target's Attack by 2 stages and confus
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SWAGGER, player);
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, opponent);
+        MESSAGE("The opposing Wobbuffet became confused!");
     } THEN {
         EXPECT_EQ(opponent->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 2);
         EXPECT(opponent->volatiles.confusionTurns > 0);
+    }
+}
+
+SINGLE_BATTLE_TEST("Swagger confuses the player when used by the opponent")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(opponent, MOVE_SWAGGER); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SWAGGER, opponent);
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, player);
+        MESSAGE("Wobbuffet became confused!");
+    } THEN {
+        EXPECT_EQ(player->statStages[STAT_ATK], DEFAULT_STAT_STAGE + 2);
+        EXPECT(player->volatiles.confusionTurns > 0);
     }
 }
 

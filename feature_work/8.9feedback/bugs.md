@@ -9,20 +9,6 @@ Statuses:
 
 ## Known bugs
 
-### Swagger applies Attack boost but no confusion
-- **Steps to reproduce**
-  1. Enter a battle where an opponent uses Swagger on your Pokémon.
-  2. Observe the battle effects after Swagger resolves.
-- **Expected Outcome**
-  Target’s Attack rises by 2 stages and the target becomes confused.
-- **Investigation (not decisive)**
-  Confusion is not on Swagger’s `additionalEffects`; it is applied only via `CheckSpecificMoveCondition` → `st->moveScript = BattleScript_SwaggerConfusion` → `seteffectprimary(..., MOVE_EFFECT_CONFUSION)`. Attack still rises when `CanBeConfused` is false (Safeguard / Misty Terrain / already confused), with no confusion fail text — matches “+2 Atk, no confusion.”
-  Our `BattleScript_SwaggerConfusion` uses `BS_TARGET`; current pokeemerald-expansion uses `BS_SCRIPTING` (same pattern as Toxic Thread). `gBattleScripting.battler` is set to the defender on the Attack raise; `gBattlerTarget` is not updated in the stat-change loop. That divergence is a strong lead but not proven as the sole cause. Unit test `test/battle/move_effect/swagger.c` still expects confusion.
-  Also note: `B_OVERWORLD_FOG = GEN_LATEST` turns overworld fog into Misty Terrain, which silently blocks Swagger confusion while still allowing the Attack boost.
-- **Git history**
-  Path landed in expansion import `653e686a` (stat-change rewrite). No later local commits touch Swagger/confusion application.
-- **Status:** Known bugs — needs in-battle repro (Confuse Ray / Dynamic Punch / fog vs clear weather / Substitute) before a fix
-
 ### Petalburg Gym → Pokémon Center crash (after beating a trainer)
 - **Steps to reproduce**
   1. Be past Mauville (`FLAG_SYS_TV_START` set; Norman’s gym is after Wattson).
@@ -47,6 +33,33 @@ Statuses:
 ---
 
 ## Known bugs - Patched
+
+### Mossdeep Space Center Steven multi: switching to an unchosen mon dupes it
+- **Steps to reproduce**
+  1. Talk to Steven in Mossdeep Space Center 2F and choose 3 Pokémon for the Maxie/Tabitha tag battle.
+  2. In battle, open the party menu and send out a Pokémon that was not one of the 3 chosen.
+  3. After the fight (or on party restore), that Pokémon is duplicated and one of the chosen 3 is overwritten.
+- **Expected Outcome**
+  Only the 3 chosen Pokémon are usable. Unchosen mons stay out of the fight; party restore writes the 3 battlers back onto their original slots with no dupes.
+- **Root cause**
+  `B_MULTI_HALF_TEAMS` is FALSE and Maxie/Tabitha defaulted to `Multi Party: Full`. `AreMultiPartiesFullTeams()` was TRUE, so `multi_do` skipped `ReducePlayerPartyToSelectedMons`. The full 6-mon party stayed in battle. Afterward `SaveSelectedParty` copied battle slots 0–2 onto the originally selected party indexes, duplicating the switched-in mon and wiping the chosen one (e.g. Iron Bundle).
+- **Fix**
+  Set `Multi Party: Half` on `TRAINER_MAXIE_MOSSDEEP` and `TRAINER_TABITHA_MOSSDEEP` so the chosen 3 are compacted and the in-battle party menu is the half-team multi layout.
+- **Status:** Known bugs - Patched
+
+### Swagger / Flatter apply the stat boost but no confusion
+- **Steps to reproduce**
+  1. Enter a battle where an opponent uses Swagger (or Flatter) on your Pokémon.
+  2. Observe the battle effects after it resolves.
+- **Expected Outcome**
+  Target’s Attack (Swagger) / Sp. Atk (Flatter) rises and the target becomes confused.
+- **Root cause**
+  Confusion is applied via `BattleScript_SwaggerConfusion` → `seteffectprimary(..., BS_TARGET)`. The stat-change loop updates `gBattleScripting.battler` to the defender but does not keep `gBattlerTarget` in sync, so confusion was applied to the wrong battler (or skipped). pokeemerald-expansion uses `BS_SCRIPTING` (same pattern as Toxic Thread). Own Tempo also jumped to `BattleScript_OwnTempoPrevents`, which skipped the remaining stat raise.
+- **Fix**
+  Apply confusion with `BS_SCRIPTING`, set `gBattleScripting.battler` / `gBattlerTarget` to the defender, and use `BattleScript_SwaggerOwnTempoPrevents` so Own Tempo still allows the Attack/Sp. Atk boost.
+- **Confuse Ray follow-up**
+  Confuse Ray uses `EFFECT_CONFUSE` (not the Swagger stat-change path). Existing tests in `test/battle/volatiles/confusion.c` already apply Confuse Ray and expect “became confused” plus the self-hit roll. Gen 7+ confusion self-hit is 33% (`B_CONFUSION_SELF_DMG_CHANCE = GEN_LATEST`), so a confused mon often still uses its move — that can look like “confusion did nothing.” Overworld fog also becomes Misty Terrain (`B_OVERWORLD_FOG = GEN_LATEST`), which blocks confusion.
+- **Status:** Known bugs - Patched
 
 ### Route 120 rain/puddles: “Out of sprite slots” fatal crash
 - **Steps to reproduce**

@@ -149,8 +149,9 @@ static bool32 CheckSpecificMoveCondition(struct BattleCalcValues *cv, struct Sta
         {
             if (!st->onlyChecking)
             {
-                st->moveScript = BattleScript_OwnTempoPrevents;
+                st->moveScript = BattleScript_SwaggerOwnTempoPrevents;
                 gBattlerAbility = cv->battlerDef;
+                gBattlerTarget = cv->battlerDef;
                 gLastUsedAbility = ABILITY_OWN_TEMPO;
                 RecordAbilityBattle(cv->battlerDef, ABILITY_OWN_TEMPO);
             }
@@ -159,7 +160,11 @@ static bool32 CheckSpecificMoveCondition(struct BattleCalcValues *cv, struct Sta
         {
             st->additionalEffectTriggers = TRUE;
             if (!st->onlyChecking)
+            {
+                gBattleScripting.battler = cv->battlerDef;
+                gBattlerTarget = cv->battlerDef;
                 st->moveScript = BattleScript_SwaggerConfusion;
+            }
         }
         break;
     case EFFECT_TAR_SHOT:

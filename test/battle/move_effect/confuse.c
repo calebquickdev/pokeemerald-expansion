@@ -4,6 +4,23 @@
 ASSUMPTIONS
 {
     ASSUME(GetMoveEffect(MOVE_TEETER_DANCE) == EFFECT_CONFUSE);
+    ASSUME(GetMoveEffect(MOVE_CONFUSE_RAY) == EFFECT_CONFUSE);
+}
+
+SINGLE_BATTLE_TEST("Confuse Ray confuses the target")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WOBBUFFET);
+    } WHEN {
+        TURN { MOVE(player, MOVE_CONFUSE_RAY); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CONFUSE_RAY, player);
+        ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_CONFUSION, opponent);
+        MESSAGE("The opposing Wobbuffet became confused!");
+    } THEN {
+        EXPECT(opponent->volatiles.confusionTurns > 0);
+    }
 }
 
 SINGLE_BATTLE_TEST("Teeter Dance confuses target")

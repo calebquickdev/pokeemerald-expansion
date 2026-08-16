@@ -727,6 +727,7 @@ extern const u8 BattleScript_PlayMoveAnim[];
 extern const u8 BattleScript_PlayTidyUp[];
 extern const u8 BattleScript_PlayMoveAnimAndChangeHP[];
 extern const u8 BattleScript_SwaggerConfusion[];
+extern const u8 BattleScript_SwaggerOwnTempoPrevents[];
 extern const u8 BattleScript_NoRetreatMessage[];
 extern const u8 BattleScript_AutotomizeMessage[];
 extern const u8 BattleScript_TarShotMessage[];
